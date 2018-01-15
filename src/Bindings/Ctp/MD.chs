@@ -1,8 +1,8 @@
+{-# LANGUAGE DeriveGeneric            #-}
 {-# LANGUAGE ForeignFunctionInterface #-}
 
 module Bindings.Ctp.MD
   ( CtpMDSpi (..)
-  , defaultCtpMDSpi
   , OnFrontConnected
   , OnFrontDisconnected
   , OnHeartBeatWarning
@@ -35,10 +35,12 @@ module Bindings.Ctp.MD
 
 {#import Bindings.Ctp.Struct#}
 import Bindings.Ctp.Utils
+import Data.Default
 import Foreign.C.Types
 import Foreign.Marshal.Utils
 import Foreign.Ptr
 import Foreign.Storable
+import GHC.Generics
 
 #include "ffi.h"
 
@@ -94,23 +96,9 @@ data CtpMDSpi = CtpMDSpi
   , onRspUnSubForQuoteRsp :: Maybe OnRspUnSubForQuoteRsp
   , onRtnDepthMarketData  :: Maybe OnRtnDepthMarketData
   , onRtnForQuoteRsp      :: Maybe OnRtnForQuoteRsp
-  }
+  } deriving (Generic)
 
-defaultCtpMDSpi :: CtpMDSpi
-defaultCtpMDSpi =
-  CtpMDSpi
-    Nothing
-    Nothing
-    Nothing
-    Nothing
-    Nothing
-    Nothing
-    Nothing
-    Nothing
-    Nothing
-    Nothing
-    Nothing
-    Nothing
+instance Default CtpMDSpi
 
 data CtpMDSpiFFI = CtpMDSpiFFI
   { ffiOnFrontConnected      :: FunPtr OnFrontConnected'

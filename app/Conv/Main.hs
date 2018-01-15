@@ -113,7 +113,8 @@ printStruct sl = printStructToData sl >> printStructToStorable sl
                   (\(CStructMember _ _ hn ht) ->
                      hn ++ padding hn maxLen ++ " :: " ++ ht)
                   ms
-              putStrLn "  } deriving (Show)\n"
+              putStrLn "  } deriving (Generic, Show)\n"
+              putStrLn $ "instance Default " ++ n ++ "\n"
               putStrLn $
                 "{#pointer *" ++ n ++ " as " ++ n ++ "Ptr -> " ++ n ++ "#}\n"
     printStructToStorable :: [CStruct] -> IO ()
@@ -133,7 +134,12 @@ printStruct sl = printStructToData sl >> printStructToStorable sl
                let cf = n ++ "->" ++ cn
                in "    " ++
                   case ht of
-                    "String" -> "(({#get " ++ cf ++ "#} p) >>= peekCString)"
+                    "String" ->
+                      let peek =
+                            if cn `elem` ["InstrumentName", "ErrorMsg"]
+                              then "peekGbkCString"
+                              else "peekCString"
+                      in "(({#get " ++ cf ++ "#} p) >>= " ++ peek ++ ")"
                     "Char" -> "fmap castCCharToChar ({#get " ++ cf ++ "#} p)"
                     "Int" -> "fmap fromIntegral ({#get " ++ cf ++ "#} p)"
                     "Int16" -> "fmap fromIntegral ({#get " ++ cf ++ "#} p)"

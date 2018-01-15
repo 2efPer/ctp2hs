@@ -9,6 +9,7 @@ import Bindings.Ctp.Struct
 import Bindings.Ctp.TD
 import Control.Concurrent.STM
 import Control.Monad
+import Data.Default
 import Data.Monoid            ((<>))
 import Options.Applicative
 
@@ -45,18 +46,11 @@ onFrontConnected' s = do
     req :: CThostFtdcReqUserLoginField
     req =
       let c = cfg s
-      in CThostFtdcReqUserLoginField
-           ""
-           ""
-           ""
-           ""
-           ""
-           ""
-           ""
-           (password (c :: TDConfig))
-           (userID (c :: TDConfig))
-           (brokerID (c :: TDConfig))
-           ""
+      in def
+         { password = password (c :: TDConfig)
+         , userID = userID (c :: TDConfig)
+         , brokerID = brokerID (c :: TDConfig)
+         }
 
 onRspUserLogin' :: TDState -> OnRspUserLogin
 onRspUserLogin' s _ rspInfo _ _ = do
@@ -72,11 +66,10 @@ onRspUserLogin' s _ rspInfo _ _ = do
     req :: CThostFtdcSettlementInfoConfirmField
     req =
       let c = cfg s
-      in CThostFtdcSettlementInfoConfirmField
-           ""
-           ""
-           (userID (c :: TDConfig))
-           (brokerID (c :: TDConfig))
+      in def
+         { investorID = userID (c :: TDConfig)
+         , brokerID = brokerID (c :: TDConfig)
+         }
 
 onRspSettlementInfoConfirm' :: TDState -> OnRspSettlementInfoConfirm
 onRspSettlementInfoConfirm' s _ rspInfo _ _ = do
@@ -87,7 +80,7 @@ onRspSettlementInfoConfirm' s _ rspInfo _ _ = do
     Nothing          -> void $ incReqID s >>= tdReqQryInstrument td req
   where
     req :: CThostFtdcQryInstrumentField
-    req = CThostFtdcQryInstrumentField "" "" "" ""
+    req = def
 
 onRspQryInstrument' :: OnRspQryInstrument
 onRspQryInstrument' dat _ _ _ =
@@ -101,7 +94,7 @@ main = do
   let s = TDState {cfg = cfg', reqID = zeroReqID, api = td}
   tdGetApiVersion >>= putStrLn
   tdRegisterSpi td $
-    defaultCtpTDSpi
+    def
     { onFrontConnected = Just $ onFrontConnected' s
     , onRspUserLogin = Just $ onRspUserLogin' s
     , onRspSettlementInfoConfirm = Just $ onRspSettlementInfoConfirm' s

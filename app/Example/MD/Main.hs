@@ -8,6 +8,7 @@ import Bindings.Ctp.MD
 import Bindings.Ctp.Struct
 import Control.Concurrent.STM
 import Control.Monad
+import Data.Default
 import Data.Monoid            ((<>))
 import Options.Applicative
 
@@ -45,18 +46,11 @@ onFrontConnected' s = do
     req :: CThostFtdcReqUserLoginField
     req =
       let c = cfg s
-      in CThostFtdcReqUserLoginField
-           ""
-           ""
-           ""
-           ""
-           ""
-           ""
-           ""
-           (password (c :: MDConfig))
-           (userID (c :: MDConfig))
-           (brokerID (c :: MDConfig))
-           ""
+      in def
+         { password = password (c :: MDConfig)
+         , userID = userID (c :: MDConfig)
+         , brokerID = brokerID (c :: MDConfig)
+         }
 
 onRspUserLogin' :: MDState -> OnRspUserLogin
 onRspUserLogin' s _ rspInfo _ _ = do
@@ -80,7 +74,7 @@ main = do
   let s = MDState {cfg = cfg', reqID = zeroReqID, api = md}
   mdGetApiVersion >>= putStrLn
   mdRegisterSpi md $
-    defaultCtpMDSpi
+    def
     { onFrontConnected = Just $ onFrontConnected' s
     , onRspUserLogin = Just $ onRspUserLogin' s
     , onRtnDepthMarketData = Just onRtnDepthMarketData'

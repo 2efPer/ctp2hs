@@ -1,4 +1,6 @@
-{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE DeriveGeneric            #-}
+{-# LANGUAGE DuplicateRecordFields    #-}
+{-# OPTIONS_GHC -fno-warn-orphans     #-}
 
 module Bindings.Ctp.Struct where
 
@@ -6,14 +8,19 @@ import qualified Codec.Text.IConv          as IConv
 import qualified Data.ByteString           as B
 import qualified Data.ByteString.Lazy      as L
 import qualified Data.ByteString.Lazy.UTF8 as UTF8
+import           Data.Default
 import           Data.Int (Int16)
 import           Foreign.Storable
 import           Foreign.C.String
+import           GHC.Generics
 
 #include "ctp/ThostFtdcUserApiStruct.h"
 
 peekGbkCString :: CString -> IO String
 peekGbkCString s = UTF8.toString . IConv.convert "GBK" "UTF8" . L.fromStrict <$> B.packCString s
+
+instance Default Char where
+  def = '\NUL'
 
 data CThostFtdcMarketDataBaseField = CThostFtdcMarketDataBaseField
   { preDelta           :: Double
@@ -21,7 +28,9 @@ data CThostFtdcMarketDataBaseField = CThostFtdcMarketDataBaseField
   , preClosePrice      :: Double
   , preSettlementPrice :: Double
   , tradingDay         :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcMarketDataBaseField
 
 {#pointer *CThostFtdcMarketDataBaseField as CThostFtdcMarketDataBaseFieldPtr -> CThostFtdcMarketDataBaseField#}
 
@@ -33,7 +42,9 @@ data CThostFtdcExchangeMarginRateField = CThostFtdcExchangeMarginRateField
   , hedgeFlag                :: Char
   , instrumentID             :: String
   , brokerID                 :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcExchangeMarginRateField
 
 {#pointer *CThostFtdcExchangeMarginRateField as CThostFtdcExchangeMarginRateFieldPtr -> CThostFtdcExchangeMarginRateField#}
 
@@ -67,7 +78,9 @@ data CThostFtdcOrderActionField = CThostFtdcOrderActionField
   , orderActionRef    :: Int
   , investorID        :: String
   , brokerID          :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcOrderActionField
 
 {#pointer *CThostFtdcOrderActionField as CThostFtdcOrderActionFieldPtr -> CThostFtdcOrderActionField#}
 
@@ -76,7 +89,9 @@ data CThostFtdcUserRightField = CThostFtdcUserRightField
   , userRightType :: Char
   , userID        :: String
   , brokerID      :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcUserRightField
 
 {#pointer *CThostFtdcUserRightField as CThostFtdcUserRightFieldPtr -> CThostFtdcUserRightField#}
 
@@ -85,7 +100,9 @@ data CThostFtdcUserPasswordUpdateField = CThostFtdcUserPasswordUpdateField
   , oldPassword :: String
   , userID      :: String
   , brokerID    :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcUserPasswordUpdateField
 
 {#pointer *CThostFtdcUserPasswordUpdateField as CThostFtdcUserPasswordUpdateFieldPtr -> CThostFtdcUserPasswordUpdateField#}
 
@@ -124,14 +141,18 @@ data CThostFtdcExchangeQuoteField = CThostFtdcExchangeQuoteField
   , askVolume         :: Int
   , bidPrice          :: Double
   , askPrice          :: Double
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcExchangeQuoteField
 
 {#pointer *CThostFtdcExchangeQuoteField as CThostFtdcExchangeQuoteFieldPtr -> CThostFtdcExchangeQuoteField#}
 
 data CThostFtdcQryDepthMarketDataField = CThostFtdcQryDepthMarketDataField
   { exchangeID   :: String
   , instrumentID :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcQryDepthMarketDataField
 
 {#pointer *CThostFtdcQryDepthMarketDataField as CThostFtdcQryDepthMarketDataFieldPtr -> CThostFtdcQryDepthMarketDataField#}
 
@@ -141,13 +162,17 @@ data CThostFtdcQryExchangeLockField = CThostFtdcQryExchangeLockField
   , exchangeInstID :: String
   , clientID       :: String
   , participantID  :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcQryExchangeLockField
 
 {#pointer *CThostFtdcQryExchangeLockField as CThostFtdcQryExchangeLockFieldPtr -> CThostFtdcQryExchangeLockField#}
 
 newtype CThostFtdcCurrTransferIdentityField = CThostFtdcCurrTransferIdentityField
   { identityID :: Int
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcCurrTransferIdentityField
 
 {#pointer *CThostFtdcCurrTransferIdentityField as CThostFtdcCurrTransferIdentityFieldPtr -> CThostFtdcCurrTransferIdentityField#}
 
@@ -160,7 +185,9 @@ data CThostFtdcInstrumentOrderCommRateField = CThostFtdcInstrumentOrderCommRateF
   , brokerID                :: String
   , investorRange           :: Char
   , instrumentID            :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcInstrumentOrderCommRateField
 
 {#pointer *CThostFtdcInstrumentOrderCommRateField as CThostFtdcInstrumentOrderCommRateFieldPtr -> CThostFtdcInstrumentOrderCommRateField#}
 
@@ -182,7 +209,9 @@ data CThostFtdcAccountregisterField = CThostFtdcAccountregisterField
   , bankBranchID     :: String
   , bankID           :: String
   , tradeDay         :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcAccountregisterField
 
 {#pointer *CThostFtdcAccountregisterField as CThostFtdcAccountregisterFieldPtr -> CThostFtdcAccountregisterField#}
 
@@ -232,7 +261,9 @@ data CThostFtdcExchangeOrderField = CThostFtdcExchangeOrderField
   , combOffsetFlag      :: String
   , direction           :: Char
   , orderPriceType      :: Char
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcExchangeOrderField
 
 {#pointer *CThostFtdcExchangeOrderField as CThostFtdcExchangeOrderFieldPtr -> CThostFtdcExchangeOrderField#}
 
@@ -259,7 +290,9 @@ data CThostFtdcExchangeTradeField = CThostFtdcExchangeTradeField
   , direction      :: Char
   , tradeID        :: String
   , exchangeID     :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcExchangeTradeField
 
 {#pointer *CThostFtdcExchangeTradeField as CThostFtdcExchangeTradeFieldPtr -> CThostFtdcExchangeTradeField#}
 
@@ -281,7 +314,9 @@ data CThostFtdcInputOrderActionField = CThostFtdcInputOrderActionField
   , orderActionRef :: Int
   , investorID     :: String
   , brokerID       :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcInputOrderActionField
 
 {#pointer *CThostFtdcInputOrderActionField as CThostFtdcInputOrderActionFieldPtr -> CThostFtdcInputOrderActionField#}
 
@@ -293,7 +328,9 @@ data CThostFtdcSyncingTradingCodeField = CThostFtdcSyncingTradingCodeField
   , exchangeID   :: String
   , brokerID     :: String
   , investorID   :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcSyncingTradingCodeField
 
 {#pointer *CThostFtdcSyncingTradingCodeField as CThostFtdcSyncingTradingCodeFieldPtr -> CThostFtdcSyncingTradingCodeField#}
 
@@ -308,14 +345,18 @@ data CThostFtdcBrokerWithdrawAlgorithmField = CThostFtdcBrokerWithdrawAlgorithmF
   , usingRatio              :: Double
   , withdrawAlgorithm       :: Char
   , brokerID                :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcBrokerWithdrawAlgorithmField
 
 {#pointer *CThostFtdcBrokerWithdrawAlgorithmField as CThostFtdcBrokerWithdrawAlgorithmFieldPtr -> CThostFtdcBrokerWithdrawAlgorithmField#}
 
 data CThostFtdcQryInstrumentStatusField = CThostFtdcQryInstrumentStatusField
   { exchangeInstID :: String
   , exchangeID     :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcQryInstrumentStatusField
 
 {#pointer *CThostFtdcQryInstrumentStatusField as CThostFtdcQryInstrumentStatusFieldPtr -> CThostFtdcQryInstrumentStatusField#}
 
@@ -323,7 +364,9 @@ data CThostFtdcQryTraderOfferField = CThostFtdcQryTraderOfferField
   { traderID      :: String
   , participantID :: String
   , exchangeID    :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcQryTraderOfferField
 
 {#pointer *CThostFtdcQryTraderOfferField as CThostFtdcQryTraderOfferFieldPtr -> CThostFtdcQryTraderOfferField#}
 
@@ -364,7 +407,9 @@ data CThostFtdcReqQueryAccountField = CThostFtdcReqQueryAccountField
   , bankBranchID     :: String
   , bankID           :: String
   , tradeCode        :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcReqQueryAccountField
 
 {#pointer *CThostFtdcReqQueryAccountField as CThostFtdcReqQueryAccountFieldPtr -> CThostFtdcReqQueryAccountField#}
 
@@ -372,7 +417,9 @@ data CThostFtdcCommPhaseField = CThostFtdcCommPhaseField
   { systemID    :: String
   , commPhaseNo :: Int16
   , tradingDay  :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcCommPhaseField
 
 {#pointer *CThostFtdcCommPhaseField as CThostFtdcCommPhaseFieldPtr -> CThostFtdcCommPhaseField#}
 
@@ -385,7 +432,9 @@ data CThostFtdcBrokerUserOTPParamField = CThostFtdcBrokerUserOTPParamField
   , oTPVendorsID :: String
   , userID       :: String
   , brokerID     :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcBrokerUserOTPParamField
 
 {#pointer *CThostFtdcBrokerUserOTPParamField as CThostFtdcBrokerUserOTPParamFieldPtr -> CThostFtdcBrokerUserOTPParamField#}
 
@@ -418,7 +467,9 @@ data CThostFtdcExecOrderActionField = CThostFtdcExecOrderActionField
   , execOrderActionRef :: Int
   , investorID         :: String
   , brokerID           :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcExecOrderActionField
 
 {#pointer *CThostFtdcExecOrderActionField as CThostFtdcExecOrderActionFieldPtr -> CThostFtdcExecOrderActionField#}
 
@@ -473,7 +524,9 @@ data CThostFtdcReqRepealField = CThostFtdcReqRepealField
   , bankRepealFlag     :: Char
   , repealedTimes      :: Int
   , repealTimeInterval :: Int
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcReqRepealField
 
 {#pointer *CThostFtdcReqRepealField as CThostFtdcReqRepealFieldPtr -> CThostFtdcReqRepealField#}
 
@@ -486,7 +539,9 @@ data CThostFtdcTradingNoticeField = CThostFtdcTradingNoticeField
   , investorID     :: String
   , investorRange  :: Char
   , brokerID       :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcTradingNoticeField
 
 {#pointer *CThostFtdcTradingNoticeField as CThostFtdcTradingNoticeFieldPtr -> CThostFtdcTradingNoticeField#}
 
@@ -494,7 +549,9 @@ data CThostFtdcInvestorGroupField = CThostFtdcInvestorGroupField
   { investorGroupName :: String
   , investorGroupID   :: String
   , brokerID          :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcInvestorGroupField
 
 {#pointer *CThostFtdcInvestorGroupField as CThostFtdcInvestorGroupFieldPtr -> CThostFtdcInvestorGroupField#}
 
@@ -507,7 +564,9 @@ data CThostFtdcEWarrantOffsetField = CThostFtdcEWarrantOffsetField
   , investorID   :: String
   , brokerID     :: String
   , tradingDay   :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcEWarrantOffsetField
 
 {#pointer *CThostFtdcEWarrantOffsetField as CThostFtdcEWarrantOffsetFieldPtr -> CThostFtdcEWarrantOffsetField#}
 
@@ -515,7 +574,9 @@ data CThostFtdcQryStrikeOffsetField = CThostFtdcQryStrikeOffsetField
   { instrumentID :: String
   , investorID   :: String
   , brokerID     :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcQryStrikeOffsetField
 
 {#pointer *CThostFtdcQryStrikeOffsetField as CThostFtdcQryStrikeOffsetFieldPtr -> CThostFtdcQryStrikeOffsetField#}
 
@@ -523,7 +584,9 @@ data CThostFtdcQryPartBrokerField = CThostFtdcQryPartBrokerField
   { participantID :: String
   , brokerID      :: String
   , exchangeID    :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcQryPartBrokerField
 
 {#pointer *CThostFtdcQryPartBrokerField as CThostFtdcQryPartBrokerFieldPtr -> CThostFtdcQryPartBrokerField#}
 
@@ -532,7 +595,9 @@ data CThostFtdcQryCombActionField = CThostFtdcQryCombActionField
   , instrumentID :: String
   , investorID   :: String
   , brokerID     :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcQryCombActionField
 
 {#pointer *CThostFtdcQryCombActionField as CThostFtdcQryCombActionFieldPtr -> CThostFtdcQryCombActionField#}
 
@@ -550,7 +615,9 @@ data CThostFtdcBrokerDepositField = CThostFtdcBrokerDepositField
   , participantID :: String
   , brokerID      :: String
   , tradingDay    :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcBrokerDepositField
 
 {#pointer *CThostFtdcBrokerDepositField as CThostFtdcBrokerDepositFieldPtr -> CThostFtdcBrokerDepositField#}
 
@@ -558,7 +625,9 @@ data CThostFtdcQryTraderField = CThostFtdcQryTraderField
   { traderID      :: String
   , participantID :: String
   , exchangeID    :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcQryTraderField
 
 {#pointer *CThostFtdcQryTraderField as CThostFtdcQryTraderFieldPtr -> CThostFtdcQryTraderField#}
 
@@ -568,7 +637,9 @@ data CThostFtdcLimitAmountField = CThostFtdcLimitAmountField
   , exchangeID       :: String
   , investorID       :: String
   , brokerID         :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcLimitAmountField
 
 {#pointer *CThostFtdcLimitAmountField as CThostFtdcLimitAmountFieldPtr -> CThostFtdcLimitAmountField#}
 
@@ -577,7 +648,9 @@ data CThostFtdcQryInstrumentField = CThostFtdcQryInstrumentField
   , exchangeInstID :: String
   , exchangeID     :: String
   , instrumentID   :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcQryInstrumentField
 
 {#pointer *CThostFtdcQryInstrumentField as CThostFtdcQryInstrumentFieldPtr -> CThostFtdcQryInstrumentField#}
 
@@ -604,7 +677,9 @@ data CThostFtdcDesignateField = CThostFtdcDesignateField
   , designateRef     :: String
   , investorID       :: String
   , brokerID         :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcDesignateField
 
 {#pointer *CThostFtdcDesignateField as CThostFtdcDesignateFieldPtr -> CThostFtdcDesignateField#}
 
@@ -613,7 +688,9 @@ data CThostFtdcTradingAccountPasswordField = CThostFtdcTradingAccountPasswordFie
   , password   :: String
   , accountID  :: String
   , brokerID   :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcTradingAccountPasswordField
 
 {#pointer *CThostFtdcTradingAccountPasswordField as CThostFtdcTradingAccountPasswordFieldPtr -> CThostFtdcTradingAccountPasswordField#}
 
@@ -623,7 +700,9 @@ data CThostFtdcPositionProfitAlgorithmField = CThostFtdcPositionProfitAlgorithmF
   , algorithm  :: Char
   , accountID  :: String
   , brokerID   :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcPositionProfitAlgorithmField
 
 {#pointer *CThostFtdcPositionProfitAlgorithmField as CThostFtdcPositionProfitAlgorithmFieldPtr -> CThostFtdcPositionProfitAlgorithmField#}
 
@@ -631,7 +710,9 @@ data CThostFtdcQryStockDisposalActionField = CThostFtdcQryStockDisposalActionFie
   { exchangeID :: String
   , investorID :: String
   , brokerID   :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcQryStockDisposalActionField
 
 {#pointer *CThostFtdcQryStockDisposalActionField as CThostFtdcQryStockDisposalActionFieldPtr -> CThostFtdcQryStockDisposalActionField#}
 
@@ -650,7 +731,9 @@ data CThostFtdcErrStockDisposalActionField = CThostFtdcErrStockDisposalActionFie
   , stockDisposalActionRef :: Int
   , investorID             :: String
   , brokerID               :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcErrStockDisposalActionField
 
 {#pointer *CThostFtdcErrStockDisposalActionField as CThostFtdcErrStockDisposalActionFieldPtr -> CThostFtdcErrStockDisposalActionField#}
 
@@ -659,7 +742,9 @@ data CThostFtdcQryMMInstrumentCommissionRateField = CThostFtdcQryMMInstrumentCom
   , instrumentID :: String
   , investorID   :: String
   , brokerID     :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcQryMMInstrumentCommissionRateField
 
 {#pointer *CThostFtdcQryMMInstrumentCommissionRateField as CThostFtdcQryMMInstrumentCommissionRateFieldPtr -> CThostFtdcQryMMInstrumentCommissionRateField#}
 
@@ -694,13 +779,17 @@ data CThostFtdcExchangeExecOrderField = CThostFtdcExchangeExecOrderField
   , businessUnit        :: String
   , requestID           :: Int
   , volume              :: Int
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcExchangeExecOrderField
 
 {#pointer *CThostFtdcExchangeExecOrderField as CThostFtdcExchangeExecOrderFieldPtr -> CThostFtdcExchangeExecOrderField#}
 
 newtype CThostFtdcTransferQryDetailReqField = CThostFtdcTransferQryDetailReqField
   { futureAccount :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcTransferQryDetailReqField
 
 {#pointer *CThostFtdcTransferQryDetailReqField as CThostFtdcTransferQryDetailReqFieldPtr -> CThostFtdcTransferQryDetailReqField#}
 
@@ -719,7 +808,9 @@ data CThostFtdcTransferQryDetailRspField = CThostFtdcTransferQryDetailRspField
   , tradeCode     :: String
   , tradeTime     :: String
   , tradeDate     :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcTransferQryDetailRspField
 
 {#pointer *CThostFtdcTransferQryDetailRspField as CThostFtdcTransferQryDetailRspFieldPtr -> CThostFtdcTransferQryDetailRspField#}
 
@@ -727,7 +818,9 @@ data CThostFtdcQryMDTraderOfferField = CThostFtdcQryMDTraderOfferField
   { traderID      :: String
   , participantID :: String
   , exchangeID    :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcQryMDTraderOfferField
 
 {#pointer *CThostFtdcQryMDTraderOfferField as CThostFtdcQryMDTraderOfferFieldPtr -> CThostFtdcQryMDTraderOfferField#}
 
@@ -735,7 +828,9 @@ data CThostFtdcVerifyInvestorPasswordField = CThostFtdcVerifyInvestorPasswordFie
   { password   :: String
   , investorID :: String
   , brokerID   :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcVerifyInvestorPasswordField
 
 {#pointer *CThostFtdcVerifyInvestorPasswordField as CThostFtdcVerifyInvestorPasswordFieldPtr -> CThostFtdcVerifyInvestorPasswordField#}
 
@@ -755,7 +850,9 @@ data CThostFtdcExchangeMarginRateAdjustField = CThostFtdcExchangeMarginRateAdjus
   , hedgeFlag                    :: Char
   , instrumentID                 :: String
   , brokerID                     :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcExchangeMarginRateAdjustField
 
 {#pointer *CThostFtdcExchangeMarginRateAdjustField as CThostFtdcExchangeMarginRateAdjustFieldPtr -> CThostFtdcExchangeMarginRateAdjustField#}
 
@@ -772,7 +869,9 @@ data CThostFtdcInstrumentCommissionRateField = CThostFtdcInstrumentCommissionRat
   , brokerID                :: String
   , investorRange           :: Char
   , instrumentID            :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcInstrumentCommissionRateField
 
 {#pointer *CThostFtdcInstrumentCommissionRateField as CThostFtdcInstrumentCommissionRateFieldPtr -> CThostFtdcInstrumentCommissionRateField#}
 
@@ -780,7 +879,9 @@ data CThostFtdcQryExecOrderActionField = CThostFtdcQryExecOrderActionField
   { exchangeID :: String
   , investorID :: String
   , brokerID   :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcQryExecOrderActionField
 
 {#pointer *CThostFtdcQryExecOrderActionField as CThostFtdcQryExecOrderActionFieldPtr -> CThostFtdcQryExecOrderActionField#}
 
@@ -802,7 +903,9 @@ data CThostFtdcErrExecOrderActionField = CThostFtdcErrExecOrderActionField
   , execOrderActionRef :: Int
   , investorID         :: String
   , brokerID           :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcErrExecOrderActionField
 
 {#pointer *CThostFtdcErrExecOrderActionField as CThostFtdcErrExecOrderActionFieldPtr -> CThostFtdcErrExecOrderActionField#}
 
@@ -811,7 +914,9 @@ data CThostFtdcQryParkedOrderActionField = CThostFtdcQryParkedOrderActionField
   , instrumentID :: String
   , investorID   :: String
   , brokerID     :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcQryParkedOrderActionField
 
 {#pointer *CThostFtdcQryParkedOrderActionField as CThostFtdcQryParkedOrderActionFieldPtr -> CThostFtdcQryParkedOrderActionField#}
 
@@ -842,7 +947,9 @@ data CThostFtdcInvestorPositionDetailField = CThostFtdcInvestorPositionDetailFie
   , investorID            :: String
   , brokerID              :: String
   , instrumentID          :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcInvestorPositionDetailField
 
 {#pointer *CThostFtdcInvestorPositionDetailField as CThostFtdcInvestorPositionDetailFieldPtr -> CThostFtdcInvestorPositionDetailField#}
 
@@ -851,7 +958,9 @@ data CThostFtdcQryLimitPosiSField = CThostFtdcQryLimitPosiSField
   , instrumentID :: String
   , investorID   :: String
   , brokerID     :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcQryLimitPosiSField
 
 {#pointer *CThostFtdcQryLimitPosiSField as CThostFtdcQryLimitPosiSFieldPtr -> CThostFtdcQryLimitPosiSField#}
 
@@ -864,7 +973,9 @@ data CThostFtdcLimitPosiSField = CThostFtdcLimitPosiSField
   , instrumentID      :: String
   , investorID        :: String
   , brokerID          :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcLimitPosiSField
 
 {#pointer *CThostFtdcLimitPosiSField as CThostFtdcLimitPosiSFieldPtr -> CThostFtdcLimitPosiSField#}
 
@@ -872,7 +983,9 @@ data CThostFtdcQryBrokerLimitPosiField = CThostFtdcQryBrokerLimitPosiField
   { exchangeID   :: String
   , instrumentID :: String
   , brokerID     :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcQryBrokerLimitPosiField
 
 {#pointer *CThostFtdcQryBrokerLimitPosiField as CThostFtdcQryBrokerLimitPosiFieldPtr -> CThostFtdcQryBrokerLimitPosiField#}
 
@@ -893,7 +1006,9 @@ data CThostFtdcInputQuoteActionField = CThostFtdcInputQuoteActionField
   , quoteActionRef :: Int
   , investorID     :: String
   , brokerID       :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcInputQuoteActionField
 
 {#pointer *CThostFtdcInputQuoteActionField as CThostFtdcInputQuoteActionFieldPtr -> CThostFtdcInputQuoteActionField#}
 
@@ -904,13 +1019,17 @@ data CThostFtdcTransferBankToFutureRspField = CThostFtdcTransferBankToFutureRspF
   , futureAccount :: String
   , retInfo       :: String
   , retCode       :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcTransferBankToFutureRspField
 
 {#pointer *CThostFtdcTransferBankToFutureRspField as CThostFtdcTransferBankToFutureRspFieldPtr -> CThostFtdcTransferBankToFutureRspField#}
 
 newtype CThostFtdcQryExchangeSequenceField = CThostFtdcQryExchangeSequenceField
   { exchangeID :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcQryExchangeSequenceField
 
 {#pointer *CThostFtdcQryExchangeSequenceField as CThostFtdcQryExchangeSequenceFieldPtr -> CThostFtdcQryExchangeSequenceField#}
 
@@ -937,7 +1056,9 @@ data CThostFtdcNotifySyncKeyField = CThostFtdcNotifySyncKeyField
   , bankBranchID   :: String
   , bankID         :: String
   , tradeCode      :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcNotifySyncKeyField
 
 {#pointer *CThostFtdcNotifySyncKeyField as CThostFtdcNotifySyncKeyFieldPtr -> CThostFtdcNotifySyncKeyField#}
 
@@ -950,7 +1071,9 @@ data CThostFtdcInputStockDisposalField = CThostFtdcInputStockDisposalField
   , stockDisposalRef  :: String
   , investorID        :: String
   , brokerID          :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcInputStockDisposalField
 
 {#pointer *CThostFtdcInputStockDisposalField as CThostFtdcInputStockDisposalFieldPtr -> CThostFtdcInputStockDisposalField#}
 
@@ -976,14 +1099,18 @@ data CThostFtdcBatchOrderActionField = CThostFtdcBatchOrderActionField
   , orderActionRef    :: Int
   , investorID        :: String
   , brokerID          :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcBatchOrderActionField
 
 {#pointer *CThostFtdcBatchOrderActionField as CThostFtdcBatchOrderActionFieldPtr -> CThostFtdcBatchOrderActionField#}
 
 data CThostFtdcDisseminationField = CThostFtdcDisseminationField
   { sequenceNo     :: Int
   , sequenceSeries :: Int16
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcDisseminationField
 
 {#pointer *CThostFtdcDisseminationField as CThostFtdcDisseminationFieldPtr -> CThostFtdcDisseminationField#}
 
@@ -993,7 +1120,9 @@ data CThostFtdcLimitAmountParamField = CThostFtdcLimitAmountParamField
   , investorID    :: String
   , brokerID      :: String
   , investorRange :: Char
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcLimitAmountParamField
 
 {#pointer *CThostFtdcLimitAmountParamField as CThostFtdcLimitAmountParamFieldPtr -> CThostFtdcLimitAmountParamField#}
 
@@ -1002,7 +1131,9 @@ data CThostFtdcSuperUserField = CThostFtdcSuperUserField
   , password :: String
   , userName :: String
   , userID   :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcSuperUserField
 
 {#pointer *CThostFtdcSuperUserField as CThostFtdcSuperUserFieldPtr -> CThostFtdcSuperUserField#}
 
@@ -1011,7 +1142,9 @@ data CThostFtdcMarketDataLastMatchField = CThostFtdcMarketDataLastMatchField
   , turnover     :: Double
   , volume       :: Int
   , lastPrice    :: Double
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcMarketDataLastMatchField
 
 {#pointer *CThostFtdcMarketDataLastMatchField as CThostFtdcMarketDataLastMatchFieldPtr -> CThostFtdcMarketDataLastMatchField#}
 
@@ -1020,7 +1153,9 @@ data CThostFtdcMarketDataBestPriceField = CThostFtdcMarketDataBestPriceField
   , askPrice1  :: Double
   , bidVolume1 :: Int
   , bidPrice1  :: Double
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcMarketDataBestPriceField
 
 {#pointer *CThostFtdcMarketDataBestPriceField as CThostFtdcMarketDataBestPriceFieldPtr -> CThostFtdcMarketDataBestPriceField#}
 
@@ -1048,7 +1183,9 @@ data CThostFtdcRspFutureSignOutField = CThostFtdcRspFutureSignOutField
   , bankBranchID   :: String
   , bankID         :: String
   , tradeCode      :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcRspFutureSignOutField
 
 {#pointer *CThostFtdcRspFutureSignOutField as CThostFtdcRspFutureSignOutFieldPtr -> CThostFtdcRspFutureSignOutField#}
 
@@ -1097,7 +1234,9 @@ data CThostFtdcReqCancelAccountField = CThostFtdcReqCancelAccountField
   , bankBranchID       :: String
   , bankID             :: String
   , tradeCode          :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcReqCancelAccountField
 
 {#pointer *CThostFtdcReqCancelAccountField as CThostFtdcReqCancelAccountFieldPtr -> CThostFtdcReqCancelAccountField#}
 
@@ -1106,7 +1245,9 @@ data CThostFtdcInvestorLevelField = CThostFtdcInvestorLevelField
   , exchangeID :: String
   , investorID :: String
   , brokerID   :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcInvestorLevelField
 
 {#pointer *CThostFtdcInvestorLevelField as CThostFtdcInvestorLevelFieldPtr -> CThostFtdcInvestorLevelField#}
 
@@ -1128,7 +1269,9 @@ data CThostFtdcExchangeQuoteActionField = CThostFtdcExchangeQuoteActionField
   , actionFlag        :: Char
   , quoteSysID        :: String
   , exchangeID        :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcExchangeQuoteActionField
 
 {#pointer *CThostFtdcExchangeQuoteActionField as CThostFtdcExchangeQuoteActionFieldPtr -> CThostFtdcExchangeQuoteActionField#}
 
@@ -1140,7 +1283,9 @@ data CThostFtdcExchangeOrderInsertErrorField = CThostFtdcExchangeOrderInsertErro
   , traderID      :: String
   , participantID :: String
   , exchangeID    :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcExchangeOrderInsertErrorField
 
 {#pointer *CThostFtdcExchangeOrderInsertErrorField as CThostFtdcExchangeOrderInsertErrorFieldPtr -> CThostFtdcExchangeOrderInsertErrorField#}
 
@@ -1189,13 +1334,17 @@ data CThostFtdcDepthMarketDataField = CThostFtdcDepthMarketDataField
   , exchangeID         :: String
   , instrumentID       :: String
   , tradingDay         :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcDepthMarketDataField
 
 {#pointer *CThostFtdcDepthMarketDataField as CThostFtdcDepthMarketDataFieldPtr -> CThostFtdcDepthMarketDataField#}
 
 newtype CThostFtdcMarketDataExchangeField = CThostFtdcMarketDataExchangeField
   { exchangeID :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcMarketDataExchangeField
 
 {#pointer *CThostFtdcMarketDataExchangeField as CThostFtdcMarketDataExchangeFieldPtr -> CThostFtdcMarketDataExchangeField#}
 
@@ -1205,7 +1354,9 @@ data CThostFtdcQryExchangeExecOrderField = CThostFtdcQryExchangeExecOrderField
   , exchangeInstID :: String
   , clientID       :: String
   , participantID  :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcQryExchangeExecOrderField
 
 {#pointer *CThostFtdcQryExchangeExecOrderField as CThostFtdcQryExchangeExecOrderFieldPtr -> CThostFtdcQryExchangeExecOrderField#}
 
@@ -1217,7 +1368,9 @@ data CThostFtdcInstrumentTradingRightField = CThostFtdcInstrumentTradingRightFie
   , brokerID      :: String
   , investorRange :: Char
   , instrumentID  :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcInstrumentTradingRightField
 
 {#pointer *CThostFtdcInstrumentTradingRightField as CThostFtdcInstrumentTradingRightFieldPtr -> CThostFtdcInstrumentTradingRightField#}
 
@@ -1225,7 +1378,9 @@ data CThostFtdcQryBatchOrderActionField = CThostFtdcQryBatchOrderActionField
   { exchangeID :: String
   , investorID :: String
   , brokerID   :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcQryBatchOrderActionField
 
 {#pointer *CThostFtdcQryBatchOrderActionField as CThostFtdcQryBatchOrderActionFieldPtr -> CThostFtdcQryBatchOrderActionField#}
 
@@ -1249,14 +1404,18 @@ data CThostFtdcExchangeOrderActionField = CThostFtdcExchangeOrderActionField
   , actionFlag        :: Char
   , orderSysID        :: String
   , exchangeID        :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcExchangeOrderActionField
 
 {#pointer *CThostFtdcExchangeOrderActionField as CThostFtdcExchangeOrderActionFieldPtr -> CThostFtdcExchangeOrderActionField#}
 
 data CThostFtdcQueryBrokerDepositField = CThostFtdcQueryBrokerDepositField
   { exchangeID :: String
   , brokerID   :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcQueryBrokerDepositField
 
 {#pointer *CThostFtdcQueryBrokerDepositField as CThostFtdcQueryBrokerDepositFieldPtr -> CThostFtdcQueryBrokerDepositField#}
 
@@ -1267,13 +1426,17 @@ data CThostFtdcTransferFutureToBankRspField = CThostFtdcTransferFutureToBankRspF
   , futureAccount :: String
   , retInfo       :: String
   , retCode       :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcTransferFutureToBankRspField
 
 {#pointer *CThostFtdcTransferFutureToBankRspField as CThostFtdcTransferFutureToBankRspFieldPtr -> CThostFtdcTransferFutureToBankRspField#}
 
 newtype CThostFtdcQrySyncStatusField = CThostFtdcQrySyncStatusField
   { tradingDay :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcQrySyncStatusField
 
 {#pointer *CThostFtdcQrySyncStatusField as CThostFtdcQrySyncStatusFieldPtr -> CThostFtdcQrySyncStatusField#}
 
@@ -1281,7 +1444,9 @@ data CThostFtdcMulticastGroupInfoField = CThostFtdcMulticastGroupInfoField
   { sourceIP  :: String
   , groupPort :: Int
   , groupIP   :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcMulticastGroupInfoField
 
 {#pointer *CThostFtdcMulticastGroupInfoField as CThostFtdcMulticastGroupInfoFieldPtr -> CThostFtdcMulticastGroupInfoField#}
 
@@ -1289,7 +1454,9 @@ data CThostFtdcLoginForbiddenUserField = CThostFtdcLoginForbiddenUserField
   { iPAddress :: String
   , userID    :: String
   , brokerID  :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcLoginForbiddenUserField
 
 {#pointer *CThostFtdcLoginForbiddenUserField as CThostFtdcLoginForbiddenUserFieldPtr -> CThostFtdcLoginForbiddenUserField#}
 
@@ -1301,7 +1468,9 @@ data CThostFtdcBrokerTradingParamsField = CThostFtdcBrokerTradingParamsField
   , marginPriceType         :: Char
   , investorID              :: String
   , brokerID                :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcBrokerTradingParamsField
 
 {#pointer *CThostFtdcBrokerTradingParamsField as CThostFtdcBrokerTradingParamsFieldPtr -> CThostFtdcBrokerTradingParamsField#}
 
@@ -1311,7 +1480,9 @@ data CThostFtdcMarketDataUpdateTimeField = CThostFtdcMarketDataUpdateTimeField
   , updateMillisec :: Int
   , updateTime     :: String
   , instrumentID   :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcMarketDataUpdateTimeField
 
 {#pointer *CThostFtdcMarketDataUpdateTimeField as CThostFtdcMarketDataUpdateTimeFieldPtr -> CThostFtdcMarketDataUpdateTimeField#}
 
@@ -1322,14 +1493,18 @@ data CThostFtdcInputDesignateField = CThostFtdcInputDesignateField
   , designateRef  :: String
   , investorID    :: String
   , brokerID      :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcInputDesignateField
 
 {#pointer *CThostFtdcInputDesignateField as CThostFtdcInputDesignateFieldPtr -> CThostFtdcInputDesignateField#}
 
 data CThostFtdcForceUserLogoutField = CThostFtdcForceUserLogoutField
   { userID   :: String
   , brokerID :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcForceUserLogoutField
 
 {#pointer *CThostFtdcForceUserLogoutField as CThostFtdcForceUserLogoutFieldPtr -> CThostFtdcForceUserLogoutField#}
 
@@ -1338,7 +1513,9 @@ data CThostFtdcQryExchangeQuoteActionField = CThostFtdcQryExchangeQuoteActionFie
   , exchangeID    :: String
   , clientID      :: String
   , participantID :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcQryExchangeQuoteActionField
 
 {#pointer *CThostFtdcQryExchangeQuoteActionField as CThostFtdcQryExchangeQuoteActionFieldPtr -> CThostFtdcQryExchangeQuoteActionField#}
 
@@ -1348,7 +1525,9 @@ data CThostFtdcForQuoteParamField = CThostFtdcForQuoteParamField
   , exchangeID    :: String
   , instrumentID  :: String
   , brokerID      :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcForQuoteParamField
 
 {#pointer *CThostFtdcForQuoteParamField as CThostFtdcForQuoteParamFieldPtr -> CThostFtdcForQuoteParamField#}
 
@@ -1361,7 +1540,9 @@ data CThostFtdcOptionInstrTradingRightField = CThostFtdcOptionInstrTradingRightF
   , brokerID      :: String
   , investorRange :: Char
   , instrumentID  :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcOptionInstrTradingRightField
 
 {#pointer *CThostFtdcOptionInstrTradingRightField as CThostFtdcOptionInstrTradingRightFieldPtr -> CThostFtdcOptionInstrTradingRightField#}
 
@@ -1372,7 +1553,9 @@ data CThostFtdcBrokerTradingAlgosField = CThostFtdcBrokerTradingAlgosField
   , instrumentID               :: String
   , exchangeID                 :: String
   , brokerID                   :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcBrokerTradingAlgosField
 
 {#pointer *CThostFtdcBrokerTradingAlgosField as CThostFtdcBrokerTradingAlgosFieldPtr -> CThostFtdcBrokerTradingAlgosField#}
 
@@ -1380,7 +1563,9 @@ data CThostFtdcCommRateModelField = CThostFtdcCommRateModelField
   { commModelName :: String
   , commModelID   :: String
   , brokerID      :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcCommRateModelField
 
 {#pointer *CThostFtdcCommRateModelField as CThostFtdcCommRateModelFieldPtr -> CThostFtdcCommRateModelField#}
 
@@ -1389,7 +1574,9 @@ data CThostFtdcQrySecAgentACIDMapField = CThostFtdcQrySecAgentACIDMapField
   , accountID  :: String
   , userID     :: String
   , brokerID   :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcQrySecAgentACIDMapField
 
 {#pointer *CThostFtdcQrySecAgentACIDMapField as CThostFtdcQrySecAgentACIDMapFieldPtr -> CThostFtdcQrySecAgentACIDMapField#}
 
@@ -1400,7 +1587,9 @@ data CThostFtdcTransferBankToFutureReqField = CThostFtdcTransferBankToFutureReqF
   , futureAccPwd  :: String
   , futurePwdFlag :: Char
   , futureAccount :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcTransferBankToFutureReqField
 
 {#pointer *CThostFtdcTransferBankToFutureReqField as CThostFtdcTransferBankToFutureReqFieldPtr -> CThostFtdcTransferBankToFutureReqField#}
 
@@ -1430,21 +1619,27 @@ data CThostFtdcRspFutureSignInField = CThostFtdcRspFutureSignInField
   , bankBranchID   :: String
   , bankID         :: String
   , tradeCode      :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcRspFutureSignInField
 
 {#pointer *CThostFtdcRspFutureSignInField as CThostFtdcRspFutureSignInFieldPtr -> CThostFtdcRspFutureSignInField#}
 
 data CThostFtdcSettlementRefField = CThostFtdcSettlementRefField
   { settlementID :: Int
   , tradingDay   :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcSettlementRefField
 
 {#pointer *CThostFtdcSettlementRefField as CThostFtdcSettlementRefFieldPtr -> CThostFtdcSettlementRefField#}
 
 data CThostFtdcQryErrOrderActionField = CThostFtdcQryErrOrderActionField
   { investorID :: String
   , brokerID   :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcQryErrOrderActionField
 
 {#pointer *CThostFtdcQryErrOrderActionField as CThostFtdcQryErrOrderActionFieldPtr -> CThostFtdcQryErrOrderActionField#}
 
@@ -1453,7 +1648,9 @@ data CThostFtdcQryExecFreezeField = CThostFtdcQryExecFreezeField
   , instrumentID :: String
   , investorID   :: String
   , brokerID     :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcQryExecFreezeField
 
 {#pointer *CThostFtdcQryExecFreezeField as CThostFtdcQryExecFreezeFieldPtr -> CThostFtdcQryExecFreezeField#}
 
@@ -1476,7 +1673,9 @@ data CThostFtdcExchangeExecOrderActionField = CThostFtdcExchangeExecOrderActionF
   , actionFlag        :: Char
   , execOrderSysID    :: String
   , exchangeID        :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcExchangeExecOrderActionField
 
 {#pointer *CThostFtdcExchangeExecOrderActionField as CThostFtdcExchangeExecOrderActionFieldPtr -> CThostFtdcExchangeExecOrderActionField#}
 
@@ -1523,7 +1722,9 @@ data CThostFtdcChangeAccountField = CThostFtdcChangeAccountField
   , bankBranchID       :: String
   , bankID             :: String
   , tradeCode          :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcChangeAccountField
 
 {#pointer *CThostFtdcChangeAccountField as CThostFtdcChangeAccountFieldPtr -> CThostFtdcChangeAccountField#}
 
@@ -1574,7 +1775,9 @@ data CThostFtdcCancelAccountField = CThostFtdcCancelAccountField
   , bankBranchID       :: String
   , bankID             :: String
   , tradeCode          :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcCancelAccountField
 
 {#pointer *CThostFtdcCancelAccountField as CThostFtdcCancelAccountFieldPtr -> CThostFtdcCancelAccountField#}
 
@@ -1619,7 +1822,9 @@ data CThostFtdcReqChangeAccountField = CThostFtdcReqChangeAccountField
   , bankBranchID       :: String
   , bankID             :: String
   , tradeCode          :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcReqChangeAccountField
 
 {#pointer *CThostFtdcReqChangeAccountField as CThostFtdcReqChangeAccountFieldPtr -> CThostFtdcReqChangeAccountField#}
 
@@ -1634,7 +1839,9 @@ data CThostFtdcInstrumentMarginRateAdjustField = CThostFtdcInstrumentMarginRateA
   , brokerID                 :: String
   , investorRange            :: Char
   , instrumentID             :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcInstrumentMarginRateAdjustField
 
 {#pointer *CThostFtdcInstrumentMarginRateAdjustField as CThostFtdcInstrumentMarginRateAdjustFieldPtr -> CThostFtdcInstrumentMarginRateAdjustField#}
 
@@ -1648,7 +1855,9 @@ data CThostFtdcExchangeOrderActionErrorField = CThostFtdcExchangeOrderActionErro
   , traderID      :: String
   , orderSysID    :: String
   , exchangeID    :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcExchangeOrderActionErrorField
 
 {#pointer *CThostFtdcExchangeOrderActionErrorField as CThostFtdcExchangeOrderActionErrorFieldPtr -> CThostFtdcExchangeOrderActionErrorField#}
 
@@ -1674,7 +1883,9 @@ data CThostFtdcReqFutureSignOutField = CThostFtdcReqFutureSignOutField
   , bankBranchID   :: String
   , bankID         :: String
   , tradeCode      :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcReqFutureSignOutField
 
 {#pointer *CThostFtdcReqFutureSignOutField as CThostFtdcReqFutureSignOutFieldPtr -> CThostFtdcReqFutureSignOutField#}
 
@@ -1692,7 +1903,9 @@ data CThostFtdcMMOptionInstrCommRateField = CThostFtdcMMOptionInstrCommRateField
   , brokerID                :: String
   , investorRange           :: Char
   , instrumentID            :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcMMOptionInstrCommRateField
 
 {#pointer *CThostFtdcMMOptionInstrCommRateField as CThostFtdcMMOptionInstrCommRateFieldPtr -> CThostFtdcMMOptionInstrCommRateField#}
 
@@ -1711,7 +1924,9 @@ data CThostFtdcExchangeDesignateField = CThostFtdcExchangeDesignateField
   , exchangeID       :: String
   , designateLocalID :: String
   , designateType    :: Char
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcExchangeDesignateField
 
 {#pointer *CThostFtdcExchangeDesignateField as CThostFtdcExchangeDesignateFieldPtr -> CThostFtdcExchangeDesignateField#}
 
@@ -1728,7 +1943,9 @@ data CThostFtdcInputLockField = CThostFtdcInputLockField
   , instrumentID :: String
   , investorID   :: String
   , brokerID     :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcInputLockField
 
 {#pointer *CThostFtdcInputLockField as CThostFtdcInputLockFieldPtr -> CThostFtdcInputLockField#}
 
@@ -1760,7 +1977,9 @@ data CThostFtdcInvestorProductGroupMarginField = CThostFtdcInvestorProductGroupM
   , investorID            :: String
   , brokerID              :: String
   , productGroupID        :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcInvestorProductGroupMarginField
 
 {#pointer *CThostFtdcInvestorProductGroupMarginField as CThostFtdcInvestorProductGroupMarginFieldPtr -> CThostFtdcInvestorProductGroupMarginField#}
 
@@ -1769,7 +1988,9 @@ data CThostFtdcQryInstrumentMarginRateField = CThostFtdcQryInstrumentMarginRateF
   , instrumentID :: String
   , investorID   :: String
   , brokerID     :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcQryInstrumentMarginRateField
 
 {#pointer *CThostFtdcQryInstrumentMarginRateField as CThostFtdcQryInstrumentMarginRateFieldPtr -> CThostFtdcQryInstrumentMarginRateField#}
 
@@ -1786,7 +2007,9 @@ data CThostFtdcLimitPosiField = CThostFtdcLimitPosiField
   , instrumentID      :: String
   , investorID        :: String
   , brokerID          :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcLimitPosiField
 
 {#pointer *CThostFtdcLimitPosiField as CThostFtdcLimitPosiFieldPtr -> CThostFtdcLimitPosiField#}
 
@@ -1800,7 +2023,9 @@ data CThostFtdcLimitPosiParamField = CThostFtdcLimitPosiParamField
   , brokerID      :: String
   , investorRange :: Char
   , instrumentID  :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcLimitPosiParamField
 
 {#pointer *CThostFtdcLimitPosiParamField as CThostFtdcLimitPosiParamFieldPtr -> CThostFtdcLimitPosiParamField#}
 
@@ -1812,7 +2037,9 @@ data CThostFtdcDepositResultInformField = CThostFtdcDepositResultInformField
   , investorID             :: String
   , brokerID               :: String
   , depositSeqNo           :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcDepositResultInformField
 
 {#pointer *CThostFtdcDepositResultInformField as CThostFtdcDepositResultInformFieldPtr -> CThostFtdcDepositResultInformField#}
 
@@ -1838,7 +2065,9 @@ data CThostFtdcLoginInfoField = CThostFtdcLoginInfoField
   , brokerID             :: String
   , sessionID            :: Int
   , frontID              :: Int
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcLoginInfoField
 
 {#pointer *CThostFtdcLoginInfoField as CThostFtdcLoginInfoFieldPtr -> CThostFtdcLoginInfoField#}
 
@@ -1847,14 +2076,18 @@ data CThostFtdcQryOptionInstrCommRateField = CThostFtdcQryOptionInstrCommRateFie
   , instrumentID :: String
   , investorID   :: String
   , brokerID     :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcQryOptionInstrCommRateField
 
 {#pointer *CThostFtdcQryOptionInstrCommRateField as CThostFtdcQryOptionInstrCommRateFieldPtr -> CThostFtdcQryOptionInstrCommRateField#}
 
 data CThostFtdcQryBrokerUserField = CThostFtdcQryBrokerUserField
   { userID   :: String
   , brokerID :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcQryBrokerUserField
 
 {#pointer *CThostFtdcQryBrokerUserField as CThostFtdcQryBrokerUserFieldPtr -> CThostFtdcQryBrokerUserField#}
 
@@ -1880,7 +2113,9 @@ data CThostFtdcInputExecOrderField = CThostFtdcInputExecOrderField
   , instrumentID        :: String
   , investorID          :: String
   , brokerID            :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcInputExecOrderField
 
 {#pointer *CThostFtdcInputExecOrderField as CThostFtdcInputExecOrderFieldPtr -> CThostFtdcInputExecOrderField#}
 
@@ -1888,7 +2123,9 @@ data CThostFtdcQryBrokerTradingParamsField = CThostFtdcQryBrokerTradingParamsFie
   { currencyID :: String
   , investorID :: String
   , brokerID   :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcQryBrokerTradingParamsField
 
 {#pointer *CThostFtdcQryBrokerTradingParamsField as CThostFtdcQryBrokerTradingParamsFieldPtr -> CThostFtdcQryBrokerTradingParamsField#}
 
@@ -1907,7 +2144,9 @@ data CThostFtdcOptionInstrMarginAdjustField = CThostFtdcOptionInstrMarginAdjustF
   , brokerID                  :: String
   , investorRange             :: Char
   , instrumentID              :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcOptionInstrMarginAdjustField
 
 {#pointer *CThostFtdcOptionInstrMarginAdjustField as CThostFtdcOptionInstrMarginAdjustFieldPtr -> CThostFtdcOptionInstrMarginAdjustField#}
 
@@ -1919,7 +2158,9 @@ data CThostFtdcQryOptionInstrTradeCostField = CThostFtdcQryOptionInstrTradeCostF
   , instrumentID    :: String
   , investorID      :: String
   , brokerID        :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcQryOptionInstrTradeCostField
 
 {#pointer *CThostFtdcQryOptionInstrTradeCostField as CThostFtdcQryOptionInstrTradeCostFieldPtr -> CThostFtdcQryOptionInstrTradeCostField#}
 
@@ -1928,7 +2169,9 @@ data CThostFtdcQryExchangeOrderActionField = CThostFtdcQryExchangeOrderActionFie
   , exchangeID    :: String
   , clientID      :: String
   , participantID :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcQryExchangeOrderActionField
 
 {#pointer *CThostFtdcQryExchangeOrderActionField as CThostFtdcQryExchangeOrderActionFieldPtr -> CThostFtdcQryExchangeOrderActionField#}
 
@@ -1939,7 +2182,9 @@ data CThostFtdcTransferFutureToBankReqField = CThostFtdcTransferFutureToBankReqF
   , futureAccPwd  :: String
   , futurePwdFlag :: Char
   , futureAccount :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcTransferFutureToBankReqField
 
 {#pointer *CThostFtdcTransferFutureToBankReqField as CThostFtdcTransferFutureToBankReqFieldPtr -> CThostFtdcTransferFutureToBankReqField#}
 
@@ -1952,7 +2197,9 @@ data CThostFtdcOptionInstrMiniMarginField = CThostFtdcOptionInstrMiniMarginField
   , brokerID      :: String
   , investorRange :: Char
   , instrumentID  :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcOptionInstrMiniMarginField
 
 {#pointer *CThostFtdcOptionInstrMiniMarginField as CThostFtdcOptionInstrMiniMarginFieldPtr -> CThostFtdcOptionInstrMiniMarginField#}
 
@@ -1961,7 +2208,9 @@ data CThostFtdcQryMMOptionInstrCommRateField = CThostFtdcQryMMOptionInstrCommRat
   , instrumentID :: String
   , investorID   :: String
   , brokerID     :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcQryMMOptionInstrCommRateField
 
 {#pointer *CThostFtdcQryMMOptionInstrCommRateField as CThostFtdcQryMMOptionInstrCommRateFieldPtr -> CThostFtdcQryMMOptionInstrCommRateField#}
 
@@ -1975,7 +2224,9 @@ data CThostFtdcExchangeExecOrderActionErrorField = CThostFtdcExchangeExecOrderAc
   , traderID         :: String
   , execOrderSysID   :: String
   , exchangeID       :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcExchangeExecOrderActionErrorField
 
 {#pointer *CThostFtdcExchangeExecOrderActionErrorField as CThostFtdcExchangeExecOrderActionErrorFieldPtr -> CThostFtdcExchangeExecOrderActionErrorField#}
 
@@ -1988,7 +2239,9 @@ data CThostFtdcQueryMaxOrderVolumeField = CThostFtdcQueryMaxOrderVolumeField
   , instrumentID :: String
   , investorID   :: String
   , brokerID     :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcQueryMaxOrderVolumeField
 
 {#pointer *CThostFtdcQueryMaxOrderVolumeField as CThostFtdcQueryMaxOrderVolumeFieldPtr -> CThostFtdcQueryMaxOrderVolumeField#}
 
@@ -2005,7 +2258,9 @@ data CThostFtdcOptionInstrMarginGuardField = CThostFtdcOptionInstrMarginGuardFie
   , brokerID                  :: String
   , investorRange             :: Char
   , instrumentID              :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcOptionInstrMarginGuardField
 
 {#pointer *CThostFtdcOptionInstrMarginGuardField as CThostFtdcOptionInstrMarginGuardFieldPtr -> CThostFtdcOptionInstrMarginGuardField#}
 
@@ -2013,7 +2268,9 @@ data CThostFtdcBrokerUserRightAssignField = CThostFtdcBrokerUserRightAssignField
   { tradeable    :: Int
   , dRIdentityID :: Int
   , brokerID     :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcBrokerUserRightAssignField
 
 {#pointer *CThostFtdcBrokerUserRightAssignField as CThostFtdcBrokerUserRightAssignFieldPtr -> CThostFtdcBrokerUserRightAssignField#}
 
@@ -2030,7 +2287,9 @@ data CThostFtdcInputStockDisposalActionField = CThostFtdcInputStockDisposalActio
   , stockDisposalActionRef :: Int
   , investorID             :: String
   , brokerID               :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcInputStockDisposalActionField
 
 {#pointer *CThostFtdcInputStockDisposalActionField as CThostFtdcInputStockDisposalActionFieldPtr -> CThostFtdcInputStockDisposalActionField#}
 
@@ -2038,7 +2297,9 @@ data CThostFtdcQryBrokerUserEventField = CThostFtdcQryBrokerUserEventField
   { userEventType :: Char
   , userID        :: String
   , brokerID      :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcQryBrokerUserEventField
 
 {#pointer *CThostFtdcQryBrokerUserEventField as CThostFtdcQryBrokerUserEventFieldPtr -> CThostFtdcQryBrokerUserEventField#}
 
@@ -2056,7 +2317,9 @@ data CThostFtdcExchangeBatchOrderActionField = CThostFtdcExchangeBatchOrderActio
   , actionTime        :: String
   , actionDate        :: String
   , exchangeID        :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcExchangeBatchOrderActionField
 
 {#pointer *CThostFtdcExchangeBatchOrderActionField as CThostFtdcExchangeBatchOrderActionFieldPtr -> CThostFtdcExchangeBatchOrderActionField#}
 
@@ -2075,7 +2338,9 @@ data CThostFtdcReqDayEndFileReadyField = CThostFtdcReqDayEndFileReadyField
   , bankBranchID     :: String
   , bankID           :: String
   , tradeCode        :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcReqDayEndFileReadyField
 
 {#pointer *CThostFtdcReqDayEndFileReadyField as CThostFtdcReqDayEndFileReadyFieldPtr -> CThostFtdcReqDayEndFileReadyField#}
 
@@ -2085,7 +2350,9 @@ data CThostFtdcTradingAccountPasswordUpdateField = CThostFtdcTradingAccountPassw
   , oldPassword :: String
   , accountID   :: String
   , brokerID    :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcTradingAccountPasswordUpdateField
 
 {#pointer *CThostFtdcTradingAccountPasswordUpdateField as CThostFtdcTradingAccountPasswordUpdateFieldPtr -> CThostFtdcTradingAccountPasswordUpdateField#}
 
@@ -2097,7 +2364,9 @@ data CThostFtdcLimitPosiParamSField = CThostFtdcLimitPosiParamSField
   , brokerID      :: String
   , investorRange :: Char
   , instrumentID  :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcLimitPosiParamSField
 
 {#pointer *CThostFtdcLimitPosiParamSField as CThostFtdcLimitPosiParamSFieldPtr -> CThostFtdcLimitPosiParamSField#}
 
@@ -2106,7 +2375,9 @@ data CThostFtdcQryInvestorPositionDetailField = CThostFtdcQryInvestorPositionDet
   , instrumentID :: String
   , investorID   :: String
   , brokerID     :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcQryInvestorPositionDetailField
 
 {#pointer *CThostFtdcQryInvestorPositionDetailField as CThostFtdcQryInvestorPositionDetailFieldPtr -> CThostFtdcQryInvestorPositionDetailField#}
 
@@ -2114,7 +2385,9 @@ data CThostFtdcQryInvestorPositionCombineDetailField = CThostFtdcQryInvestorPosi
   { combInstrumentID :: String
   , investorID       :: String
   , brokerID         :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcQryInvestorPositionCombineDetailField
 
 {#pointer *CThostFtdcQryInvestorPositionCombineDetailField as CThostFtdcQryInvestorPositionCombineDetailFieldPtr -> CThostFtdcQryInvestorPositionCombineDetailField#}
 
@@ -2122,7 +2395,9 @@ data CThostFtdcQryCombinationLegField = CThostFtdcQryCombinationLegField
   { legInstrumentID  :: String
   , legID            :: Int
   , combInstrumentID :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcQryCombinationLegField
 
 {#pointer *CThostFtdcQryCombinationLegField as CThostFtdcQryCombinationLegFieldPtr -> CThostFtdcQryCombinationLegField#}
 
@@ -2137,14 +2412,18 @@ data CThostFtdcSyncingInstrumentMarginRateField = CThostFtdcSyncingInstrumentMar
   , brokerID                 :: String
   , investorRange            :: Char
   , instrumentID             :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcSyncingInstrumentMarginRateField
 
 {#pointer *CThostFtdcSyncingInstrumentMarginRateField as CThostFtdcSyncingInstrumentMarginRateFieldPtr -> CThostFtdcSyncingInstrumentMarginRateField#}
 
 data CThostFtdcQryCombInstrumentGuardField = CThostFtdcQryCombInstrumentGuardField
   { instrumentID :: String
   , brokerID     :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcQryCombInstrumentGuardField
 
 {#pointer *CThostFtdcQryCombInstrumentGuardField as CThostFtdcQryCombInstrumentGuardFieldPtr -> CThostFtdcQryCombInstrumentGuardField#}
 
@@ -2185,7 +2464,9 @@ data CThostFtdcLockField = CThostFtdcLockField
   , instrumentID      :: String
   , investorID        :: String
   , brokerID          :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcLockField
 
 {#pointer *CThostFtdcLockField as CThostFtdcLockFieldPtr -> CThostFtdcLockField#}
 
@@ -2194,7 +2475,9 @@ data CThostFtdcQryTransferSerialField = CThostFtdcQryTransferSerialField
   , bankID     :: String
   , accountID  :: String
   , brokerID   :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcQryTransferSerialField
 
 {#pointer *CThostFtdcQryTransferSerialField as CThostFtdcQryTransferSerialFieldPtr -> CThostFtdcQryTransferSerialField#}
 
@@ -2203,7 +2486,9 @@ data CThostFtdcQryTradingAccountField = CThostFtdcQryTradingAccountField
   , currencyID :: String
   , investorID :: String
   , brokerID   :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcQryTradingAccountField
 
 {#pointer *CThostFtdcQryTradingAccountField as CThostFtdcQryTradingAccountFieldPtr -> CThostFtdcQryTradingAccountField#}
 
@@ -2212,7 +2497,9 @@ data CThostFtdcQryInstrumentOrderCommRateField = CThostFtdcQryInstrumentOrderCom
   , instrumentID :: String
   , investorID   :: String
   , brokerID     :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcQryInstrumentOrderCommRateField
 
 {#pointer *CThostFtdcQryInstrumentOrderCommRateField as CThostFtdcQryInstrumentOrderCommRateFieldPtr -> CThostFtdcQryInstrumentOrderCommRateField#}
 
@@ -2226,7 +2513,9 @@ data CThostFtdcInputForQuoteField = CThostFtdcInputForQuoteField
   , instrumentID :: String
   , investorID   :: String
   , brokerID     :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcInputForQuoteField
 
 {#pointer *CThostFtdcInputForQuoteField as CThostFtdcInputForQuoteFieldPtr -> CThostFtdcInputForQuoteField#}
 
@@ -2236,7 +2525,9 @@ data CThostFtdcSecAgentACIDMapField = CThostFtdcSecAgentACIDMapField
   , accountID        :: String
   , userID           :: String
   , brokerID         :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcSecAgentACIDMapField
 
 {#pointer *CThostFtdcSecAgentACIDMapField as CThostFtdcSecAgentACIDMapFieldPtr -> CThostFtdcSecAgentACIDMapField#}
 
@@ -2248,7 +2539,9 @@ data CThostFtdcVerifyFuturePasswordAndCustInfoField = CThostFtdcVerifyFuturePass
   , identifiedCardNo :: String
   , idCardType       :: Char
   , customerName     :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcVerifyFuturePasswordAndCustInfoField
 
 {#pointer *CThostFtdcVerifyFuturePasswordAndCustInfoField as CThostFtdcVerifyFuturePasswordAndCustInfoFieldPtr -> CThostFtdcVerifyFuturePasswordAndCustInfoField#}
 
@@ -2256,7 +2549,9 @@ data CThostFtdcRemoveParkedOrderField = CThostFtdcRemoveParkedOrderField
   { parkedOrderID :: String
   , investorID    :: String
   , brokerID      :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcRemoveParkedOrderField
 
 {#pointer *CThostFtdcRemoveParkedOrderField as CThostFtdcRemoveParkedOrderFieldPtr -> CThostFtdcRemoveParkedOrderField#}
 
@@ -2265,7 +2560,9 @@ data CThostFtdcQryEWarrantOffsetField = CThostFtdcQryEWarrantOffsetField
   , exchangeID   :: String
   , investorID   :: String
   , brokerID     :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcQryEWarrantOffsetField
 
 {#pointer *CThostFtdcQryEWarrantOffsetField as CThostFtdcQryEWarrantOffsetFieldPtr -> CThostFtdcQryEWarrantOffsetField#}
 
@@ -2277,7 +2574,9 @@ data CThostFtdcCFMMCBrokerKeyField = CThostFtdcCFMMCBrokerKeyField
   , createDate    :: String
   , participantID :: String
   , brokerID      :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcCFMMCBrokerKeyField
 
 {#pointer *CThostFtdcCFMMCBrokerKeyField as CThostFtdcCFMMCBrokerKeyFieldPtr -> CThostFtdcCFMMCBrokerKeyField#}
 
@@ -2309,7 +2608,9 @@ data CThostFtdcStockDisposalField = CThostFtdcStockDisposalField
   , stockDisposalRef     :: String
   , investorID           :: String
   , brokerID             :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcStockDisposalField
 
 {#pointer *CThostFtdcStockDisposalField as CThostFtdcStockDisposalFieldPtr -> CThostFtdcStockDisposalField#}
 
@@ -2326,7 +2627,9 @@ data CThostFtdcBulletinField = CThostFtdcBulletinField
   , bulletinID  :: Int
   , tradingDay  :: String
   , exchangeID  :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcBulletinField
 
 {#pointer *CThostFtdcBulletinField as CThostFtdcBulletinFieldPtr -> CThostFtdcBulletinField#}
 
@@ -2335,7 +2638,9 @@ data CThostFtdcQryETFOptionInstrCommRateField = CThostFtdcQryETFOptionInstrCommR
   , instrumentID :: String
   , investorID   :: String
   , brokerID     :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcQryETFOptionInstrCommRateField
 
 {#pointer *CThostFtdcQryETFOptionInstrCommRateField as CThostFtdcQryETFOptionInstrCommRateFieldPtr -> CThostFtdcQryETFOptionInstrCommRateField#}
 
@@ -2344,7 +2649,9 @@ data CThostFtdcMarketDataAsk45Field = CThostFtdcMarketDataAsk45Field
   , askPrice5  :: Double
   , askVolume4 :: Int
   , askPrice4  :: Double
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcMarketDataAsk45Field
 
 {#pointer *CThostFtdcMarketDataAsk45Field as CThostFtdcMarketDataAsk45FieldPtr -> CThostFtdcMarketDataAsk45Field#}
 
@@ -2353,7 +2660,9 @@ data CThostFtdcMarketDataBid45Field = CThostFtdcMarketDataBid45Field
   , bidPrice5  :: Double
   , bidVolume4 :: Int
   , bidPrice4  :: Double
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcMarketDataBid45Field
 
 {#pointer *CThostFtdcMarketDataBid45Field as CThostFtdcMarketDataBid45FieldPtr -> CThostFtdcMarketDataBid45Field#}
 
@@ -2362,7 +2671,9 @@ data CThostFtdcQryInvestorProductGroupMarginField = CThostFtdcQryInvestorProduct
   , productGroupID :: String
   , investorID     :: String
   , brokerID       :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcQryInvestorProductGroupMarginField
 
 {#pointer *CThostFtdcQryInvestorProductGroupMarginField as CThostFtdcQryInvestorProductGroupMarginFieldPtr -> CThostFtdcQryInvestorProductGroupMarginField#}
 
@@ -2373,7 +2684,9 @@ data CThostFtdcTraderField = CThostFtdcTraderField
   , participantID :: String
   , traderID      :: String
   , exchangeID    :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcTraderField
 
 {#pointer *CThostFtdcTraderField as CThostFtdcTraderFieldPtr -> CThostFtdcTraderField#}
 
@@ -2382,7 +2695,9 @@ data CThostFtdcBrokerField = CThostFtdcBrokerField
   , brokerName :: String
   , brokerAbbr :: String
   , brokerID   :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcBrokerField
 
 {#pointer *CThostFtdcBrokerField as CThostFtdcBrokerFieldPtr -> CThostFtdcBrokerField#}
 
@@ -2399,7 +2714,9 @@ data CThostFtdcDBFRecordField = CThostFtdcDBFRecordField
   , dBFOComNo     :: String
   , dBFComTime    :: String
   , dBFComdType   :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcDBFRecordField
 
 {#pointer *CThostFtdcDBFRecordField as CThostFtdcDBFRecordFieldPtr -> CThostFtdcDBFRecordField#}
 
@@ -2407,13 +2724,17 @@ data CThostFtdcExchangeField = CThostFtdcExchangeField
   { exchangeProperty :: Char
   , exchangeName     :: String
   , exchangeID       :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcExchangeField
 
 {#pointer *CThostFtdcExchangeField as CThostFtdcExchangeFieldPtr -> CThostFtdcExchangeField#}
 
 newtype CThostFtdcQryCFMMCBrokerKeyField = CThostFtdcQryCFMMCBrokerKeyField
   { brokerID :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcQryCFMMCBrokerKeyField
 
 {#pointer *CThostFtdcQryCFMMCBrokerKeyField as CThostFtdcQryCFMMCBrokerKeyFieldPtr -> CThostFtdcQryCFMMCBrokerKeyField#}
 
@@ -2422,7 +2743,9 @@ data CThostFtdcMarketDataAsk23Field = CThostFtdcMarketDataAsk23Field
   , askPrice3  :: Double
   , askVolume2 :: Int
   , askPrice2  :: Double
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcMarketDataAsk23Field
 
 {#pointer *CThostFtdcMarketDataAsk23Field as CThostFtdcMarketDataAsk23FieldPtr -> CThostFtdcMarketDataAsk23Field#}
 
@@ -2431,27 +2754,35 @@ data CThostFtdcMarketDataBid23Field = CThostFtdcMarketDataBid23Field
   , bidPrice3  :: Double
   , bidVolume2 :: Int
   , bidPrice2  :: Double
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcMarketDataBid23Field
 
 {#pointer *CThostFtdcMarketDataBid23Field as CThostFtdcMarketDataBid23FieldPtr -> CThostFtdcMarketDataBid23Field#}
 
 data CThostFtdcQryErrExecOrderActionField = CThostFtdcQryErrExecOrderActionField
   { investorID :: String
   , brokerID   :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcQryErrExecOrderActionField
 
 {#pointer *CThostFtdcQryErrExecOrderActionField as CThostFtdcQryErrExecOrderActionFieldPtr -> CThostFtdcQryErrExecOrderActionField#}
 
 data CThostFtdcSyncStatusField = CThostFtdcSyncStatusField
   { dataSyncStatus :: Char
   , tradingDay     :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcSyncStatusField
 
 {#pointer *CThostFtdcSyncStatusField as CThostFtdcSyncStatusFieldPtr -> CThostFtdcSyncStatusField#}
 
 newtype CThostFtdcMarketDataAveragePriceField = CThostFtdcMarketDataAveragePriceField
   { averagePrice :: Double
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcMarketDataAveragePriceField
 
 {#pointer *CThostFtdcMarketDataAveragePriceField as CThostFtdcMarketDataAveragePriceFieldPtr -> CThostFtdcMarketDataAveragePriceField#}
 
@@ -2469,7 +2800,9 @@ data CThostFtdcInvestorField = CThostFtdcInvestorField
   , investorGroupID    :: String
   , brokerID           :: String
   , investorID         :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcInvestorField
 
 {#pointer *CThostFtdcInvestorField as CThostFtdcInvestorFieldPtr -> CThostFtdcInvestorField#}
 
@@ -2520,7 +2853,9 @@ data CThostFtdcSyncingTradingAccountField = CThostFtdcSyncingTradingAccountField
   , preMortgage                    :: Double
   , accountID                      :: String
   , brokerID                       :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcSyncingTradingAccountField
 
 {#pointer *CThostFtdcSyncingTradingAccountField as CThostFtdcSyncingTradingAccountFieldPtr -> CThostFtdcSyncingTradingAccountField#}
 
@@ -2536,7 +2871,9 @@ data CThostFtdcMMInstrumentCommissionRateField = CThostFtdcMMInstrumentCommissio
   , brokerID                :: String
   , investorRange           :: Char
   , instrumentID            :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcMMInstrumentCommissionRateField
 
 {#pointer *CThostFtdcMMInstrumentCommissionRateField as CThostFtdcMMInstrumentCommissionRateFieldPtr -> CThostFtdcMMInstrumentCommissionRateField#}
 
@@ -2548,7 +2885,9 @@ data CThostFtdcQryQuoteField = CThostFtdcQryQuoteField
   , instrumentID    :: String
   , investorID      :: String
   , brokerID        :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcQryQuoteField
 
 {#pointer *CThostFtdcQryQuoteField as CThostFtdcQryQuoteFieldPtr -> CThostFtdcQryQuoteField#}
 
@@ -2558,7 +2897,9 @@ data CThostFtdcQryExchangeCombActionField = CThostFtdcQryExchangeCombActionField
   , exchangeInstID :: String
   , clientID       :: String
   , participantID  :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcQryExchangeCombActionField
 
 {#pointer *CThostFtdcQryExchangeCombActionField as CThostFtdcQryExchangeCombActionFieldPtr -> CThostFtdcQryExchangeCombActionField#}
 
@@ -2585,7 +2926,9 @@ data CThostFtdcParkedOrderActionField = CThostFtdcParkedOrderActionField
   , orderActionRef      :: Int
   , investorID          :: String
   , brokerID            :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcParkedOrderActionField
 
 {#pointer *CThostFtdcParkedOrderActionField as CThostFtdcParkedOrderActionFieldPtr -> CThostFtdcParkedOrderActionField#}
 
@@ -2594,7 +2937,9 @@ data CThostFtdcQryInstrumentCommissionRateField = CThostFtdcQryInstrumentCommiss
   , instrumentID :: String
   , investorID   :: String
   , brokerID     :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcQryInstrumentCommissionRateField
 
 {#pointer *CThostFtdcQryInstrumentCommissionRateField as CThostFtdcQryInstrumentCommissionRateFieldPtr -> CThostFtdcQryInstrumentCommissionRateField#}
 
@@ -2604,7 +2949,9 @@ data CThostFtdcManualSyncBrokerUserOTPField = CThostFtdcManualSyncBrokerUserOTPF
   , oTPType   :: Char
   , userID    :: String
   , brokerID  :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcManualSyncBrokerUserOTPField
 
 {#pointer *CThostFtdcManualSyncBrokerUserOTPField as CThostFtdcManualSyncBrokerUserOTPFieldPtr -> CThostFtdcManualSyncBrokerUserOTPField#}
 
@@ -2615,7 +2962,9 @@ data CThostFtdcTradingNoticeInfoField = CThostFtdcTradingNoticeInfoField
   , sendTime       :: String
   , investorID     :: String
   , brokerID       :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcTradingNoticeInfoField
 
 {#pointer *CThostFtdcTradingNoticeInfoField as CThostFtdcTradingNoticeInfoFieldPtr -> CThostFtdcTradingNoticeInfoField#}
 
@@ -2624,7 +2973,9 @@ data CThostFtdcTradingAccountReserveField = CThostFtdcTradingAccountReserveField
   , reserve    :: Double
   , accountID  :: String
   , brokerID   :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcTradingAccountReserveField
 
 {#pointer *CThostFtdcTradingAccountReserveField as CThostFtdcTradingAccountReserveFieldPtr -> CThostFtdcTradingAccountReserveField#}
 
@@ -2644,7 +2995,9 @@ data CThostFtdcInputExecOrderActionField = CThostFtdcInputExecOrderActionField
   , execOrderActionRef :: Int
   , investorID         :: String
   , brokerID           :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcInputExecOrderActionField
 
 {#pointer *CThostFtdcInputExecOrderActionField as CThostFtdcInputExecOrderActionFieldPtr -> CThostFtdcInputExecOrderActionField#}
 
@@ -2653,7 +3006,9 @@ data CThostFtdcQryExchangeStockDisposalActionField = CThostFtdcQryExchangeStockD
   , exchangeID    :: String
   , clientID      :: String
   , participantID :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcQryExchangeStockDisposalActionField
 
 {#pointer *CThostFtdcQryExchangeStockDisposalActionField as CThostFtdcQryExchangeStockDisposalActionFieldPtr -> CThostFtdcQryExchangeStockDisposalActionField#}
 
@@ -2661,7 +3016,9 @@ data CThostFtdcQrySettlementInfoField = CThostFtdcQrySettlementInfoField
   { tradingDay :: String
   , investorID :: String
   , brokerID   :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcQrySettlementInfoField
 
 {#pointer *CThostFtdcQrySettlementInfoField as CThostFtdcQrySettlementInfoFieldPtr -> CThostFtdcQrySettlementInfoField#}
 
@@ -2678,7 +3035,9 @@ data CThostFtdcInputCombActionField = CThostFtdcInputCombActionField
   , instrumentID  :: String
   , investorID    :: String
   , brokerID      :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcInputCombActionField
 
 {#pointer *CThostFtdcInputCombActionField as CThostFtdcInputCombActionFieldPtr -> CThostFtdcInputCombActionField#}
 
@@ -2707,7 +3066,9 @@ data CThostFtdcForQuoteField = CThostFtdcForQuoteField
   , instrumentID     :: String
   , investorID       :: String
   , brokerID         :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcForQuoteField
 
 {#pointer *CThostFtdcForQuoteField as CThostFtdcForQuoteFieldPtr -> CThostFtdcForQuoteField#}
 
@@ -2716,7 +3077,9 @@ data CThostFtdcDiscountField = CThostFtdcDiscountField
   , investorID    :: String
   , investorRange :: Char
   , brokerID      :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcDiscountField
 
 {#pointer *CThostFtdcDiscountField as CThostFtdcDiscountFieldPtr -> CThostFtdcDiscountField#}
 
@@ -2743,7 +3106,9 @@ data CThostFtdcRspSyncKeyField = CThostFtdcRspSyncKeyField
   , bankBranchID   :: String
   , bankID         :: String
   , tradeCode      :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcRspSyncKeyField
 
 {#pointer *CThostFtdcRspSyncKeyField as CThostFtdcRspSyncKeyFieldPtr -> CThostFtdcRspSyncKeyField#}
 
@@ -2752,7 +3117,9 @@ data CThostFtdcQryExchangeExecOrderActionField = CThostFtdcQryExchangeExecOrderA
   , exchangeID    :: String
   , clientID      :: String
   , participantID :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcQryExchangeExecOrderActionField
 
 {#pointer *CThostFtdcQryExchangeExecOrderActionField as CThostFtdcQryExchangeExecOrderActionFieldPtr -> CThostFtdcQryExchangeExecOrderActionField#}
 
@@ -2772,7 +3139,9 @@ data CThostFtdcETFOptionInstrCommRateField = CThostFtdcETFOptionInstrCommRateFie
   , brokerID                :: String
   , investorRange           :: Char
   , instrumentID            :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcETFOptionInstrCommRateField
 
 {#pointer *CThostFtdcETFOptionInstrCommRateField as CThostFtdcETFOptionInstrCommRateFieldPtr -> CThostFtdcETFOptionInstrCommRateField#}
 
@@ -2811,14 +3180,18 @@ data CThostFtdcInstrumentField = CThostFtdcInstrumentField
   , instrumentName         :: String
   , exchangeID             :: String
   , instrumentID           :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcInstrumentField
 
 {#pointer *CThostFtdcInstrumentField as CThostFtdcInstrumentFieldPtr -> CThostFtdcInstrumentField#}
 
 data CThostFtdcUserLogoutField = CThostFtdcUserLogoutField
   { userID   :: String
   , brokerID :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcUserLogoutField
 
 {#pointer *CThostFtdcUserLogoutField as CThostFtdcUserLogoutFieldPtr -> CThostFtdcUserLogoutField#}
 
@@ -2829,7 +3202,9 @@ data CThostFtdcBrokerUserField = CThostFtdcBrokerUserField
   , userName   :: String
   , userID     :: String
   , brokerID   :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcBrokerUserField
 
 {#pointer *CThostFtdcBrokerUserField as CThostFtdcBrokerUserFieldPtr -> CThostFtdcBrokerUserField#}
 
@@ -2837,7 +3212,9 @@ data CThostFtdcQryProductField = CThostFtdcQryProductField
   { exchangeID   :: String
   , productClass :: Char
   , productID    :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcQryProductField
 
 {#pointer *CThostFtdcQryProductField as CThostFtdcQryProductFieldPtr -> CThostFtdcQryProductField#}
 
@@ -2851,7 +3228,9 @@ data CThostFtdcQueryMaxOrderVolumeWithPriceField = CThostFtdcQueryMaxOrderVolume
   , instrumentID :: String
   , investorID   :: String
   , brokerID     :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcQueryMaxOrderVolumeWithPriceField
 
 {#pointer *CThostFtdcQueryMaxOrderVolumeWithPriceField as CThostFtdcQueryMaxOrderVolumeWithPriceFieldPtr -> CThostFtdcQueryMaxOrderVolumeWithPriceField#}
 
@@ -2860,7 +3239,9 @@ data CThostFtdcSettlementInfoConfirmField = CThostFtdcSettlementInfoConfirmField
   , confirmDate :: String
   , investorID  :: String
   , brokerID    :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcSettlementInfoConfirmField
 
 {#pointer *CThostFtdcSettlementInfoConfirmField as CThostFtdcSettlementInfoConfirmFieldPtr -> CThostFtdcSettlementInfoConfirmField#}
 
@@ -2876,7 +3257,9 @@ data CThostFtdcSyncingInstrumentCommissionRateField = CThostFtdcSyncingInstrumen
   , brokerID                :: String
   , investorRange           :: Char
   , instrumentID            :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcSyncingInstrumentCommissionRateField
 
 {#pointer *CThostFtdcSyncingInstrumentCommissionRateField as CThostFtdcSyncingInstrumentCommissionRateFieldPtr -> CThostFtdcSyncingInstrumentCommissionRateField#}
 
@@ -2884,7 +3267,9 @@ data CThostFtdcNoticeField = CThostFtdcNoticeField
   { sequenceLabel :: String
   , content       :: String
   , brokerID      :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcNoticeField
 
 {#pointer *CThostFtdcNoticeField as CThostFtdcNoticeFieldPtr -> CThostFtdcNoticeField#}
 
@@ -2895,7 +3280,9 @@ data CThostFtdcInvestorWithdrawAlgorithmField = CThostFtdcInvestorWithdrawAlgori
   , investorID        :: String
   , investorRange     :: Char
   , brokerID          :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcInvestorWithdrawAlgorithmField
 
 {#pointer *CThostFtdcInvestorWithdrawAlgorithmField as CThostFtdcInvestorWithdrawAlgorithmFieldPtr -> CThostFtdcInvestorWithdrawAlgorithmField#}
 
@@ -2907,7 +3294,9 @@ data CThostFtdcQryOrderField = CThostFtdcQryOrderField
   , instrumentID    :: String
   , investorID      :: String
   , brokerID        :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcQryOrderField
 
 {#pointer *CThostFtdcQryOrderField as CThostFtdcQryOrderFieldPtr -> CThostFtdcQryOrderField#}
 
@@ -2944,7 +3333,9 @@ data CThostFtdcErrOrderField = CThostFtdcErrOrderField
   , instrumentID        :: String
   , investorID          :: String
   , brokerID            :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcErrOrderField
 
 {#pointer *CThostFtdcErrOrderField as CThostFtdcErrOrderFieldPtr -> CThostFtdcErrOrderField#}
 
@@ -2952,13 +3343,17 @@ data CThostFtdcRemoveParkedOrderActionField = CThostFtdcRemoveParkedOrderActionF
   { parkedOrderActionID :: String
   , investorID          :: String
   , brokerID            :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcRemoveParkedOrderActionField
 
 {#pointer *CThostFtdcRemoveParkedOrderActionField as CThostFtdcRemoveParkedOrderActionFieldPtr -> CThostFtdcRemoveParkedOrderActionField#}
 
 newtype CThostFtdcQrySuperUserField = CThostFtdcQrySuperUserField
   { userID :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcQrySuperUserField
 
 {#pointer *CThostFtdcQrySuperUserField as CThostFtdcQrySuperUserFieldPtr -> CThostFtdcQrySuperUserField#}
 
@@ -2988,7 +3383,9 @@ data CThostFtdcExchangeLockField = CThostFtdcExchangeLockField
   , businessUnit      :: String
   , requestID         :: Int
   , volume            :: Int
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcExchangeLockField
 
 {#pointer *CThostFtdcExchangeLockField as CThostFtdcExchangeLockFieldPtr -> CThostFtdcExchangeLockField#}
 
@@ -3018,14 +3415,18 @@ data CThostFtdcStockDisposalActionField = CThostFtdcStockDisposalActionField
   , stockDisposalActionRef :: Int
   , investorID             :: String
   , brokerID               :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcStockDisposalActionField
 
 {#pointer *CThostFtdcStockDisposalActionField as CThostFtdcStockDisposalActionFieldPtr -> CThostFtdcStockDisposalActionField#}
 
 data CThostFtdcRspInfoField = CThostFtdcRspInfoField
   { errorMsg :: String
   , errorID  :: Int
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcRspInfoField
 
 {#pointer *CThostFtdcRspInfoField as CThostFtdcRspInfoFieldPtr -> CThostFtdcRspInfoField#}
 
@@ -3036,21 +3437,27 @@ data CThostFtdcQryForQuoteField = CThostFtdcQryForQuoteField
   , instrumentID    :: String
   , investorID      :: String
   , brokerID        :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcQryForQuoteField
 
 {#pointer *CThostFtdcQryForQuoteField as CThostFtdcQryForQuoteFieldPtr -> CThostFtdcQryForQuoteField#}
 
 data CThostFtdcQryErrStockDisposalActionField = CThostFtdcQryErrStockDisposalActionField
   { investorID :: String
   , brokerID   :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcQryErrStockDisposalActionField
 
 {#pointer *CThostFtdcQryErrStockDisposalActionField as CThostFtdcQryErrStockDisposalActionFieldPtr -> CThostFtdcQryErrStockDisposalActionField#}
 
 data CThostFtdcQryInvestorField = CThostFtdcQryInvestorField
   { investorID :: String
   , brokerID   :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcQryInvestorField
 
 {#pointer *CThostFtdcQryInvestorField as CThostFtdcQryInvestorFieldPtr -> CThostFtdcQryInvestorField#}
 
@@ -3062,7 +3469,9 @@ data CThostFtdcQryTradeField = CThostFtdcQryTradeField
   , instrumentID   :: String
   , investorID     :: String
   , brokerID       :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcQryTradeField
 
 {#pointer *CThostFtdcQryTradeField as CThostFtdcQryTradeFieldPtr -> CThostFtdcQryTradeField#}
 
@@ -3072,7 +3481,9 @@ data CThostFtdcCFMMCTradingAccountKeyField = CThostFtdcCFMMCTradingAccountKeyFie
   , accountID     :: String
   , participantID :: String
   , brokerID      :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcCFMMCTradingAccountKeyField
 
 {#pointer *CThostFtdcCFMMCTradingAccountKeyField as CThostFtdcCFMMCTradingAccountKeyFieldPtr -> CThostFtdcCFMMCTradingAccountKeyField#}
 
@@ -3085,7 +3496,9 @@ data CThostFtdcExecFreezeField = CThostFtdcExecFreezeField
   , brokerID      :: String
   , exchangeID    :: String
   , instrumentID  :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcExecFreezeField
 
 {#pointer *CThostFtdcExecFreezeField as CThostFtdcExecFreezeFieldPtr -> CThostFtdcExecFreezeField#}
 
@@ -3095,14 +3508,18 @@ data CThostFtdcQryOptionInstrTradingRightField = CThostFtdcQryOptionInstrTrading
   , instrumentID :: String
   , investorID   :: String
   , brokerID     :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcQryOptionInstrTradingRightField
 
 {#pointer *CThostFtdcQryOptionInstrTradingRightField as CThostFtdcQryOptionInstrTradingRightFieldPtr -> CThostFtdcQryOptionInstrTradingRightField#}
 
 data CThostFtdcQryLinkManField = CThostFtdcQryLinkManField
   { investorID :: String
   , brokerID   :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcQryLinkManField
 
 {#pointer *CThostFtdcQryLinkManField as CThostFtdcQryLinkManFieldPtr -> CThostFtdcQryLinkManField#}
 
@@ -3125,7 +3542,9 @@ data CThostFtdcExchangeStockDisposalField = CThostFtdcExchangeStockDisposalField
   , stockDisposalLocalID :: String
   , stockDisposalType    :: Char
   , volume               :: Int
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcExchangeStockDisposalField
 
 {#pointer *CThostFtdcExchangeStockDisposalField as CThostFtdcExchangeStockDisposalFieldPtr -> CThostFtdcExchangeStockDisposalField#}
 
@@ -3147,7 +3566,9 @@ data CThostFtdcProductField = CThostFtdcProductField
   , exchangeID           :: String
   , productName          :: String
   , productID            :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcProductField
 
 {#pointer *CThostFtdcProductField as CThostFtdcProductFieldPtr -> CThostFtdcProductField#}
 
@@ -3159,7 +3580,9 @@ data CThostFtdcQryLockField = CThostFtdcQryLockField
   , instrumentID    :: String
   , investorID      :: String
   , brokerID        :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcQryLockField
 
 {#pointer *CThostFtdcQryLockField as CThostFtdcQryLockFieldPtr -> CThostFtdcQryLockField#}
 
@@ -3184,7 +3607,9 @@ data CThostFtdcInvestorPositionCombineDetailField = CThostFtdcInvestorPositionCo
   , exchangeID         :: String
   , openDate           :: String
   , tradingDay         :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcInvestorPositionCombineDetailField
 
 {#pointer *CThostFtdcInvestorPositionCombineDetailField as CThostFtdcInvestorPositionCombineDetailFieldPtr -> CThostFtdcInvestorPositionCombineDetailField#}
 
@@ -3209,7 +3634,9 @@ data CThostFtdcMDTraderOfferField = CThostFtdcMDTraderOfferField
   , participantID            :: String
   , traderID                 :: String
   , exchangeID               :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcMDTraderOfferField
 
 {#pointer *CThostFtdcMDTraderOfferField as CThostFtdcMDTraderOfferFieldPtr -> CThostFtdcMDTraderOfferField#}
 
@@ -3234,7 +3661,9 @@ data CThostFtdcReqSyncKeyField = CThostFtdcReqSyncKeyField
   , bankBranchID   :: String
   , bankID         :: String
   , tradeCode      :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcReqSyncKeyField
 
 {#pointer *CThostFtdcReqSyncKeyField as CThostFtdcReqSyncKeyFieldPtr -> CThostFtdcReqSyncKeyField#}
 
@@ -3242,7 +3671,9 @@ data CThostFtdcQryInvestorLevelField = CThostFtdcQryInvestorLevelField
   { exchangeID :: String
   , investorID :: String
   , brokerID   :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcQryInvestorLevelField
 
 {#pointer *CThostFtdcQryInvestorLevelField as CThostFtdcQryInvestorLevelFieldPtr -> CThostFtdcQryInvestorLevelField#}
 
@@ -3251,7 +3682,9 @@ data CThostFtdcQryLimitPosiField = CThostFtdcQryLimitPosiField
   , instrumentID :: String
   , investorID   :: String
   , brokerID     :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcQryLimitPosiField
 
 {#pointer *CThostFtdcQryLimitPosiField as CThostFtdcQryLimitPosiFieldPtr -> CThostFtdcQryLimitPosiField#}
 
@@ -3259,7 +3692,9 @@ data CThostFtdcQryBrokerTradingAlgosField = CThostFtdcQryBrokerTradingAlgosField
   { instrumentID :: String
   , exchangeID   :: String
   , brokerID     :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcQryBrokerTradingAlgosField
 
 {#pointer *CThostFtdcQryBrokerTradingAlgosField as CThostFtdcQryBrokerTradingAlgosFieldPtr -> CThostFtdcQryBrokerTradingAlgosField#}
 
@@ -3270,7 +3705,9 @@ data CThostFtdcForQuoteRspField = CThostFtdcForQuoteRspField
   , forQuoteSysID :: String
   , instrumentID  :: String
   , tradingDay    :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcForQuoteRspField
 
 {#pointer *CThostFtdcForQuoteRspField as CThostFtdcForQuoteRspFieldPtr -> CThostFtdcForQuoteRspField#}
 
@@ -3282,7 +3719,9 @@ data CThostFtdcStrikeOffsetField = CThostFtdcStrikeOffsetField
   , brokerID      :: String
   , investorRange :: Char
   , instrumentID  :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcStrikeOffsetField
 
 {#pointer *CThostFtdcStrikeOffsetField as CThostFtdcStrikeOffsetFieldPtr -> CThostFtdcStrikeOffsetField#}
 
@@ -3295,7 +3734,9 @@ data CThostFtdcInstrumentStatusField = CThostFtdcInstrumentStatusField
   , settlementGroupID :: String
   , exchangeInstID    :: String
   , exchangeID        :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcInstrumentStatusField
 
 {#pointer *CThostFtdcInstrumentStatusField as CThostFtdcInstrumentStatusFieldPtr -> CThostFtdcInstrumentStatusField#}
 
@@ -3303,7 +3744,9 @@ data CThostFtdcRspAuthenticateField = CThostFtdcRspAuthenticateField
   { userProductInfo :: String
   , userID          :: String
   , brokerID        :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcRspAuthenticateField
 
 {#pointer *CThostFtdcRspAuthenticateField as CThostFtdcRspAuthenticateFieldPtr -> CThostFtdcRspAuthenticateField#}
 
@@ -3312,13 +3755,17 @@ data CThostFtdcCurrentTimeField = CThostFtdcCurrentTimeField
   , currMillisec :: Int
   , currTime     :: String
   , currDate     :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcCurrentTimeField
 
 {#pointer *CThostFtdcCurrentTimeField as CThostFtdcCurrentTimeFieldPtr -> CThostFtdcCurrentTimeField#}
 
 newtype CThostFtdcQryFrontStatusField = CThostFtdcQryFrontStatusField
   { frontID :: Int
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcQryFrontStatusField
 
 {#pointer *CThostFtdcQryFrontStatusField as CThostFtdcQryFrontStatusFieldPtr -> CThostFtdcQryFrontStatusField#}
 
@@ -3326,20 +3773,26 @@ data CThostFtdcQryForQuoteParamField = CThostFtdcQryForQuoteParamField
   { exchangeID   :: String
   , instrumentID :: String
   , brokerID     :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcQryForQuoteParamField
 
 {#pointer *CThostFtdcQryForQuoteParamField as CThostFtdcQryForQuoteParamFieldPtr -> CThostFtdcQryForQuoteParamField#}
 
 data CThostFtdcQrySettlementInfoConfirmField = CThostFtdcQrySettlementInfoConfirmField
   { investorID :: String
   , brokerID   :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcQrySettlementInfoConfirmField
 
 {#pointer *CThostFtdcQrySettlementInfoConfirmField as CThostFtdcQrySettlementInfoConfirmFieldPtr -> CThostFtdcQrySettlementInfoConfirmField#}
 
 newtype CThostFtdcBrokerSyncField = CThostFtdcBrokerSyncField
   { brokerID :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcBrokerSyncField
 
 {#pointer *CThostFtdcBrokerSyncField as CThostFtdcBrokerSyncFieldPtr -> CThostFtdcBrokerSyncField#}
 
@@ -3357,14 +3810,18 @@ data CThostFtdcSyncingInvestorField = CThostFtdcSyncingInvestorField
   , investorGroupID    :: String
   , brokerID           :: String
   , investorID         :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcSyncingInvestorField
 
 {#pointer *CThostFtdcSyncingInvestorField as CThostFtdcSyncingInvestorFieldPtr -> CThostFtdcSyncingInvestorField#}
 
 data CThostFtdcQueryCFMMCTradingAccountTokenField = CThostFtdcQueryCFMMCTradingAccountTokenField
   { investorID :: String
   , brokerID   :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcQueryCFMMCTradingAccountTokenField
 
 {#pointer *CThostFtdcQueryCFMMCTradingAccountTokenField as CThostFtdcQueryCFMMCTradingAccountTokenFieldPtr -> CThostFtdcQueryCFMMCTradingAccountTokenField#}
 
@@ -3380,14 +3837,18 @@ data CThostFtdcPosiFreezeField = CThostFtdcPosiFreezeField
   , instrumentID     :: String
   , investorID       :: String
   , brokerID         :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcPosiFreezeField
 
 {#pointer *CThostFtdcPosiFreezeField as CThostFtdcPosiFreezeFieldPtr -> CThostFtdcPosiFreezeField#}
 
 data CThostFtdcReturnResultField = CThostFtdcReturnResultField
   { descrInfoForReturnCode :: String
   , returnCode             :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcReturnResultField
 
 {#pointer *CThostFtdcReturnResultField as CThostFtdcReturnResultFieldPtr -> CThostFtdcReturnResultField#}
 
@@ -3413,14 +3874,18 @@ data CThostFtdcFutureSignIOField = CThostFtdcFutureSignIOField
   , bankBranchID   :: String
   , bankID         :: String
   , tradeCode      :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcFutureSignIOField
 
 {#pointer *CThostFtdcFutureSignIOField as CThostFtdcFutureSignIOFieldPtr -> CThostFtdcFutureSignIOField#}
 
 data CThostFtdcQrySyncDepositField = CThostFtdcQrySyncDepositField
   { depositSeqNo :: String
   , brokerID     :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcQrySyncDepositField
 
 {#pointer *CThostFtdcQrySyncDepositField as CThostFtdcQrySyncDepositFieldPtr -> CThostFtdcQrySyncDepositField#}
 
@@ -3429,13 +3894,17 @@ data CThostFtdcPartBrokerField = CThostFtdcPartBrokerField
   , participantID :: String
   , exchangeID    :: String
   , brokerID      :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcPartBrokerField
 
 {#pointer *CThostFtdcPartBrokerField as CThostFtdcPartBrokerFieldPtr -> CThostFtdcPartBrokerField#}
 
 newtype CThostFtdcQryInvestorGroupField = CThostFtdcQryInvestorGroupField
   { brokerID :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcQryInvestorGroupField
 
 {#pointer *CThostFtdcQryInvestorGroupField as CThostFtdcQryInvestorGroupFieldPtr -> CThostFtdcQryInvestorGroupField#}
 
@@ -3446,7 +3915,9 @@ data CThostFtdcLockPositionField = CThostFtdcLockPositionField
   , instrumentID :: String
   , investorID   :: String
   , brokerID     :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcLockPositionField
 
 {#pointer *CThostFtdcLockPositionField as CThostFtdcLockPositionFieldPtr -> CThostFtdcLockPositionField#}
 
@@ -3456,21 +3927,27 @@ data CThostFtdcExchangeRateField = CThostFtdcExchangeRateField
   , fromCurrencyUnit :: Double
   , fromCurrencyID   :: String
   , brokerID         :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcExchangeRateField
 
 {#pointer *CThostFtdcExchangeRateField as CThostFtdcExchangeRateFieldPtr -> CThostFtdcExchangeRateField#}
 
 data CThostFtdcQryProductGroupField = CThostFtdcQryProductGroupField
   { exchangeID :: String
   , productID  :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcQryProductGroupField
 
 {#pointer *CThostFtdcQryProductGroupField as CThostFtdcQryProductGroupFieldPtr -> CThostFtdcQryProductGroupField#}
 
 data CThostFtdcSuperUserFunctionField = CThostFtdcSuperUserFunctionField
   { functionCode :: Char
   , userID       :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcSuperUserFunctionField
 
 {#pointer *CThostFtdcSuperUserFunctionField as CThostFtdcSuperUserFunctionFieldPtr -> CThostFtdcSuperUserFunctionField#}
 
@@ -3478,7 +3955,9 @@ data CThostFtdcQryDesignateField = CThostFtdcQryDesignateField
   { exchangeID :: String
   , investorID :: String
   , brokerID   :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcQryDesignateField
 
 {#pointer *CThostFtdcQryDesignateField as CThostFtdcQryDesignateFieldPtr -> CThostFtdcQryDesignateField#}
 
@@ -3486,7 +3965,9 @@ data CThostFtdcFensUserInfoField = CThostFtdcFensUserInfoField
   { loginMode :: Char
   , userID    :: String
   , brokerID  :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcFensUserInfoField
 
 {#pointer *CThostFtdcFensUserInfoField as CThostFtdcFensUserInfoFieldPtr -> CThostFtdcFensUserInfoField#}
 
@@ -3500,14 +3981,18 @@ data CThostFtdcQryHisOrderField = CThostFtdcQryHisOrderField
   , instrumentID    :: String
   , investorID      :: String
   , brokerID        :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcQryHisOrderField
 
 {#pointer *CThostFtdcQryHisOrderField as CThostFtdcQryHisOrderFieldPtr -> CThostFtdcQryHisOrderField#}
 
 data CThostFtdcQryErrOrderField = CThostFtdcQryErrOrderField
   { investorID :: String
   , brokerID   :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcQryErrOrderField
 
 {#pointer *CThostFtdcQryErrOrderField as CThostFtdcQryErrOrderFieldPtr -> CThostFtdcQryErrOrderField#}
 
@@ -3525,7 +4010,9 @@ data CThostFtdcExchangeForQuoteField = CThostFtdcExchangeForQuoteField
   , participantID   :: String
   , exchangeID      :: String
   , forQuoteLocalID :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcExchangeForQuoteField
 
 {#pointer *CThostFtdcExchangeForQuoteField as CThostFtdcExchangeForQuoteFieldPtr -> CThostFtdcExchangeForQuoteField#}
 
@@ -3550,7 +4037,9 @@ data CThostFtdcTraderOfferField = CThostFtdcTraderOfferField
   , participantID            :: String
   , traderID                 :: String
   , exchangeID               :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcTraderOfferField
 
 {#pointer *CThostFtdcTraderOfferField as CThostFtdcTraderOfferFieldPtr -> CThostFtdcTraderOfferField#}
 
@@ -3560,7 +4049,9 @@ data CThostFtdcUserIPField = CThostFtdcUserIPField
   , iPAddress  :: String
   , userID     :: String
   , brokerID   :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcUserIPField
 
 {#pointer *CThostFtdcUserIPField as CThostFtdcUserIPFieldPtr -> CThostFtdcUserIPField#}
 
@@ -3577,7 +4068,9 @@ data CThostFtdcLinkManField = CThostFtdcLinkManField
   , personType         :: Char
   , investorID         :: String
   , brokerID           :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcLinkManField
 
 {#pointer *CThostFtdcLinkManField as CThostFtdcLinkManFieldPtr -> CThostFtdcLinkManField#}
 
@@ -3586,7 +4079,9 @@ data CThostFtdcVerifyCustInfoField = CThostFtdcVerifyCustInfoField
   , identifiedCardNo :: String
   , idCardType       :: Char
   , customerName     :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcVerifyCustInfoField
 
 {#pointer *CThostFtdcVerifyCustInfoField as CThostFtdcVerifyCustInfoFieldPtr -> CThostFtdcVerifyCustInfoField#}
 
@@ -3594,14 +4089,18 @@ data CThostFtdcProductGroupField = CThostFtdcProductGroupField
   { productGroupID :: String
   , exchangeID     :: String
   , productID      :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcProductGroupField
 
 {#pointer *CThostFtdcProductGroupField as CThostFtdcProductGroupFieldPtr -> CThostFtdcProductGroupField#}
 
 data CThostFtdcQryLoginForbiddenUserField = CThostFtdcQryLoginForbiddenUserField
   { userID   :: String
   , brokerID :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcQryLoginForbiddenUserField
 
 {#pointer *CThostFtdcQryLoginForbiddenUserField as CThostFtdcQryLoginForbiddenUserFieldPtr -> CThostFtdcQryLoginForbiddenUserField#}
 
@@ -3609,7 +4108,9 @@ data CThostFtdcQryExchangeMarginRateField = CThostFtdcQryExchangeMarginRateField
   { hedgeFlag    :: Char
   , instrumentID :: String
   , brokerID     :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcQryExchangeMarginRateField
 
 {#pointer *CThostFtdcQryExchangeMarginRateField as CThostFtdcQryExchangeMarginRateFieldPtr -> CThostFtdcQryExchangeMarginRateField#}
 
@@ -3617,7 +4118,9 @@ data CThostFtdcQryLimitAmountField = CThostFtdcQryLimitAmountField
   { exchangeID :: String
   , investorID :: String
   , brokerID   :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcQryLimitAmountField
 
 {#pointer *CThostFtdcQryLimitAmountField as CThostFtdcQryLimitAmountFieldPtr -> CThostFtdcQryLimitAmountField#}
 
@@ -3627,7 +4130,9 @@ data CThostFtdcQryBulletinField = CThostFtdcQryBulletinField
   , sequenceNo  :: Int
   , bulletinID  :: Int
   , exchangeID  :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcQryBulletinField
 
 {#pointer *CThostFtdcQryBulletinField as CThostFtdcQryBulletinFieldPtr -> CThostFtdcQryBulletinField#}
 
@@ -3644,7 +4149,9 @@ data CThostFtdcUserSessionField = CThostFtdcUserSessionField
   , brokerID             :: String
   , sessionID            :: Int
   , frontID              :: Int
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcUserSessionField
 
 {#pointer *CThostFtdcUserSessionField as CThostFtdcUserSessionFieldPtr -> CThostFtdcUserSessionField#}
 
@@ -3656,7 +4163,9 @@ data CThostFtdcSyncDepositField = CThostFtdcSyncDepositField
   , investorID   :: String
   , brokerID     :: String
   , depositSeqNo :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcSyncDepositField
 
 {#pointer *CThostFtdcSyncDepositField as CThostFtdcSyncDepositFieldPtr -> CThostFtdcSyncDepositField#}
 
@@ -3690,7 +4199,9 @@ data CThostFtdcCombActionField = CThostFtdcCombActionField
   , instrumentID    :: String
   , investorID      :: String
   , brokerID        :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcCombActionField
 
 {#pointer *CThostFtdcCombActionField as CThostFtdcCombActionFieldPtr -> CThostFtdcCombActionField#}
 
@@ -3700,7 +4211,9 @@ data CThostFtdcCFMMCTradingAccountTokenField = CThostFtdcCFMMCTradingAccountToke
   , accountID     :: String
   , participantID :: String
   , brokerID      :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcCFMMCTradingAccountTokenField
 
 {#pointer *CThostFtdcCFMMCTradingAccountTokenField as CThostFtdcCFMMCTradingAccountTokenFieldPtr -> CThostFtdcCFMMCTradingAccountTokenField#}
 
@@ -3770,7 +4283,9 @@ data CThostFtdcErrorConditionalOrderField = CThostFtdcErrorConditionalOrderField
   , instrumentID         :: String
   , investorID           :: String
   , brokerID             :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcErrorConditionalOrderField
 
 {#pointer *CThostFtdcErrorConditionalOrderField as CThostFtdcErrorConditionalOrderFieldPtr -> CThostFtdcErrorConditionalOrderField#}
 
@@ -3785,7 +4300,9 @@ data CThostFtdcBrokerUserEventField = CThostFtdcBrokerUserEventField
   , userEventType   :: Char
   , userID          :: String
   , brokerID        :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcBrokerUserEventField
 
 {#pointer *CThostFtdcBrokerUserEventField as CThostFtdcBrokerUserEventFieldPtr -> CThostFtdcBrokerUserEventField#}
 
@@ -3798,7 +4315,9 @@ data CThostFtdcTradingCodeField = CThostFtdcTradingCodeField
   , exchangeID   :: String
   , brokerID     :: String
   , investorID   :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcTradingCodeField
 
 {#pointer *CThostFtdcTradingCodeField as CThostFtdcTradingCodeFieldPtr -> CThostFtdcTradingCodeField#}
 
@@ -3816,7 +4335,9 @@ data CThostFtdcRspUserLoginField = CThostFtdcRspUserLoginField
   , brokerID    :: String
   , loginTime   :: String
   , tradingDay  :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcRspUserLoginField
 
 {#pointer *CThostFtdcRspUserLoginField as CThostFtdcRspUserLoginFieldPtr -> CThostFtdcRspUserLoginField#}
 
@@ -3827,7 +4348,9 @@ data CThostFtdcOptionInstrDeltaField = CThostFtdcOptionInstrDeltaField
   , brokerID      :: String
   , investorRange :: Char
   , instrumentID  :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcOptionInstrDeltaField
 
 {#pointer *CThostFtdcOptionInstrDeltaField as CThostFtdcOptionInstrDeltaFieldPtr -> CThostFtdcOptionInstrDeltaField#}
 
@@ -3838,7 +4361,9 @@ data CThostFtdcSyncFundMortgageField = CThostFtdcSyncFundMortgageField
   , investorID     :: String
   , brokerID       :: String
   , mortgageSeqNo  :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcSyncFundMortgageField
 
 {#pointer *CThostFtdcSyncFundMortgageField as CThostFtdcSyncFundMortgageFieldPtr -> CThostFtdcSyncFundMortgageField#}
 
@@ -3846,7 +4371,9 @@ data CThostFtdcQryStockDisposalField = CThostFtdcQryStockDisposalField
   { exchangeID :: String
   , investorID :: String
   , brokerID   :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcQryStockDisposalField
 
 {#pointer *CThostFtdcQryStockDisposalField as CThostFtdcQryStockDisposalFieldPtr -> CThostFtdcQryStockDisposalField#}
 
@@ -3855,7 +4382,9 @@ data CThostFtdcReqAuthenticateField = CThostFtdcReqAuthenticateField
   , userProductInfo :: String
   , userID          :: String
   , brokerID        :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcReqAuthenticateField
 
 {#pointer *CThostFtdcReqAuthenticateField as CThostFtdcReqAuthenticateFieldPtr -> CThostFtdcReqAuthenticateField#}
 
@@ -3863,7 +4392,9 @@ data CThostFtdcSyncingInvestorGroupField = CThostFtdcSyncingInvestorGroupField
   { investorGroupName :: String
   , investorGroupID   :: String
   , brokerID          :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcSyncingInvestorGroupField
 
 {#pointer *CThostFtdcSyncingInvestorGroupField as CThostFtdcSyncingInvestorGroupFieldPtr -> CThostFtdcSyncingInvestorGroupField#}
 
@@ -3914,7 +4445,9 @@ data CThostFtdcOpenAccountField = CThostFtdcOpenAccountField
   , bankBranchID       :: String
   , bankID             :: String
   , tradeCode          :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcOpenAccountField
 
 {#pointer *CThostFtdcOpenAccountField as CThostFtdcOpenAccountFieldPtr -> CThostFtdcOpenAccountField#}
 
@@ -3926,7 +4459,9 @@ data CThostFtdcBrokerLimitPosiField = CThostFtdcBrokerLimitPosiField
   , exchangeID        :: String
   , instrumentID      :: String
   , brokerID          :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcBrokerLimitPosiField
 
 {#pointer *CThostFtdcBrokerLimitPosiField as CThostFtdcBrokerLimitPosiFieldPtr -> CThostFtdcBrokerLimitPosiField#}
 
@@ -3935,7 +4470,9 @@ data CThostFtdcQryInstrumentTradingRightField = CThostFtdcQryInstrumentTradingRi
   , instrumentID :: String
   , investorID   :: String
   , brokerID     :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcQryInstrumentTradingRightField
 
 {#pointer *CThostFtdcQryInstrumentTradingRightField as CThostFtdcQryInstrumentTradingRightFieldPtr -> CThostFtdcQryInstrumentTradingRightField#}
 
@@ -3956,7 +4493,9 @@ data CThostFtdcExchangeStockDisposalActionField = CThostFtdcExchangeStockDisposa
   , actionFlag           :: Char
   , stockDisposalSysID   :: String
   , exchangeID           :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcExchangeStockDisposalActionField
 
 {#pointer *CThostFtdcExchangeStockDisposalActionField as CThostFtdcExchangeStockDisposalActionFieldPtr -> CThostFtdcExchangeStockDisposalActionField#}
 
@@ -3965,7 +4504,9 @@ data CThostFtdcQryUserSessionField = CThostFtdcQryUserSessionField
   , brokerID  :: String
   , sessionID :: Int
   , frontID   :: Int
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcQryUserSessionField
 
 {#pointer *CThostFtdcQryUserSessionField as CThostFtdcQryUserSessionFieldPtr -> CThostFtdcQryUserSessionField#}
 
@@ -3977,7 +4518,9 @@ data CThostFtdcQryExecOrderField = CThostFtdcQryExecOrderField
   , instrumentID    :: String
   , investorID      :: String
   , brokerID        :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcQryExecOrderField
 
 {#pointer *CThostFtdcQryExecOrderField as CThostFtdcQryExecOrderFieldPtr -> CThostFtdcQryExecOrderField#}
 
@@ -4005,7 +4548,9 @@ data CThostFtdcErrExecOrderField = CThostFtdcErrExecOrderField
   , instrumentID        :: String
   , investorID          :: String
   , brokerID            :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcErrExecOrderField
 
 {#pointer *CThostFtdcErrExecOrderField as CThostFtdcErrExecOrderFieldPtr -> CThostFtdcErrExecOrderField#}
 
@@ -4036,7 +4581,9 @@ data CThostFtdcRspQueryTradeResultBySerialField = CThostFtdcRspQueryTradeResultB
   , bankBranchID                 :: String
   , bankID                       :: String
   , tradeCode                    :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcRspQueryTradeResultBySerialField
 
 {#pointer *CThostFtdcRspQueryTradeResultBySerialField as CThostFtdcRspQueryTradeResultBySerialFieldPtr -> CThostFtdcRspQueryTradeResultBySerialField#}
 
@@ -4086,7 +4633,9 @@ data CThostFtdcInvestorPositionField = CThostFtdcInvestorPositionField
   , investorID         :: String
   , brokerID           :: String
   , instrumentID       :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcInvestorPositionField
 
 {#pointer *CThostFtdcInvestorPositionField as CThostFtdcInvestorPositionFieldPtr -> CThostFtdcInvestorPositionField#}
 
@@ -4138,7 +4687,9 @@ data CThostFtdcTradingAccountField = CThostFtdcTradingAccountField
   , preMortgage                    :: Double
   , accountID                      :: String
   , brokerID                       :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcTradingAccountField
 
 {#pointer *CThostFtdcTradingAccountField as CThostFtdcTradingAccountFieldPtr -> CThostFtdcTradingAccountField#}
 
@@ -4148,14 +4699,18 @@ data CThostFtdcInstructionRightField = CThostFtdcInstructionRightField
   , investorID       :: String
   , exchangeID       :: String
   , brokerID         :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcInstructionRightField
 
 {#pointer *CThostFtdcInstructionRightField as CThostFtdcInstructionRightFieldPtr -> CThostFtdcInstructionRightField#}
 
 data CThostFtdcQryCFMMCTradingAccountKeyField = CThostFtdcQryCFMMCTradingAccountKeyField
   { investorID :: String
   , brokerID   :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcQryCFMMCTradingAccountKeyField
 
 {#pointer *CThostFtdcQryCFMMCTradingAccountKeyField as CThostFtdcQryCFMMCTradingAccountKeyFieldPtr -> CThostFtdcQryCFMMCTradingAccountKeyField#}
 
@@ -4163,7 +4718,9 @@ data CThostFtdcExchangeSequenceField = CThostFtdcExchangeSequenceField
   { marketStatus :: Char
   , sequenceNo   :: Int
   , exchangeID   :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcExchangeSequenceField
 
 {#pointer *CThostFtdcExchangeSequenceField as CThostFtdcExchangeSequenceFieldPtr -> CThostFtdcExchangeSequenceField#}
 
@@ -4171,7 +4728,9 @@ data CThostFtdcUserRightsAssignField = CThostFtdcUserRightsAssignField
   { dRIdentityID :: Int
   , userID       :: String
   , brokerID     :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcUserRightsAssignField
 
 {#pointer *CThostFtdcUserRightsAssignField as CThostFtdcUserRightsAssignFieldPtr -> CThostFtdcUserRightsAssignField#}
 
@@ -4180,7 +4739,9 @@ data CThostFtdcTransferBankField = CThostFtdcTransferBankField
   , bankName   :: String
   , bankBrchID :: String
   , bankID     :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcTransferBankField
 
 {#pointer *CThostFtdcTransferBankField as CThostFtdcTransferBankFieldPtr -> CThostFtdcTransferBankField#}
 
@@ -4208,14 +4769,18 @@ data CThostFtdcMarketDataField = CThostFtdcMarketDataField
   , exchangeID         :: String
   , instrumentID       :: String
   , tradingDay         :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcMarketDataField
 
 {#pointer *CThostFtdcMarketDataField as CThostFtdcMarketDataFieldPtr -> CThostFtdcMarketDataField#}
 
 data CThostFtdcQryCommRateModelField = CThostFtdcQryCommRateModelField
   { commModelID :: String
   , brokerID    :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcQryCommRateModelField
 
 {#pointer *CThostFtdcQryCommRateModelField as CThostFtdcQryCommRateModelFieldPtr -> CThostFtdcQryCommRateModelField#}
 
@@ -4243,7 +4808,9 @@ data CThostFtdcNotifyFutureSignOutField = CThostFtdcNotifyFutureSignOutField
   , bankBranchID   :: String
   , bankID         :: String
   , tradeCode      :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcNotifyFutureSignOutField
 
 {#pointer *CThostFtdcNotifyFutureSignOutField as CThostFtdcNotifyFutureSignOutFieldPtr -> CThostFtdcNotifyFutureSignOutField#}
 
@@ -4273,13 +4840,17 @@ data CThostFtdcNotifyFutureSignInField = CThostFtdcNotifyFutureSignInField
   , bankBranchID   :: String
   , bankID         :: String
   , tradeCode      :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcNotifyFutureSignInField
 
 {#pointer *CThostFtdcNotifyFutureSignInField as CThostFtdcNotifyFutureSignInFieldPtr -> CThostFtdcNotifyFutureSignInField#}
 
 newtype CThostFtdcQryExchangeField = CThostFtdcQryExchangeField
   { exchangeID :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcQryExchangeField
 
 {#pointer *CThostFtdcQryExchangeField as CThostFtdcQryExchangeFieldPtr -> CThostFtdcQryExchangeField#}
 
@@ -4288,7 +4859,9 @@ data CThostFtdcQryInvestorPositionField = CThostFtdcQryInvestorPositionField
   , instrumentID :: String
   , investorID   :: String
   , brokerID     :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcQryInvestorPositionField
 
 {#pointer *CThostFtdcQryInvestorPositionField as CThostFtdcQryInvestorPositionFieldPtr -> CThostFtdcQryInvestorPositionField#}
 
@@ -4299,7 +4872,9 @@ data CThostFtdcCombinationLegField = CThostFtdcCombinationLegField
   , legInstrumentID  :: String
   , legID            :: Int
   , combInstrumentID :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcCombinationLegField
 
 {#pointer *CThostFtdcCombinationLegField as CThostFtdcCombinationLegFieldPtr -> CThostFtdcCombinationLegField#}
 
@@ -4308,7 +4883,9 @@ data CThostFtdcFrontStatusField = CThostFtdcFrontStatusField
   , lastReportTime :: String
   , lastReportDate :: String
   , frontID        :: Int
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcFrontStatusField
 
 {#pointer *CThostFtdcFrontStatusField as CThostFtdcFrontStatusFieldPtr -> CThostFtdcFrontStatusField#}
 
@@ -4316,7 +4893,9 @@ data CThostFtdcQryQuoteActionField = CThostFtdcQryQuoteActionField
   { exchangeID :: String
   , investorID :: String
   , brokerID   :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcQryQuoteActionField
 
 {#pointer *CThostFtdcQryQuoteActionField as CThostFtdcQryQuoteActionFieldPtr -> CThostFtdcQryQuoteActionField#}
 
@@ -4361,7 +4940,9 @@ data CThostFtdcNotifyQueryAccountField = CThostFtdcNotifyQueryAccountField
   , bankBranchID     :: String
   , bankID           :: String
   , tradeCode        :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcNotifyQueryAccountField
 
 {#pointer *CThostFtdcNotifyQueryAccountField as CThostFtdcNotifyQueryAccountFieldPtr -> CThostFtdcNotifyQueryAccountField#}
 
@@ -4369,7 +4950,9 @@ data CThostFtdcCombInstrumentGuardField = CThostFtdcCombInstrumentGuardField
   { guarantRatio :: Double
   , instrumentID :: String
   , brokerID     :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcCombInstrumentGuardField
 
 {#pointer *CThostFtdcCombInstrumentGuardField as CThostFtdcCombInstrumentGuardFieldPtr -> CThostFtdcCombInstrumentGuardField#}
 
@@ -4424,7 +5007,9 @@ data CThostFtdcQuoteField = CThostFtdcQuoteField
   , instrumentID      :: String
   , investorID        :: String
   , brokerID          :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcQuoteField
 
 {#pointer *CThostFtdcQuoteField as CThostFtdcQuoteFieldPtr -> CThostFtdcQuoteField#}
 
@@ -4474,13 +5059,17 @@ data CThostFtdcRspTransferField = CThostFtdcRspTransferField
   , bankBranchID      :: String
   , bankID            :: String
   , tradeCode         :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcRspTransferField
 
 {#pointer *CThostFtdcRspTransferField as CThostFtdcRspTransferFieldPtr -> CThostFtdcRspTransferField#}
 
 newtype CThostFtdcQrySuperUserFunctionField = CThostFtdcQrySuperUserFunctionField
   { userID :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcQrySuperUserFunctionField
 
 {#pointer *CThostFtdcQrySuperUserFunctionField as CThostFtdcQrySuperUserFunctionFieldPtr -> CThostFtdcQrySuperUserFunctionField#}
 
@@ -4489,7 +5078,9 @@ data CThostFtdcDRTransferField = CThostFtdcDRTransferField
   , origBrokerID     :: String
   , destDRIdentityID :: Int
   , origDRIdentityID :: Int
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcDRTransferField
 
 {#pointer *CThostFtdcDRTransferField as CThostFtdcDRTransferFieldPtr -> CThostFtdcDRTransferField#}
 
@@ -4505,7 +5096,9 @@ data CThostFtdcInputBatchOrderActionField = CThostFtdcInputBatchOrderActionField
   , orderActionRef :: Int
   , investorID     :: String
   , brokerID       :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcInputBatchOrderActionField
 
 {#pointer *CThostFtdcInputBatchOrderActionField as CThostFtdcInputBatchOrderActionFieldPtr -> CThostFtdcInputBatchOrderActionField#}
 
@@ -4515,7 +5108,9 @@ data CThostFtdcBrokerLimitPosiParamField = CThostFtdcBrokerLimitPosiParamField
   , exchangeID   :: String
   , instrumentID :: String
   , brokerID     :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcBrokerLimitPosiParamField
 
 {#pointer *CThostFtdcBrokerLimitPosiParamField as CThostFtdcBrokerLimitPosiParamFieldPtr -> CThostFtdcBrokerLimitPosiParamField#}
 
@@ -4524,14 +5119,18 @@ data CThostFtdcQryLockPositionField = CThostFtdcQryLockPositionField
   , instrumentID :: String
   , investorID   :: String
   , brokerID     :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcQryLockPositionField
 
 {#pointer *CThostFtdcQryLockPositionField as CThostFtdcQryLockPositionFieldPtr -> CThostFtdcQryLockPositionField#}
 
 data CThostFtdcQryBrokerUserFunctionField = CThostFtdcQryBrokerUserFunctionField
   { userID   :: String
   , brokerID :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcQryBrokerUserFunctionField
 
 {#pointer *CThostFtdcQryBrokerUserFunctionField as CThostFtdcQryBrokerUserFunctionFieldPtr -> CThostFtdcQryBrokerUserFunctionField#}
 
@@ -4539,7 +5138,9 @@ data CThostFtdcQryExchangeMarginRateAdjustField = CThostFtdcQryExchangeMarginRat
   { hedgeFlag    :: Char
   , instrumentID :: String
   , brokerID     :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcQryExchangeMarginRateAdjustField
 
 {#pointer *CThostFtdcQryExchangeMarginRateAdjustField as CThostFtdcQryExchangeMarginRateAdjustFieldPtr -> CThostFtdcQryExchangeMarginRateAdjustField#}
 
@@ -4553,7 +5154,9 @@ data CThostFtdcExchangeStockDisposalActionErrorField = CThostFtdcExchangeStockDi
   , traderID             :: String
   , stockDisposalSysID   :: String
   , exchangeID           :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcExchangeStockDisposalActionErrorField
 
 {#pointer *CThostFtdcExchangeStockDisposalActionErrorField as CThostFtdcExchangeStockDisposalActionErrorFieldPtr -> CThostFtdcExchangeStockDisposalActionErrorField#}
 
@@ -4571,7 +5174,9 @@ data CThostFtdcTransferHeaderField = CThostFtdcTransferHeaderField
   , tradeDate   :: String
   , tradeCode   :: String
   , version     :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcTransferHeaderField
 
 {#pointer *CThostFtdcTransferHeaderField as CThostFtdcTransferHeaderFieldPtr -> CThostFtdcTransferHeaderField#}
 
@@ -4582,7 +5187,9 @@ data CThostFtdcSyncingInstrumentTradingRightField = CThostFtdcSyncingInstrumentT
   , brokerID      :: String
   , investorRange :: Char
   , instrumentID  :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcSyncingInstrumentTradingRightField
 
 {#pointer *CThostFtdcSyncingInstrumentTradingRightField as CThostFtdcSyncingInstrumentTradingRightFieldPtr -> CThostFtdcSyncingInstrumentTradingRightField#}
 
@@ -4650,7 +5257,9 @@ data CThostFtdcOrderField = CThostFtdcOrderField
   , instrumentID         :: String
   , investorID           :: String
   , brokerID             :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcOrderField
 
 {#pointer *CThostFtdcOrderField as CThostFtdcOrderFieldPtr -> CThostFtdcOrderField#}
 
@@ -4685,7 +5294,9 @@ data CThostFtdcTradeField = CThostFtdcTradeField
   , instrumentID   :: String
   , investorID     :: String
   , brokerID       :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcTradeField
 
 {#pointer *CThostFtdcTradeField as CThostFtdcTradeFieldPtr -> CThostFtdcTradeField#}
 
@@ -4720,7 +5331,9 @@ data CThostFtdcInputOrderField = CThostFtdcInputOrderField
   , instrumentID        :: String
   , investorID          :: String
   , brokerID            :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcInputOrderField
 
 {#pointer *CThostFtdcInputOrderField as CThostFtdcInputOrderFieldPtr -> CThostFtdcInputOrderField#}
 
@@ -4736,7 +5349,9 @@ data CThostFtdcReqUserLoginField = CThostFtdcReqUserLoginField
   , userID               :: String
   , brokerID             :: String
   , tradingDay           :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcReqUserLoginField
 
 {#pointer *CThostFtdcReqUserLoginField as CThostFtdcReqUserLoginFieldPtr -> CThostFtdcReqUserLoginField#}
 
@@ -4744,13 +5359,17 @@ data CThostFtdcBrokerUserPasswordField = CThostFtdcBrokerUserPasswordField
   { password :: String
   , userID   :: String
   , brokerID :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcBrokerUserPasswordField
 
 {#pointer *CThostFtdcBrokerUserPasswordField as CThostFtdcBrokerUserPasswordFieldPtr -> CThostFtdcBrokerUserPasswordField#}
 
 newtype CThostFtdcSpecificInstrumentField = CThostFtdcSpecificInstrumentField
   { instrumentID :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcSpecificInstrumentField
 
 {#pointer *CThostFtdcSpecificInstrumentField as CThostFtdcSpecificInstrumentFieldPtr -> CThostFtdcSpecificInstrumentField#}
 
@@ -4759,7 +5378,9 @@ data CThostFtdcContractBankField = CThostFtdcContractBankField
   , bankBrchID :: String
   , bankID     :: String
   , brokerID   :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcContractBankField
 
 {#pointer *CThostFtdcContractBankField as CThostFtdcContractBankFieldPtr -> CThostFtdcContractBankField#}
 
@@ -4770,7 +5391,9 @@ data CThostFtdcSettlementInfoField = CThostFtdcSettlementInfoField
   , brokerID     :: String
   , settlementID :: Int
   , tradingDay   :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcSettlementInfoField
 
 {#pointer *CThostFtdcSettlementInfoField as CThostFtdcSettlementInfoFieldPtr -> CThostFtdcSettlementInfoField#}
 
@@ -4788,7 +5411,9 @@ data CThostFtdcOptionInstrCommRateField = CThostFtdcOptionInstrCommRateField
   , brokerID                :: String
   , investorRange           :: Char
   , instrumentID            :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcOptionInstrCommRateField
 
 {#pointer *CThostFtdcOptionInstrCommRateField as CThostFtdcOptionInstrCommRateFieldPtr -> CThostFtdcOptionInstrCommRateField#}
 
@@ -4796,7 +5421,9 @@ data CThostFtdcMarginModelField = CThostFtdcMarginModelField
   { marginModelName :: String
   , marginModelID   :: String
   , brokerID        :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcMarginModelField
 
 {#pointer *CThostFtdcMarginModelField as CThostFtdcMarginModelFieldPtr -> CThostFtdcMarginModelField#}
 
@@ -4806,7 +5433,9 @@ data CThostFtdcInvestorAccountField = CThostFtdcInvestorAccountField
   , accountID  :: String
   , investorID :: String
   , brokerID   :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcInvestorAccountField
 
 {#pointer *CThostFtdcInvestorAccountField as CThostFtdcInvestorAccountFieldPtr -> CThostFtdcInvestorAccountField#}
 
@@ -4814,7 +5443,9 @@ data CThostFtdcQryContractBankField = CThostFtdcQryContractBankField
   { bankBrchID :: String
   , bankID     :: String
   , brokerID   :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcQryContractBankField
 
 {#pointer *CThostFtdcQryContractBankField as CThostFtdcQryContractBankFieldPtr -> CThostFtdcQryContractBankField#}
 
@@ -4823,7 +5454,9 @@ data CThostFtdcTransferQryBankReqField = CThostFtdcTransferQryBankReqField
   , futureAccPwd  :: String
   , futurePwdFlag :: Char
   , futureAccount :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcTransferQryBankReqField
 
 {#pointer *CThostFtdcTransferQryBankReqField as CThostFtdcTransferQryBankReqFieldPtr -> CThostFtdcTransferQryBankReqField#}
 
@@ -4854,7 +5487,9 @@ data CThostFtdcReqQueryTradeResultBySerialField = CThostFtdcReqQueryTradeResultB
   , bankBranchID       :: String
   , bankID             :: String
   , tradeCode          :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcReqQueryTradeResultBySerialField
 
 {#pointer *CThostFtdcReqQueryTradeResultBySerialField as CThostFtdcReqQueryTradeResultBySerialFieldPtr -> CThostFtdcReqQueryTradeResultBySerialField#}
 
@@ -4862,7 +5497,9 @@ data CThostFtdcQryExchangeRateField = CThostFtdcQryExchangeRateField
   { toCurrencyID   :: String
   , fromCurrencyID :: String
   , brokerID       :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcQryExchangeRateField
 
 {#pointer *CThostFtdcQryExchangeRateField as CThostFtdcQryExchangeRateFieldPtr -> CThostFtdcQryExchangeRateField#}
 
@@ -4912,7 +5549,9 @@ data CThostFtdcSyncingInvestorPositionField = CThostFtdcSyncingInvestorPositionF
   , investorID         :: String
   , brokerID           :: String
   , instrumentID       :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcSyncingInvestorPositionField
 
 {#pointer *CThostFtdcSyncingInvestorPositionField as CThostFtdcSyncingInvestorPositionFieldPtr -> CThostFtdcSyncingInvestorPositionField#}
 
@@ -4945,7 +5584,9 @@ data CThostFtdcTransferSerialField = CThostFtdcTransferSerialField
   , tradingDay       :: String
   , tradeDate        :: String
   , plateSerial      :: Int
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcTransferSerialField
 
 {#pointer *CThostFtdcTransferSerialField as CThostFtdcTransferSerialFieldPtr -> CThostFtdcTransferSerialField#}
 
@@ -4955,7 +5596,9 @@ data CThostFtdcQryExchangeQuoteField = CThostFtdcQryExchangeQuoteField
   , exchangeInstID :: String
   , clientID       :: String
   , participantID  :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcQryExchangeQuoteField
 
 {#pointer *CThostFtdcQryExchangeQuoteField as CThostFtdcQryExchangeQuoteFieldPtr -> CThostFtdcQryExchangeQuoteField#}
 
@@ -4967,7 +5610,9 @@ data CThostFtdcTransferQryBankRspField = CThostFtdcTransferQryBankRspField
   , futureAccount :: String
   , retInfo       :: String
   , retCode       :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcTransferQryBankRspField
 
 {#pointer *CThostFtdcTransferQryBankRspField as CThostFtdcTransferQryBankRspFieldPtr -> CThostFtdcTransferQryBankRspField#}
 
@@ -4975,7 +5620,9 @@ data CThostFtdcBrokerUserFunctionField = CThostFtdcBrokerUserFunctionField
   { brokerFunctionCode :: Char
   , userID             :: String
   , brokerID           :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcBrokerUserFunctionField
 
 {#pointer *CThostFtdcBrokerUserFunctionField as CThostFtdcBrokerUserFunctionFieldPtr -> CThostFtdcBrokerUserFunctionField#}
 
@@ -4988,7 +5635,9 @@ data CThostFtdcMarketDataStaticField = CThostFtdcMarketDataStaticField
   , lowestPrice     :: Double
   , highestPrice    :: Double
   , openPrice       :: Double
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcMarketDataStaticField
 
 {#pointer *CThostFtdcMarketDataStaticField as CThostFtdcMarketDataStaticFieldPtr -> CThostFtdcMarketDataStaticField#}
 
@@ -5037,7 +5686,9 @@ data CThostFtdcExecOrderField = CThostFtdcExecOrderField
   , instrumentID        :: String
   , investorID          :: String
   , brokerID            :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcExecOrderField
 
 {#pointer *CThostFtdcExecOrderField as CThostFtdcExecOrderFieldPtr -> CThostFtdcExecOrderField#}
 
@@ -5045,7 +5696,9 @@ data CThostFtdcQryOrderActionField = CThostFtdcQryOrderActionField
   { exchangeID :: String
   , investorID :: String
   , brokerID   :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcQryOrderActionField
 
 {#pointer *CThostFtdcQryOrderActionField as CThostFtdcQryOrderActionFieldPtr -> CThostFtdcQryOrderActionField#}
 
@@ -5081,7 +5734,9 @@ data CThostFtdcErrOrderActionField = CThostFtdcErrOrderActionField
   , orderActionRef    :: Int
   , investorID        :: String
   , brokerID          :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcErrOrderActionField
 
 {#pointer *CThostFtdcErrOrderActionField as CThostFtdcErrOrderActionFieldPtr -> CThostFtdcErrOrderActionField#}
 
@@ -5106,7 +5761,9 @@ data CThostFtdcExchangeCombActionField = CThostFtdcExchangeCombActionField
   , combDirection  :: Char
   , volume         :: Int
   , direction      :: Char
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcExchangeCombActionField
 
 {#pointer *CThostFtdcExchangeCombActionField as CThostFtdcExchangeCombActionFieldPtr -> CThostFtdcExchangeCombActionField#}
 
@@ -5114,14 +5771,18 @@ data CThostFtdcProductExchRateField = CThostFtdcProductExchRateField
   { exchangeRate    :: Double
   , quoteCurrencyID :: String
   , productID       :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcProductExchRateField
 
 {#pointer *CThostFtdcProductExchRateField as CThostFtdcProductExchRateFieldPtr -> CThostFtdcProductExchRateField#}
 
 data CThostFtdcQryErrExecOrderField = CThostFtdcQryErrExecOrderField
   { investorID :: String
   , brokerID   :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcQryErrExecOrderField
 
 {#pointer *CThostFtdcQryErrExecOrderField as CThostFtdcQryErrExecOrderFieldPtr -> CThostFtdcQryErrExecOrderField#}
 
@@ -5130,7 +5791,9 @@ data CThostFtdcQryParkedOrderField = CThostFtdcQryParkedOrderField
   , instrumentID :: String
   , investorID   :: String
   , brokerID     :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcQryParkedOrderField
 
 {#pointer *CThostFtdcQryParkedOrderField as CThostFtdcQryParkedOrderFieldPtr -> CThostFtdcQryParkedOrderField#}
 
@@ -5140,7 +5803,9 @@ data CThostFtdcQryAccountregisterField = CThostFtdcQryAccountregisterField
   , bankID       :: String
   , accountID    :: String
   , brokerID     :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcQryAccountregisterField
 
 {#pointer *CThostFtdcQryAccountregisterField as CThostFtdcQryAccountregisterFieldPtr -> CThostFtdcQryAccountregisterField#}
 
@@ -5168,7 +5833,9 @@ data CThostFtdcInputQuoteField = CThostFtdcInputQuoteField
   , instrumentID  :: String
   , investorID    :: String
   , brokerID      :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcInputQuoteField
 
 {#pointer *CThostFtdcInputQuoteField as CThostFtdcInputQuoteFieldPtr -> CThostFtdcInputQuoteField#}
 
@@ -5177,7 +5844,9 @@ data CThostFtdcTradingAccountPasswordUpdateV1Field = CThostFtdcTradingAccountPas
   , oldPassword :: String
   , investorID  :: String
   , brokerID    :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcTradingAccountPasswordUpdateV1Field
 
 {#pointer *CThostFtdcTradingAccountPasswordUpdateV1Field as CThostFtdcTradingAccountPasswordUpdateV1FieldPtr -> CThostFtdcTradingAccountPasswordUpdateV1Field#}
 
@@ -5225,19 +5894,25 @@ data CThostFtdcReqTransferField = CThostFtdcReqTransferField
   , bankBranchID      :: String
   , bankID            :: String
   , tradeCode         :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcReqTransferField
 
 {#pointer *CThostFtdcReqTransferField as CThostFtdcReqTransferFieldPtr -> CThostFtdcReqTransferField#}
 
 newtype CThostFtdcQryNoticeField = CThostFtdcQryNoticeField
   { brokerID :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcQryNoticeField
 
 {#pointer *CThostFtdcQryNoticeField as CThostFtdcQryNoticeFieldPtr -> CThostFtdcQryNoticeField#}
 
 newtype CThostFtdcQryProductExchRateField = CThostFtdcQryProductExchRateField
   { productID :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcQryProductExchRateField
 
 {#pointer *CThostFtdcQryProductExchRateField as CThostFtdcQryProductExchRateFieldPtr -> CThostFtdcQryProductExchRateField#}
 
@@ -5246,7 +5921,9 @@ data CThostFtdcIndexPriceField = CThostFtdcIndexPriceField
   , closePrice   :: Double
   , instrumentID :: String
   , brokerID     :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcIndexPriceField
 
 {#pointer *CThostFtdcIndexPriceField as CThostFtdcIndexPriceFieldPtr -> CThostFtdcIndexPriceField#}
 
@@ -5286,7 +5963,9 @@ data CThostFtdcParkedOrderField = CThostFtdcParkedOrderField
   , instrumentID        :: String
   , investorID          :: String
   , brokerID            :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcParkedOrderField
 
 {#pointer *CThostFtdcParkedOrderField as CThostFtdcParkedOrderFieldPtr -> CThostFtdcParkedOrderField#}
 
@@ -5329,7 +6008,9 @@ data CThostFtdcRspQueryAccountField = CThostFtdcRspQueryAccountField
   , bankBranchID     :: String
   , bankID           :: String
   , tradeCode        :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcRspQueryAccountField
 
 {#pointer *CThostFtdcRspQueryAccountField as CThostFtdcRspQueryAccountFieldPtr -> CThostFtdcRspQueryAccountField#}
 
@@ -5339,7 +6020,9 @@ data CThostFtdcAuthenticationInfoField = CThostFtdcAuthenticationInfoField
   , userProductInfo :: String
   , userID          :: String
   , brokerID        :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcAuthenticationInfoField
 
 {#pointer *CThostFtdcAuthenticationInfoField as CThostFtdcAuthenticationInfoFieldPtr -> CThostFtdcAuthenticationInfoField#}
 
@@ -5363,14 +6046,18 @@ data CThostFtdcVerifyFuturePasswordField = CThostFtdcVerifyFuturePasswordField
   , bankBranchID   :: String
   , bankID         :: String
   , tradeCode      :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcVerifyFuturePasswordField
 
 {#pointer *CThostFtdcVerifyFuturePasswordField as CThostFtdcVerifyFuturePasswordFieldPtr -> CThostFtdcVerifyFuturePasswordField#}
 
 data CThostFtdcQrySyncFundMortgageField = CThostFtdcQrySyncFundMortgageField
   { mortgageSeqNo :: String
   , brokerID      :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcQrySyncFundMortgageField
 
 {#pointer *CThostFtdcQrySyncFundMortgageField as CThostFtdcQrySyncFundMortgageFieldPtr -> CThostFtdcQrySyncFundMortgageField#}
 
@@ -5419,14 +6106,18 @@ data CThostFtdcReqOpenAccountField = CThostFtdcReqOpenAccountField
   , bankBranchID       :: String
   , bankID             :: String
   , tradeCode          :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcReqOpenAccountField
 
 {#pointer *CThostFtdcReqOpenAccountField as CThostFtdcReqOpenAccountFieldPtr -> CThostFtdcReqOpenAccountField#}
 
 data CThostFtdcQryTradingNoticeField = CThostFtdcQryTradingNoticeField
   { investorID :: String
   , brokerID   :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcQryTradingNoticeField
 
 {#pointer *CThostFtdcQryTradingNoticeField as CThostFtdcQryTradingNoticeFieldPtr -> CThostFtdcQryTradingNoticeField#}
 
@@ -5434,7 +6125,9 @@ data CThostFtdcLogoutAllField = CThostFtdcLogoutAllField
   { systemName :: String
   , sessionID  :: Int
   , frontID    :: Int
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcLogoutAllField
 
 {#pointer *CThostFtdcLogoutAllField as CThostFtdcLogoutAllFieldPtr -> CThostFtdcLogoutAllField#}
 
@@ -5449,7 +6142,9 @@ data CThostFtdcOptionInstrTradeCostField = CThostFtdcOptionInstrTradeCostField
   , instrumentID    :: String
   , investorID      :: String
   , brokerID        :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcOptionInstrTradeCostField
 
 {#pointer *CThostFtdcOptionInstrTradeCostField as CThostFtdcOptionInstrTradeCostFieldPtr -> CThostFtdcOptionInstrTradeCostField#}
 
@@ -5506,7 +6201,9 @@ data CThostFtdcRspRepealField = CThostFtdcRspRepealField
   , bankRepealFlag     :: Char
   , repealedTimes      :: Int
   , repealTimeInterval :: Int
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcRspRepealField
 
 {#pointer *CThostFtdcRspRepealField as CThostFtdcRspRepealFieldPtr -> CThostFtdcRspRepealField#}
 
@@ -5516,20 +6213,26 @@ data CThostFtdcQryTradingCodeField = CThostFtdcQryTradingCodeField
   , exchangeID   :: String
   , investorID   :: String
   , brokerID     :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcQryTradingCodeField
 
 {#pointer *CThostFtdcQryTradingCodeField as CThostFtdcQryTradingCodeFieldPtr -> CThostFtdcQryTradingCodeField#}
 
 data CThostFtdcQryTransferBankField = CThostFtdcQryTransferBankField
   { bankBrchID :: String
   , bankID     :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcQryTransferBankField
 
 {#pointer *CThostFtdcQryTransferBankField as CThostFtdcQryTransferBankFieldPtr -> CThostFtdcQryTransferBankField#}
 
 newtype CThostFtdcQryBrokerField = CThostFtdcQryBrokerField
   { brokerID :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcQryBrokerField
 
 {#pointer *CThostFtdcQryBrokerField as CThostFtdcQryBrokerFieldPtr -> CThostFtdcQryBrokerField#}
 
@@ -5539,7 +6242,9 @@ data CThostFtdcQryExchangeOrderField = CThostFtdcQryExchangeOrderField
   , exchangeInstID :: String
   , clientID       :: String
   , participantID  :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcQryExchangeOrderField
 
 {#pointer *CThostFtdcQryExchangeOrderField as CThostFtdcQryExchangeOrderFieldPtr -> CThostFtdcQryExchangeOrderField#}
 
@@ -5554,7 +6259,9 @@ data CThostFtdcInstrumentMarginRateField = CThostFtdcInstrumentMarginRateField
   , brokerID                 :: String
   , investorRange            :: Char
   , instrumentID             :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcInstrumentMarginRateField
 
 {#pointer *CThostFtdcInstrumentMarginRateField as CThostFtdcInstrumentMarginRateFieldPtr -> CThostFtdcInstrumentMarginRateField#}
 
@@ -5586,20 +6293,26 @@ data CThostFtdcQuoteActionField = CThostFtdcQuoteActionField
   , quoteActionRef    :: Int
   , investorID        :: String
   , brokerID          :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcQuoteActionField
 
 {#pointer *CThostFtdcQuoteActionField as CThostFtdcQuoteActionFieldPtr -> CThostFtdcQuoteActionField#}
 
 data CThostFtdcQryMarginModelField = CThostFtdcQryMarginModelField
   { marginModelID :: String
   , brokerID      :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcQryMarginModelField
 
 {#pointer *CThostFtdcQryMarginModelField as CThostFtdcQryMarginModelFieldPtr -> CThostFtdcQryMarginModelField#}
 
 newtype CThostFtdcLoadSettlementInfoField = CThostFtdcLoadSettlementInfoField
   { brokerID :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcLoadSettlementInfoField
 
 {#pointer *CThostFtdcLoadSettlementInfoField as CThostFtdcLoadSettlementInfoFieldPtr -> CThostFtdcLoadSettlementInfoField#}
 
@@ -5609,7 +6322,9 @@ data CThostFtdcQryExchangeForQuoteField = CThostFtdcQryExchangeForQuoteField
   , exchangeInstID :: String
   , clientID       :: String
   , participantID  :: String
-  } deriving (Show)
+  } deriving (Generic, Show)
+
+instance Default CThostFtdcQryExchangeForQuoteField
 
 {#pointer *CThostFtdcQryExchangeForQuoteField as CThostFtdcQryExchangeForQuoteFieldPtr -> CThostFtdcQryExchangeForQuoteField#}
 
@@ -6747,7 +7462,7 @@ instance Storable CThostFtdcErrStockDisposalActionField where
   alignment _ = {#alignof CThostFtdcErrStockDisposalActionField#}
   peek p =
     CThostFtdcErrStockDisposalActionField <$>
-    (({#get CThostFtdcErrStockDisposalActionField->ErrorMsg#} p) >>= peekCString) <*>
+    (({#get CThostFtdcErrStockDisposalActionField->ErrorMsg#} p) >>= peekGbkCString) <*>
     fmap fromIntegral ({#get CThostFtdcErrStockDisposalActionField->ErrorID#} p) <*>
     (({#get CThostFtdcErrStockDisposalActionField->InstrumentID#} p) >>= peekCString) <*>
     (({#get CThostFtdcErrStockDisposalActionField->UserID#} p) >>= peekCString) <*>
@@ -7015,7 +7730,7 @@ instance Storable CThostFtdcErrExecOrderActionField where
   alignment _ = {#alignof CThostFtdcErrExecOrderActionField#}
   peek p =
     CThostFtdcErrExecOrderActionField <$>
-    (({#get CThostFtdcErrExecOrderActionField->ErrorMsg#} p) >>= peekCString) <*>
+    (({#get CThostFtdcErrExecOrderActionField->ErrorMsg#} p) >>= peekGbkCString) <*>
     fmap fromIntegral ({#get CThostFtdcErrExecOrderActionField->ErrorID#} p) <*>
     (({#get CThostFtdcErrExecOrderActionField->MacAddress#} p) >>= peekCString) <*>
     (({#get CThostFtdcErrExecOrderActionField->IPAddress#} p) >>= peekCString) <*>
@@ -7248,7 +7963,7 @@ instance Storable CThostFtdcNotifySyncKeyField where
   alignment _ = {#alignof CThostFtdcNotifySyncKeyField#}
   peek p =
     CThostFtdcNotifySyncKeyField <$>
-    (({#get CThostFtdcNotifySyncKeyField->ErrorMsg#} p) >>= peekCString) <*>
+    (({#get CThostFtdcNotifySyncKeyField->ErrorMsg#} p) >>= peekGbkCString) <*>
     fmap fromIntegral ({#get CThostFtdcNotifySyncKeyField->ErrorID#} p) <*>
     fmap fromIntegral ({#get CThostFtdcNotifySyncKeyField->TID#} p) <*>
     fmap fromIntegral ({#get CThostFtdcNotifySyncKeyField->RequestID#} p) <*>
@@ -7444,7 +8159,7 @@ instance Storable CThostFtdcRspFutureSignOutField where
   alignment _ = {#alignof CThostFtdcRspFutureSignOutField#}
   peek p =
     CThostFtdcRspFutureSignOutField <$>
-    (({#get CThostFtdcRspFutureSignOutField->ErrorMsg#} p) >>= peekCString) <*>
+    (({#get CThostFtdcRspFutureSignOutField->ErrorMsg#} p) >>= peekGbkCString) <*>
     fmap fromIntegral ({#get CThostFtdcRspFutureSignOutField->ErrorID#} p) <*>
     fmap fromIntegral ({#get CThostFtdcRspFutureSignOutField->TID#} p) <*>
     fmap fromIntegral ({#get CThostFtdcRspFutureSignOutField->RequestID#} p) <*>
@@ -7648,7 +8363,7 @@ instance Storable CThostFtdcExchangeOrderInsertErrorField where
   alignment _ = {#alignof CThostFtdcExchangeOrderInsertErrorField#}
   peek p =
     CThostFtdcExchangeOrderInsertErrorField <$>
-    (({#get CThostFtdcExchangeOrderInsertErrorField->ErrorMsg#} p) >>= peekCString) <*>
+    (({#get CThostFtdcExchangeOrderInsertErrorField->ErrorMsg#} p) >>= peekGbkCString) <*>
     fmap fromIntegral ({#get CThostFtdcExchangeOrderInsertErrorField->ErrorID#} p) <*>
     (({#get CThostFtdcExchangeOrderInsertErrorField->OrderLocalID#} p) >>= peekCString) <*>
     fmap fromIntegral ({#get CThostFtdcExchangeOrderInsertErrorField->InstallID#} p) <*>
@@ -8125,7 +8840,7 @@ instance Storable CThostFtdcRspFutureSignInField where
     CThostFtdcRspFutureSignInField <$>
     (({#get CThostFtdcRspFutureSignInField->MacKey#} p) >>= peekCString) <*>
     (({#get CThostFtdcRspFutureSignInField->PinKey#} p) >>= peekCString) <*>
-    (({#get CThostFtdcRspFutureSignInField->ErrorMsg#} p) >>= peekCString) <*>
+    (({#get CThostFtdcRspFutureSignInField->ErrorMsg#} p) >>= peekGbkCString) <*>
     fmap fromIntegral ({#get CThostFtdcRspFutureSignInField->ErrorID#} p) <*>
     fmap fromIntegral ({#get CThostFtdcRspFutureSignInField->TID#} p) <*>
     fmap fromIntegral ({#get CThostFtdcRspFutureSignInField->RequestID#} p) <*>
@@ -8260,7 +8975,7 @@ instance Storable CThostFtdcChangeAccountField where
   alignment _ = {#alignof CThostFtdcChangeAccountField#}
   peek p =
     CThostFtdcChangeAccountField <$>
-    (({#get CThostFtdcChangeAccountField->ErrorMsg#} p) >>= peekCString) <*>
+    (({#get CThostFtdcChangeAccountField->ErrorMsg#} p) >>= peekGbkCString) <*>
     fmap fromIntegral ({#get CThostFtdcChangeAccountField->ErrorID#} p) <*>
     (({#get CThostFtdcChangeAccountField->Digest#} p) >>= peekCString) <*>
     fmap fromIntegral ({#get CThostFtdcChangeAccountField->TID#} p) <*>
@@ -8351,7 +9066,7 @@ instance Storable CThostFtdcCancelAccountField where
   alignment _ = {#alignof CThostFtdcCancelAccountField#}
   peek p =
     CThostFtdcCancelAccountField <$>
-    (({#get CThostFtdcCancelAccountField->ErrorMsg#} p) >>= peekCString) <*>
+    (({#get CThostFtdcCancelAccountField->ErrorMsg#} p) >>= peekGbkCString) <*>
     fmap fromIntegral ({#get CThostFtdcCancelAccountField->ErrorID#} p) <*>
     (({#get CThostFtdcCancelAccountField->UserID#} p) >>= peekCString) <*>
     fmap fromIntegral ({#get CThostFtdcCancelAccountField->TID#} p) <*>
@@ -8565,7 +9280,7 @@ instance Storable CThostFtdcExchangeOrderActionErrorField where
   peek p =
     CThostFtdcExchangeOrderActionErrorField <$>
     (({#get CThostFtdcExchangeOrderActionErrorField->BrokerID#} p) >>= peekCString) <*>
-    (({#get CThostFtdcExchangeOrderActionErrorField->ErrorMsg#} p) >>= peekCString) <*>
+    (({#get CThostFtdcExchangeOrderActionErrorField->ErrorMsg#} p) >>= peekGbkCString) <*>
     fmap fromIntegral ({#get CThostFtdcExchangeOrderActionErrorField->ErrorID#} p) <*>
     (({#get CThostFtdcExchangeOrderActionErrorField->ActionLocalID#} p) >>= peekCString) <*>
     (({#get CThostFtdcExchangeOrderActionErrorField->OrderLocalID#} p) >>= peekCString) <*>
@@ -9156,7 +9871,7 @@ instance Storable CThostFtdcExchangeExecOrderActionErrorField where
   peek p =
     CThostFtdcExchangeExecOrderActionErrorField <$>
     (({#get CThostFtdcExchangeExecOrderActionErrorField->BrokerID#} p) >>= peekCString) <*>
-    (({#get CThostFtdcExchangeExecOrderActionErrorField->ErrorMsg#} p) >>= peekCString) <*>
+    (({#get CThostFtdcExchangeExecOrderActionErrorField->ErrorMsg#} p) >>= peekGbkCString) <*>
     fmap fromIntegral ({#get CThostFtdcExchangeExecOrderActionErrorField->ErrorID#} p) <*>
     (({#get CThostFtdcExchangeExecOrderActionErrorField->ActionLocalID#} p) >>= peekCString) <*>
     (({#get CThostFtdcExchangeExecOrderActionErrorField->ExecOrderLocalID#} p) >>= peekCString) <*>
@@ -10214,7 +10929,7 @@ instance Storable CThostFtdcParkedOrderActionField where
     (({#get CThostFtdcParkedOrderActionField->MacAddress#} p) >>= peekCString) <*>
     (({#get CThostFtdcParkedOrderActionField->IPAddress#} p) >>= peekCString) <*>
     (({#get CThostFtdcParkedOrderActionField->InvestUnitID#} p) >>= peekCString) <*>
-    (({#get CThostFtdcParkedOrderActionField->ErrorMsg#} p) >>= peekCString) <*>
+    (({#get CThostFtdcParkedOrderActionField->ErrorMsg#} p) >>= peekGbkCString) <*>
     fmap fromIntegral ({#get CThostFtdcParkedOrderActionField->ErrorID#} p) <*>
     fmap castCCharToChar ({#get CThostFtdcParkedOrderActionField->Status#} p) <*>
     fmap castCCharToChar ({#get CThostFtdcParkedOrderActionField->UserType#} p) <*>
@@ -10494,7 +11209,7 @@ instance Storable CThostFtdcRspSyncKeyField where
   alignment _ = {#alignof CThostFtdcRspSyncKeyField#}
   peek p =
     CThostFtdcRspSyncKeyField <$>
-    (({#get CThostFtdcRspSyncKeyField->ErrorMsg#} p) >>= peekCString) <*>
+    (({#get CThostFtdcRspSyncKeyField->ErrorMsg#} p) >>= peekGbkCString) <*>
     fmap fromIntegral ({#get CThostFtdcRspSyncKeyField->ErrorID#} p) <*>
     fmap fromIntegral ({#get CThostFtdcRspSyncKeyField->TID#} p) <*>
     fmap fromIntegral ({#get CThostFtdcRspSyncKeyField->RequestID#} p) <*>
@@ -10845,7 +11560,7 @@ instance Storable CThostFtdcErrOrderField where
     (({#get CThostFtdcErrOrderField->InvestUnitID#} p) >>= peekCString) <*>
     (({#get CThostFtdcErrOrderField->ExchangeID#} p) >>= peekCString) <*>
     fmap fromIntegral ({#get CThostFtdcErrOrderField->IsSwapOrder#} p) <*>
-    (({#get CThostFtdcErrOrderField->ErrorMsg#} p) >>= peekCString) <*>
+    (({#get CThostFtdcErrOrderField->ErrorMsg#} p) >>= peekGbkCString) <*>
     fmap fromIntegral ({#get CThostFtdcErrOrderField->ErrorID#} p) <*>
     fmap fromIntegral ({#get CThostFtdcErrOrderField->UserForceClose#} p) <*>
     fmap fromIntegral ({#get CThostFtdcErrOrderField->RequestID#} p) <*>
@@ -12244,7 +12959,7 @@ instance Storable CThostFtdcErrorConditionalOrderField where
     (({#get CThostFtdcErrorConditionalOrderField->InvestUnitID#} p) >>= peekCString) <*>
     (({#get CThostFtdcErrorConditionalOrderField->BranchID#} p) >>= peekCString) <*>
     fmap fromIntegral ({#get CThostFtdcErrorConditionalOrderField->IsSwapOrder#} p) <*>
-    (({#get CThostFtdcErrorConditionalOrderField->ErrorMsg#} p) >>= peekCString) <*>
+    (({#get CThostFtdcErrorConditionalOrderField->ErrorMsg#} p) >>= peekGbkCString) <*>
     fmap fromIntegral ({#get CThostFtdcErrorConditionalOrderField->ErrorID#} p) <*>
     fmap fromIntegral ({#get CThostFtdcErrorConditionalOrderField->ZCETotalTradedVolume#} p) <*>
     (({#get CThostFtdcErrorConditionalOrderField->RelativeOrderSysID#} p) >>= peekCString) <*>
@@ -12536,7 +13251,7 @@ instance Storable CThostFtdcOpenAccountField where
   alignment _ = {#alignof CThostFtdcOpenAccountField#}
   peek p =
     CThostFtdcOpenAccountField <$>
-    (({#get CThostFtdcOpenAccountField->ErrorMsg#} p) >>= peekCString) <*>
+    (({#get CThostFtdcOpenAccountField->ErrorMsg#} p) >>= peekGbkCString) <*>
     fmap fromIntegral ({#get CThostFtdcOpenAccountField->ErrorID#} p) <*>
     (({#get CThostFtdcOpenAccountField->UserID#} p) >>= peekCString) <*>
     fmap fromIntegral ({#get CThostFtdcOpenAccountField->TID#} p) <*>
@@ -12746,7 +13461,7 @@ instance Storable CThostFtdcErrExecOrderField where
   alignment _ = {#alignof CThostFtdcErrExecOrderField#}
   peek p =
     CThostFtdcErrExecOrderField <$>
-    (({#get CThostFtdcErrExecOrderField->ErrorMsg#} p) >>= peekCString) <*>
+    (({#get CThostFtdcErrExecOrderField->ErrorMsg#} p) >>= peekGbkCString) <*>
     fmap fromIntegral ({#get CThostFtdcErrExecOrderField->ErrorID#} p) <*>
     (({#get CThostFtdcErrExecOrderField->MacAddress#} p) >>= peekCString) <*>
     (({#get CThostFtdcErrExecOrderField->IPAddress#} p) >>= peekCString) <*>
@@ -12811,7 +13526,7 @@ instance Storable CThostFtdcRspQueryTradeResultBySerialField where
     (({#get CThostFtdcRspQueryTradeResultBySerialField->RefrenceIssure#} p) >>= peekCString) <*>
     fmap castCCharToChar ({#get CThostFtdcRspQueryTradeResultBySerialField->RefrenceIssureType#} p) <*>
     fmap fromIntegral ({#get CThostFtdcRspQueryTradeResultBySerialField->Reference#} p) <*>
-    (({#get CThostFtdcRspQueryTradeResultBySerialField->ErrorMsg#} p) >>= peekCString) <*>
+    (({#get CThostFtdcRspQueryTradeResultBySerialField->ErrorMsg#} p) >>= peekGbkCString) <*>
     fmap fromIntegral ({#get CThostFtdcRspQueryTradeResultBySerialField->ErrorID#} p) <*>
     fmap fromIntegral ({#get CThostFtdcRspQueryTradeResultBySerialField->SessionID#} p) <*>
     fmap castCCharToChar ({#get CThostFtdcRspQueryTradeResultBySerialField->LastFragment#} p) <*>
@@ -13189,7 +13904,7 @@ instance Storable CThostFtdcNotifyFutureSignOutField where
   alignment _ = {#alignof CThostFtdcNotifyFutureSignOutField#}
   peek p =
     CThostFtdcNotifyFutureSignOutField <$>
-    (({#get CThostFtdcNotifyFutureSignOutField->ErrorMsg#} p) >>= peekCString) <*>
+    (({#get CThostFtdcNotifyFutureSignOutField->ErrorMsg#} p) >>= peekGbkCString) <*>
     fmap fromIntegral ({#get CThostFtdcNotifyFutureSignOutField->ErrorID#} p) <*>
     fmap fromIntegral ({#get CThostFtdcNotifyFutureSignOutField->TID#} p) <*>
     fmap fromIntegral ({#get CThostFtdcNotifyFutureSignOutField->RequestID#} p) <*>
@@ -13244,7 +13959,7 @@ instance Storable CThostFtdcNotifyFutureSignInField where
     CThostFtdcNotifyFutureSignInField <$>
     (({#get CThostFtdcNotifyFutureSignInField->MacKey#} p) >>= peekCString) <*>
     (({#get CThostFtdcNotifyFutureSignInField->PinKey#} p) >>= peekCString) <*>
-    (({#get CThostFtdcNotifyFutureSignInField->ErrorMsg#} p) >>= peekCString) <*>
+    (({#get CThostFtdcNotifyFutureSignInField->ErrorMsg#} p) >>= peekGbkCString) <*>
     fmap fromIntegral ({#get CThostFtdcNotifyFutureSignInField->ErrorID#} p) <*>
     fmap fromIntegral ({#get CThostFtdcNotifyFutureSignInField->TID#} p) <*>
     fmap fromIntegral ({#get CThostFtdcNotifyFutureSignInField->RequestID#} p) <*>
@@ -13370,7 +14085,7 @@ instance Storable CThostFtdcNotifyQueryAccountField where
   alignment _ = {#alignof CThostFtdcNotifyQueryAccountField#}
   peek p =
     CThostFtdcNotifyQueryAccountField <$>
-    (({#get CThostFtdcNotifyQueryAccountField->ErrorMsg#} p) >>= peekCString) <*>
+    (({#get CThostFtdcNotifyQueryAccountField->ErrorMsg#} p) >>= peekGbkCString) <*>
     fmap fromIntegral ({#get CThostFtdcNotifyQueryAccountField->ErrorID#} p) <*>
     fmap realToFrac ({#get CThostFtdcNotifyQueryAccountField->BankFetchAmount#} p) <*>
     fmap realToFrac ({#get CThostFtdcNotifyQueryAccountField->BankUseAmount#} p) <*>
@@ -13577,7 +14292,7 @@ instance Storable CThostFtdcRspTransferField where
   alignment _ = {#alignof CThostFtdcRspTransferField#}
   peek p =
     CThostFtdcRspTransferField <$>
-    (({#get CThostFtdcRspTransferField->ErrorMsg#} p) >>= peekCString) <*>
+    (({#get CThostFtdcRspTransferField->ErrorMsg#} p) >>= peekGbkCString) <*>
     fmap fromIntegral ({#get CThostFtdcRspTransferField->ErrorID#} p) <*>
     fmap castCCharToChar ({#get CThostFtdcRspTransferField->TransferStatus#} p) <*>
     fmap fromIntegral ({#get CThostFtdcRspTransferField->TID#} p) <*>
@@ -13784,7 +14499,7 @@ instance Storable CThostFtdcExchangeStockDisposalActionErrorField where
   peek p =
     CThostFtdcExchangeStockDisposalActionErrorField <$>
     (({#get CThostFtdcExchangeStockDisposalActionErrorField->BrokerID#} p) >>= peekCString) <*>
-    (({#get CThostFtdcExchangeStockDisposalActionErrorField->ErrorMsg#} p) >>= peekCString) <*>
+    (({#get CThostFtdcExchangeStockDisposalActionErrorField->ErrorMsg#} p) >>= peekGbkCString) <*>
     fmap fromIntegral ({#get CThostFtdcExchangeStockDisposalActionErrorField->ErrorID#} p) <*>
     (({#get CThostFtdcExchangeStockDisposalActionErrorField->ActionLocalID#} p) >>= peekCString) <*>
     (({#get CThostFtdcExchangeStockDisposalActionErrorField->StockDisposalLocalID#} p) >>= peekCString) <*>
@@ -14472,7 +15187,7 @@ instance Storable CThostFtdcTransferSerialField where
   alignment _ = {#alignof CThostFtdcTransferSerialField#}
   peek p =
     CThostFtdcTransferSerialField <$>
-    (({#get CThostFtdcTransferSerialField->ErrorMsg#} p) >>= peekCString) <*>
+    (({#get CThostFtdcTransferSerialField->ErrorMsg#} p) >>= peekGbkCString) <*>
     fmap fromIntegral ({#get CThostFtdcTransferSerialField->ErrorID#} p) <*>
     (({#get CThostFtdcTransferSerialField->BankNewAccount#} p) >>= peekCString) <*>
     (({#get CThostFtdcTransferSerialField->OperatorCode#} p) >>= peekCString) <*>
@@ -14717,7 +15432,7 @@ instance Storable CThostFtdcErrOrderActionField where
   alignment _ = {#alignof CThostFtdcErrOrderActionField#}
   peek p =
     CThostFtdcErrOrderActionField <$>
-    (({#get CThostFtdcErrOrderActionField->ErrorMsg#} p) >>= peekCString) <*>
+    (({#get CThostFtdcErrOrderActionField->ErrorMsg#} p) >>= peekGbkCString) <*>
     fmap fromIntegral ({#get CThostFtdcErrOrderActionField->ErrorID#} p) <*>
     (({#get CThostFtdcErrOrderActionField->MacAddress#} p) >>= peekCString) <*>
     (({#get CThostFtdcErrOrderActionField->IPAddress#} p) >>= peekCString) <*>
@@ -15090,7 +15805,7 @@ instance Storable CThostFtdcParkedOrderField where
     (({#get CThostFtdcParkedOrderField->CurrencyID#} p) >>= peekCString) <*>
     (({#get CThostFtdcParkedOrderField->AccountID#} p) >>= peekCString) <*>
     fmap fromIntegral ({#get CThostFtdcParkedOrderField->IsSwapOrder#} p) <*>
-    (({#get CThostFtdcParkedOrderField->ErrorMsg#} p) >>= peekCString) <*>
+    (({#get CThostFtdcParkedOrderField->ErrorMsg#} p) >>= peekGbkCString) <*>
     fmap fromIntegral ({#get CThostFtdcParkedOrderField->ErrorID#} p) <*>
     fmap castCCharToChar ({#get CThostFtdcParkedOrderField->Status#} p) <*>
     fmap castCCharToChar ({#get CThostFtdcParkedOrderField->UserType#} p) <*>
@@ -15462,7 +16177,7 @@ instance Storable CThostFtdcRspRepealField where
   alignment _ = {#alignof CThostFtdcRspRepealField#}
   peek p =
     CThostFtdcRspRepealField <$>
-    (({#get CThostFtdcRspRepealField->ErrorMsg#} p) >>= peekCString) <*>
+    (({#get CThostFtdcRspRepealField->ErrorMsg#} p) >>= peekGbkCString) <*>
     fmap fromIntegral ({#get CThostFtdcRspRepealField->ErrorID#} p) <*>
     fmap castCCharToChar ({#get CThostFtdcRspRepealField->TransferStatus#} p) <*>
     fmap fromIntegral ({#get CThostFtdcRspRepealField->TID#} p) <*>

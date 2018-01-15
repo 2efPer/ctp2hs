@@ -1,8 +1,8 @@
+{-# LANGUAGE DeriveGeneric            #-}
 {-# LANGUAGE ForeignFunctionInterface #-}
 
 module Bindings.Ctp.TD
   ( CtpTDSpi (..)
-  , defaultCtpTDSpi
   , OnFrontConnected
   , OnFrontDisconnected
   , OnHeartBeatWarning
@@ -215,10 +215,12 @@ module Bindings.Ctp.TD
 {#import Bindings.Ctp.Define#}
 {#import Bindings.Ctp.Struct#}
 import Bindings.Ctp.Utils
+import Data.Default
 import Foreign.C.Types
 import Foreign.Marshal.Utils
 import Foreign.Ptr
 import Foreign.Storable
+import GHC.Generics
 
 #include "ffi.h"
 
@@ -706,131 +708,9 @@ data CtpTDSpi = CtpTDSpi
   , onRtnOpenAccountByBank                    :: Maybe OnRtnOpenAccountByBank
   , onRtnCancelAccountByBank                  :: Maybe OnRtnCancelAccountByBank
   , onRtnChangeAccountByBank                  :: Maybe OnRtnChangeAccountByBank
-  }
+  } deriving (Generic)
 
-defaultCtpTDSpi :: CtpTDSpi
-defaultCtpTDSpi =
-  CtpTDSpi
-    Nothing
-    Nothing
-    Nothing
-    Nothing
-    Nothing
-    Nothing
-    Nothing
-    Nothing
-    Nothing
-    Nothing
-    Nothing
-    Nothing
-    Nothing
-    Nothing
-    Nothing
-    Nothing
-    Nothing
-    Nothing
-    Nothing
-    Nothing
-    Nothing
-    Nothing
-    Nothing
-    Nothing
-    Nothing
-    Nothing
-    Nothing
-    Nothing
-    Nothing
-    Nothing
-    Nothing
-    Nothing
-    Nothing
-    Nothing
-    Nothing
-    Nothing
-    Nothing
-    Nothing
-    Nothing
-    Nothing
-    Nothing
-    Nothing
-    Nothing
-    Nothing
-    Nothing
-    Nothing
-    Nothing
-    Nothing
-    Nothing
-    Nothing
-    Nothing
-    Nothing
-    Nothing
-    Nothing
-    Nothing
-    Nothing
-    Nothing
-    Nothing
-    Nothing
-    Nothing
-    Nothing
-    Nothing
-    Nothing
-    Nothing
-    Nothing
-    Nothing
-    Nothing
-    Nothing
-    Nothing
-    Nothing
-    Nothing
-    Nothing
-    Nothing
-    Nothing
-    Nothing
-    Nothing
-    Nothing
-    Nothing
-    Nothing
-    Nothing
-    Nothing
-    Nothing
-    Nothing
-    Nothing
-    Nothing
-    Nothing
-    Nothing
-    Nothing
-    Nothing
-    Nothing
-    Nothing
-    Nothing
-    Nothing
-    Nothing
-    Nothing
-    Nothing
-    Nothing
-    Nothing
-    Nothing
-    Nothing
-    Nothing
-    Nothing
-    Nothing
-    Nothing
-    Nothing
-    Nothing
-    Nothing
-    Nothing
-    Nothing
-    Nothing
-    Nothing
-    Nothing
-    Nothing
-    Nothing
-    Nothing
-    Nothing
-    Nothing
-    Nothing
-    Nothing
-    Nothing
+instance Default CtpTDSpi
 
 data CtpTDSpiFFI = CtpTDSpiFFI
   { ffiOnFrontConnected                          :: FunPtr OnFrontConnected'
