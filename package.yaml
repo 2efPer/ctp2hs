@@ -1,0 +1,100 @@
+name: ctp2hs
+version: 0.1.0.0
+github: 0x530c/ctp2hs
+license: MIT
+author: '0x530c'
+maintainer: 0x530c@gmail.com
+copyright: (c) 2017 0x530c
+category: Bindings
+description: 'Please see the README on Github at <https://github.com/0x530c/evo#readme>'
+build-type: Custom
+extra-source-files:
+  - README.md
+  - cbits/*.h
+  - cbits/ctp/*.h
+  - cbits/ctp/*.so
+custom-setup:
+  dependencies:
+    - base
+    - Cabal >= 2.0
+    - directory
+dependencies:
+  - base >= 4.7 && < 5
+library:
+  source-dirs: src
+  exposed-modules:
+    - Bindings.Ctp.Define
+    - Bindings.Ctp.Struct
+    - Bindings.Ctp.MD
+    - Bindings.Ctp.TD
+  other-modules:
+    - Bindings.Ctp.Utils
+  include-dirs:
+    - cbits
+  c-sources:
+    - cbits/spi.cc
+    - cbits/ffi.cc
+  extra-libraries:
+    - stdc++
+    - thostmduserapi
+    - thosttraderapi
+  build-tools:
+    - c2hs
+  ghc-options:
+    - '-Wall'
+  dependencies:
+    - bytestring
+    - iconv
+    - utf8-string
+executables:
+  md:
+    main: Main.hs
+    source-dirs: app/Example/MD
+    ghc-options:
+      - '-threaded'
+      - '-rtsopts'
+      - '-with-rtsopts=-N'
+      - '-Wall'
+    dependencies:
+      - ctp2hs
+      - optparse-applicative
+      - stm
+  td:
+    main: Main.hs
+    source-dirs: app/Example/TD
+    ghc-options:
+      - '-threaded'
+      - '-rtsopts'
+      - '-with-rtsopts=-N'
+      - '-Wall'
+    dependencies:
+      - ctp2hs
+      - optparse-applicative
+      - stm
+  conv:
+    main: Main.hs
+    source-dirs: app/Conv
+    ghc-options:
+      - '-threaded'
+      - '-rtsopts'
+      - '-with-rtsopts=-N'
+      - '-Wall'
+    dependencies:
+      - bytestring
+      - containers
+      - iconv
+      - language-c
+      - optparse-applicative
+      - regex-posix
+      - split
+      - utf8-string
+tests:
+  ctp2hs-test:
+    main: Spec.hs
+    source-dirs: test
+    ghc-options:
+      - '-threaded'
+      - '-rtsopts'
+      - '-with-rtsopts=-N'
+    dependencies:
+      - ctp2hs
