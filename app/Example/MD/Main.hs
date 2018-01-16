@@ -1,4 +1,5 @@
 {-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE RecordWildCards       #-}
 
 module Main
   ( main
@@ -27,41 +28,29 @@ data MDState = MDState
   }
 
 incReqID :: MDState -> IO Int
-incReqID s =
-  let r = reqID (s :: MDState)
-  in atomically $ modifyTVar r (+ 1) >> readTVar r
+incReqID MDState {..} = atomically $ modifyTVar reqID (+ 1) >> readTVar reqID
 
-errorRspInfo :: CThostFtdcRspInfoField -> Maybe (Int, String)
-errorRspInfo rspInfo = do
-  guard $ errorID (rspInfo :: CThostFtdcRspInfoField) /= 0
-  return
-    ( errorID (rspInfo :: CThostFtdcRspInfoField)
-    , errorMsg (rspInfo :: CThostFtdcRspInfoField))
+unlessErrorRspInfo :: CThostFtdcRspInfoField -> IO () -> IO ()
+unlessErrorRspInfo CThostFtdcRspInfoField {..} a =
+  if errorID /= 0
+    then putStrLn $ "Error: (" ++ show errorID ++ ") " ++ errorMsg
+    else a
 
 onFrontConnected' :: MDState -> OnFrontConnected
-onFrontConnected' s = do
+onFrontConnected' s@MDState {..} = do
   putStrLn "onFrontConnected ..."
-  void $ incReqID s >>= mdReqUserLogin (api s) req
+  void $ incReqID s >>= mdReqUserLogin api (req cfg)
   where
-    req :: CThostFtdcReqUserLoginField
-    req =
-      let c = cfg s
-      in def
-         { password = password (c :: MDConfig)
-         , userID = userID (c :: MDConfig)
-         , brokerID = brokerID (c :: MDConfig)
-         }
+    req :: MDConfig -> CThostFtdcReqUserLoginField
+    req MDConfig {..} =
+      def {password = password, userID = userID, brokerID = brokerID}
 
 onRspUserLogin' :: MDState -> OnRspUserLogin
-onRspUserLogin' s _ rspInfo _ _ = do
+onRspUserLogin' MDState {..} _ rspInfo _ _ = do
   putStrLn "onRspUserLogin ..."
-  let md = api s
-  case errorRspInfo rspInfo of
-    Just (eid, emsg) -> putStrLn $ "Error: (" ++ show eid ++ ") " ++ emsg
-    Nothing -> do
-      day <- mdGetTradingDay md
-      putStrLn $ "交易日: " ++ day
-      void $ mdSubscribeMarketData md (instrument . cfg $ s)
+  unlessErrorRspInfo rspInfo $ do
+    mdGetTradingDay api >>= putStrLn . ("交易日: " ++)
+    void $ mdSubscribeMarketData api $ instrument cfg
 
 onRtnDepthMarketData' :: OnRtnDepthMarketData
 onRtnDepthMarketData' = putStrLn . (++ "\n") . show
@@ -79,7 +68,7 @@ main = do
     , onRspUserLogin = Just $ onRspUserLogin' s
     , onRtnDepthMarketData = Just onRtnDepthMarketData'
     }
-  mdRegisterFront md . front $ cfg s
+  mdRegisterFront md $ front cfg'
   mdInit md
   _ <- getLine
   mdRelease md

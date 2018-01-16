@@ -1,4 +1,5 @@
 {-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE RecordWildCards       #-}
 
 module Main
   ( main
@@ -27,64 +28,44 @@ data TDState = TDState
   }
 
 incReqID :: TDState -> IO Int
-incReqID s =
-  let r = reqID (s :: TDState)
-  in atomically $ modifyTVar r (+ 1) >> readTVar r
+incReqID TDState {..} = atomically $ modifyTVar reqID (+ 1) >> readTVar reqID
 
-errorRspInfo :: CThostFtdcRspInfoField -> Maybe (Int, String)
-errorRspInfo rspInfo = do
-  guard $ errorID (rspInfo :: CThostFtdcRspInfoField) /= 0
-  return
-    ( errorID (rspInfo :: CThostFtdcRspInfoField)
-    , errorMsg (rspInfo :: CThostFtdcRspInfoField))
+unlessErrorRspInfo :: CThostFtdcRspInfoField -> IO () -> IO ()
+unlessErrorRspInfo CThostFtdcRspInfoField {..} a =
+  if errorID /= 0
+    then putStrLn $ "Error: (" ++ show errorID ++ ") " ++ errorMsg
+    else a
 
 onFrontConnected' :: TDState -> OnFrontConnected
-onFrontConnected' s = do
+onFrontConnected' s@TDState {..} = do
   putStrLn "onFrontConnected ..."
-  void $ incReqID s >>= tdReqUserLogin (api s) req
+  void $ incReqID s >>= tdReqUserLogin api (req cfg)
   where
-    req :: CThostFtdcReqUserLoginField
-    req =
-      let c = cfg s
-      in def
-         { password = password (c :: TDConfig)
-         , userID = userID (c :: TDConfig)
-         , brokerID = brokerID (c :: TDConfig)
-         }
+    req :: TDConfig -> CThostFtdcReqUserLoginField
+    req TDConfig {..} =
+      def {password = password, userID = userID, brokerID = brokerID}
 
 onRspUserLogin' :: TDState -> OnRspUserLogin
-onRspUserLogin' s _ rspInfo _ _ = do
+onRspUserLogin' s@TDState {..} _ rspInfo _ _ = do
   putStrLn "onRspUserLogin ..."
-  let td = api s
-  case errorRspInfo rspInfo of
-    Just (eid, emsg) -> putStrLn $ "Error: (" ++ show eid ++ ") " ++ emsg
-    Nothing -> do
-      day <- tdGetTradingDay td
-      putStrLn $ "交易日: " ++ day
-      void $ incReqID s >>= tdReqSettlementInfoConfirm td req
+  unlessErrorRspInfo rspInfo $ do
+    tdGetTradingDay api >>= putStrLn . ("交易日: " ++)
+    void $ incReqID s >>= tdReqSettlementInfoConfirm api (req cfg)
   where
-    req :: CThostFtdcSettlementInfoConfirmField
-    req =
-      let c = cfg s
-      in def
-         { investorID = userID (c :: TDConfig)
-         , brokerID = brokerID (c :: TDConfig)
-         }
+    req :: TDConfig -> CThostFtdcSettlementInfoConfirmField
+    req TDConfig {..} = def {investorID = userID, brokerID = brokerID}
 
 onRspSettlementInfoConfirm' :: TDState -> OnRspSettlementInfoConfirm
-onRspSettlementInfoConfirm' s _ rspInfo _ _ = do
+onRspSettlementInfoConfirm' s@TDState {..} _ rspInfo _ _ = do
   putStrLn "onRspSettlementInfoConfirm ..."
-  let td = api s
-  case errorRspInfo rspInfo of
-    Just (eid, emsg) -> putStrLn $ "Error: (" ++ show eid ++ ") " ++ emsg
-    Nothing          -> void $ incReqID s >>= tdReqQryInstrument td req
+  unlessErrorRspInfo rspInfo . void $ incReqID s >>= tdReqQryInstrument api req
   where
     req :: CThostFtdcQryInstrumentField
     req = def
 
 onRspQryInstrument' :: OnRspQryInstrument
-onRspQryInstrument' dat _ _ _ =
-  putStrLn $ "> " ++ instrumentName (dat :: CThostFtdcInstrumentField)
+onRspQryInstrument' CThostFtdcInstrumentField {..} _ _ _ =
+  putStrLn $ "> " ++ instrumentName
 
 main :: IO ()
 main = do
