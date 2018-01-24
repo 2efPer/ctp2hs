@@ -70,32 +70,32 @@ thostFtdcIctAccountsPermits = 'J'
 thostFtdcIctOtherCard :: Char
 thostFtdcIctOtherCard = 'x'
 
-thostFtdcIrAll :: Char
-thostFtdcIrAll = '1'
+thostFtdcIRAll :: Char
+thostFtdcIRAll = '1'
 
-thostFtdcIrGroup :: Char
-thostFtdcIrGroup = '2'
+thostFtdcIRGroup :: Char
+thostFtdcIRGroup = '2'
 
-thostFtdcIrSingle :: Char
-thostFtdcIrSingle = '3'
+thostFtdcIRSingle :: Char
+thostFtdcIRSingle = '3'
 
-thostFtdcDrAll :: Char
-thostFtdcDrAll = '1'
+thostFtdcDRAll :: Char
+thostFtdcDRAll = '1'
 
-thostFtdcDrGroup :: Char
-thostFtdcDrGroup = '2'
+thostFtdcDRGroup :: Char
+thostFtdcDRGroup = '2'
 
-thostFtdcDrSingle :: Char
-thostFtdcDrSingle = '3'
+thostFtdcDRSingle :: Char
+thostFtdcDRSingle = '3'
 
-thostFtdcDsAsynchronous :: Char
-thostFtdcDsAsynchronous = '1'
+thostFtdcDSAsynchronous :: Char
+thostFtdcDSAsynchronous = '1'
 
-thostFtdcDsSynchronizing :: Char
-thostFtdcDsSynchronizing = '2'
+thostFtdcDSSynchronizing :: Char
+thostFtdcDSSynchronizing = '2'
 
-thostFtdcDsSynchronized :: Char
-thostFtdcDsSynchronized = '3'
+thostFtdcDSSynchronized :: Char
+thostFtdcDSSynchronized = '3'
 
 thostFtdcBdsSynchronized :: Char
 thostFtdcBdsSynchronized = '1'
@@ -124,50 +124,50 @@ thostFtdcTcsQryInstrumentSent = '3'
 thostFtdcTcsSubPrivateFlow :: Char
 thostFtdcTcsSubPrivateFlow = '4'
 
-thostFtdcFcDataAsync :: Char
-thostFtdcFcDataAsync = '1'
+thostFtdcFCDataAsync :: Char
+thostFtdcFCDataAsync = '1'
 
-thostFtdcFcForceUserLogout :: Char
-thostFtdcFcForceUserLogout = '2'
+thostFtdcFCForceUserLogout :: Char
+thostFtdcFCForceUserLogout = '2'
 
-thostFtdcFcUserPasswordUpdate :: Char
-thostFtdcFcUserPasswordUpdate = '3'
+thostFtdcFCUserPasswordUpdate :: Char
+thostFtdcFCUserPasswordUpdate = '3'
 
-thostFtdcFcBrokerPasswordUpdate :: Char
-thostFtdcFcBrokerPasswordUpdate = '4'
+thostFtdcFCBrokerPasswordUpdate :: Char
+thostFtdcFCBrokerPasswordUpdate = '4'
 
-thostFtdcFcInvestorPasswordUpdate :: Char
-thostFtdcFcInvestorPasswordUpdate = '5'
+thostFtdcFCInvestorPasswordUpdate :: Char
+thostFtdcFCInvestorPasswordUpdate = '5'
 
-thostFtdcFcOrderInsert :: Char
-thostFtdcFcOrderInsert = '6'
+thostFtdcFCOrderInsert :: Char
+thostFtdcFCOrderInsert = '6'
 
-thostFtdcFcOrderAction :: Char
-thostFtdcFcOrderAction = '7'
+thostFtdcFCOrderAction :: Char
+thostFtdcFCOrderAction = '7'
 
-thostFtdcFcSyncSystemData :: Char
-thostFtdcFcSyncSystemData = '8'
+thostFtdcFCSyncSystemData :: Char
+thostFtdcFCSyncSystemData = '8'
 
-thostFtdcFcSyncBrokerData :: Char
-thostFtdcFcSyncBrokerData = '9'
+thostFtdcFCSyncBrokerData :: Char
+thostFtdcFCSyncBrokerData = '9'
 
-thostFtdcFcBachSyncBrokerData :: Char
-thostFtdcFcBachSyncBrokerData = 'A'
+thostFtdcFCBachSyncBrokerData :: Char
+thostFtdcFCBachSyncBrokerData = 'A'
 
-thostFtdcFcSuperQuery :: Char
-thostFtdcFcSuperQuery = 'B'
+thostFtdcFCSuperQuery :: Char
+thostFtdcFCSuperQuery = 'B'
 
-thostFtdcFcParkedOrderInsert :: Char
-thostFtdcFcParkedOrderInsert = 'C'
+thostFtdcFCParkedOrderInsert :: Char
+thostFtdcFCParkedOrderInsert = 'C'
 
-thostFtdcFcParkedOrderAction :: Char
-thostFtdcFcParkedOrderAction = 'D'
+thostFtdcFCParkedOrderAction :: Char
+thostFtdcFCParkedOrderAction = 'D'
 
-thostFtdcFcSyncOTP :: Char
-thostFtdcFcSyncOTP = 'E'
+thostFtdcFCSyncOTP :: Char
+thostFtdcFCSyncOTP = 'E'
 
-thostFtdcFcDeleteOrder :: Char
-thostFtdcFcDeleteOrder = 'F'
+thostFtdcFCDeleteOrder :: Char
+thostFtdcFCDeleteOrder = 'F'
 
 thostFtdcBfcForceUserLogout :: Char
 thostFtdcBfcForceUserLogout = '1'
@@ -373,50 +373,50 @@ thostFtdcPdtUseHistory = '1'
 thostFtdcPdtNoUseHistory :: Char
 thostFtdcPdtNoUseHistory = '2'
 
-thostFtdcErBroker :: Char
-thostFtdcErBroker = '1'
+thostFtdcERBroker :: Char
+thostFtdcERBroker = '1'
 
-thostFtdcErHost :: Char
-thostFtdcErHost = '2'
+thostFtdcERHost :: Char
+thostFtdcERHost = '2'
 
-thostFtdcErMaker :: Char
-thostFtdcErMaker = '3'
+thostFtdcERMaker :: Char
+thostFtdcERMaker = '3'
 
-thostFtdcPcFutures :: Char
-thostFtdcPcFutures = '1'
+thostFtdcPCFutures :: Char
+thostFtdcPCFutures = '1'
 
-thostFtdcPcOptions :: Char
-thostFtdcPcOptions = '2'
+thostFtdcPCOptions :: Char
+thostFtdcPCOptions = '2'
 
-thostFtdcPcCombination :: Char
-thostFtdcPcCombination = '3'
+thostFtdcPCCombination :: Char
+thostFtdcPCCombination = '3'
 
-thostFtdcPcSpot :: Char
-thostFtdcPcSpot = '4'
+thostFtdcPCSpot :: Char
+thostFtdcPCSpot = '4'
 
-thostFtdcPcEfp :: Char
-thostFtdcPcEfp = '5'
+thostFtdcPCEfp :: Char
+thostFtdcPCEfp = '5'
 
-thostFtdcPcSpotOption :: Char
-thostFtdcPcSpotOption = '6'
+thostFtdcPCSpotOption :: Char
+thostFtdcPCSpotOption = '6'
 
-thostFtdcPcETFOption :: Char
-thostFtdcPcETFOption = '7'
+thostFtdcPCETFOption :: Char
+thostFtdcPCETFOption = '7'
 
-thostFtdcPcStock :: Char
-thostFtdcPcStock = '8'
+thostFtdcPCStock :: Char
+thostFtdcPCStock = '8'
 
-thostFtdcIpNotStart :: Char
-thostFtdcIpNotStart = '0'
+thostFtdcIPNotStart :: Char
+thostFtdcIPNotStart = '0'
 
-thostFtdcIpStarted :: Char
-thostFtdcIpStarted = '1'
+thostFtdcIPStarted :: Char
+thostFtdcIPStarted = '1'
 
-thostFtdcIpPause :: Char
-thostFtdcIpPause = '2'
+thostFtdcIPPause :: Char
+thostFtdcIPPause = '2'
 
-thostFtdcIpExpired :: Char
-thostFtdcIpExpired = '3'
+thostFtdcIPExpired :: Char
+thostFtdcIPExpired = '3'
 
 thostFtdcDBuy :: Char
 thostFtdcDBuy = '0'
@@ -424,56 +424,56 @@ thostFtdcDBuy = '0'
 thostFtdcDSell :: Char
 thostFtdcDSell = '1'
 
-thostFtdcPtNet :: Char
-thostFtdcPtNet = '1'
+thostFtdcPTNet :: Char
+thostFtdcPTNet = '1'
 
-thostFtdcPtGross :: Char
-thostFtdcPtGross = '2'
+thostFtdcPTGross :: Char
+thostFtdcPTGross = '2'
 
-thostFtdcPdNet :: Char
-thostFtdcPdNet = '1'
+thostFtdcPDNet :: Char
+thostFtdcPDNet = '1'
 
-thostFtdcPdLong :: Char
-thostFtdcPdLong = '2'
+thostFtdcPDLong :: Char
+thostFtdcPDLong = '2'
 
-thostFtdcPdShort :: Char
-thostFtdcPdShort = '3'
+thostFtdcPDShort :: Char
+thostFtdcPDShort = '3'
 
-thostFtdcSsNonActive :: Char
-thostFtdcSsNonActive = '1'
+thostFtdcSSNonActive :: Char
+thostFtdcSSNonActive = '1'
 
-thostFtdcSsStartup :: Char
-thostFtdcSsStartup = '2'
+thostFtdcSSStartup :: Char
+thostFtdcSSStartup = '2'
 
-thostFtdcSsOperating :: Char
-thostFtdcSsOperating = '3'
+thostFtdcSSOperating :: Char
+thostFtdcSSOperating = '3'
 
-thostFtdcSsSettlement :: Char
-thostFtdcSsSettlement = '4'
+thostFtdcSSSettlement :: Char
+thostFtdcSSSettlement = '4'
 
-thostFtdcSsSettlementFinished :: Char
-thostFtdcSsSettlementFinished = '5'
+thostFtdcSSSettlementFinished :: Char
+thostFtdcSSSettlementFinished = '5'
 
-thostFtdcRaTrade :: Char
-thostFtdcRaTrade = '0'
+thostFtdcRATrade :: Char
+thostFtdcRATrade = '0'
 
-thostFtdcRaSettlement :: Char
-thostFtdcRaSettlement = '1'
+thostFtdcRASettlement :: Char
+thostFtdcRASettlement = '1'
 
-thostFtdcHfSpeculation :: Char
-thostFtdcHfSpeculation = '1'
+thostFtdcHFSpeculation :: Char
+thostFtdcHFSpeculation = '1'
 
-thostFtdcHfArbitrage :: Char
-thostFtdcHfArbitrage = '2'
+thostFtdcHFArbitrage :: Char
+thostFtdcHFArbitrage = '2'
 
-thostFtdcHfHedge :: Char
-thostFtdcHfHedge = '3'
+thostFtdcHFHedge :: Char
+thostFtdcHFHedge = '3'
 
-thostFtdcHfCovered :: Char
-thostFtdcHfCovered = '4'
+thostFtdcHFCovered :: Char
+thostFtdcHFCovered = '4'
 
-thostFtdcHfMarketMaker :: Char
-thostFtdcHfMarketMaker = '5'
+thostFtdcHFMarketMaker :: Char
+thostFtdcHFMarketMaker = '5'
 
 thostFtdcBhfSpeculation :: Char
 thostFtdcBhfSpeculation = '1'
@@ -547,26 +547,26 @@ thostFtdcOptFiveLevelPrice = 'G'
 thostFtdcOptBestPriceThisSide :: Char
 thostFtdcOptBestPriceThisSide = 'H'
 
-thostFtdcOfOpen :: Char
-thostFtdcOfOpen = '0'
+thostFtdcOFOpen :: Char
+thostFtdcOFOpen = '0'
 
-thostFtdcOfClose :: Char
-thostFtdcOfClose = '1'
+thostFtdcOFClose :: Char
+thostFtdcOFClose = '1'
 
-thostFtdcOfForceClose :: Char
-thostFtdcOfForceClose = '2'
+thostFtdcOFForceClose :: Char
+thostFtdcOFForceClose = '2'
 
-thostFtdcOfCloseToday :: Char
-thostFtdcOfCloseToday = '3'
+thostFtdcOFCloseToday :: Char
+thostFtdcOFCloseToday = '3'
 
-thostFtdcOfCloseYesterday :: Char
-thostFtdcOfCloseYesterday = '4'
+thostFtdcOFCloseYesterday :: Char
+thostFtdcOFCloseYesterday = '4'
 
-thostFtdcOfForceOff :: Char
-thostFtdcOfForceOff = '5'
+thostFtdcOFForceOff :: Char
+thostFtdcOFForceOff = '5'
 
-thostFtdcOfLocalForceClose :: Char
-thostFtdcOfLocalForceClose = '6'
+thostFtdcOFLocalForceClose :: Char
+thostFtdcOFLocalForceClose = '6'
 
 thostFtdcFccNotForceClose :: Char
 thostFtdcFccNotForceClose = '0'
@@ -610,95 +610,95 @@ thostFtdcOrdtConditionalOrder = '4'
 thostFtdcOrdtSwap :: Char
 thostFtdcOrdtSwap = '5'
 
-thostFtdcTcIoc :: Char
-thostFtdcTcIoc = '1'
+thostFtdcTCIoc :: Char
+thostFtdcTCIoc = '1'
 
-thostFtdcTcGfs :: Char
-thostFtdcTcGfs = '2'
+thostFtdcTCGfs :: Char
+thostFtdcTCGfs = '2'
 
-thostFtdcTcGfd :: Char
-thostFtdcTcGfd = '3'
+thostFtdcTCGfd :: Char
+thostFtdcTCGfd = '3'
 
-thostFtdcTcGtd :: Char
-thostFtdcTcGtd = '4'
+thostFtdcTCGtd :: Char
+thostFtdcTCGtd = '4'
 
-thostFtdcTcGtc :: Char
-thostFtdcTcGtc = '5'
+thostFtdcTCGtc :: Char
+thostFtdcTCGtc = '5'
 
-thostFtdcTcGfa :: Char
-thostFtdcTcGfa = '6'
+thostFtdcTCGfa :: Char
+thostFtdcTCGfa = '6'
 
-thostFtdcVcAv :: Char
-thostFtdcVcAv = '1'
+thostFtdcVCAV :: Char
+thostFtdcVCAV = '1'
 
-thostFtdcVcMv :: Char
-thostFtdcVcMv = '2'
+thostFtdcVCMV :: Char
+thostFtdcVCMV = '2'
 
-thostFtdcVcCv :: Char
-thostFtdcVcCv = '3'
+thostFtdcVCCV :: Char
+thostFtdcVCCV = '3'
 
-thostFtdcCcImmediately :: Char
-thostFtdcCcImmediately = '1'
+thostFtdcCCImmediately :: Char
+thostFtdcCCImmediately = '1'
 
-thostFtdcCcTouch :: Char
-thostFtdcCcTouch = '2'
+thostFtdcCCTouch :: Char
+thostFtdcCCTouch = '2'
 
-thostFtdcCcTouchProfit :: Char
-thostFtdcCcTouchProfit = '3'
+thostFtdcCCTouchProfit :: Char
+thostFtdcCCTouchProfit = '3'
 
-thostFtdcCcParkedOrder :: Char
-thostFtdcCcParkedOrder = '4'
+thostFtdcCCParkedOrder :: Char
+thostFtdcCCParkedOrder = '4'
 
-thostFtdcCcLastPriceGreaterThanStopPrice :: Char
-thostFtdcCcLastPriceGreaterThanStopPrice = '5'
+thostFtdcCCLastPriceGreaterThanStopPrice :: Char
+thostFtdcCCLastPriceGreaterThanStopPrice = '5'
 
-thostFtdcCcLastPriceGreaterEqualStopPrice :: Char
-thostFtdcCcLastPriceGreaterEqualStopPrice = '6'
+thostFtdcCCLastPriceGreaterEqualStopPrice :: Char
+thostFtdcCCLastPriceGreaterEqualStopPrice = '6'
 
-thostFtdcCcLastPriceLesserThanStopPrice :: Char
-thostFtdcCcLastPriceLesserThanStopPrice = '7'
+thostFtdcCCLastPriceLesserThanStopPrice :: Char
+thostFtdcCCLastPriceLesserThanStopPrice = '7'
 
-thostFtdcCcLastPriceLesserEqualStopPrice :: Char
-thostFtdcCcLastPriceLesserEqualStopPrice = '8'
+thostFtdcCCLastPriceLesserEqualStopPrice :: Char
+thostFtdcCCLastPriceLesserEqualStopPrice = '8'
 
-thostFtdcCcAskPriceGreaterThanStopPrice :: Char
-thostFtdcCcAskPriceGreaterThanStopPrice = '9'
+thostFtdcCCAskPriceGreaterThanStopPrice :: Char
+thostFtdcCCAskPriceGreaterThanStopPrice = '9'
 
-thostFtdcCcAskPriceGreaterEqualStopPrice :: Char
-thostFtdcCcAskPriceGreaterEqualStopPrice = 'A'
+thostFtdcCCAskPriceGreaterEqualStopPrice :: Char
+thostFtdcCCAskPriceGreaterEqualStopPrice = 'A'
 
-thostFtdcCcAskPriceLesserThanStopPrice :: Char
-thostFtdcCcAskPriceLesserThanStopPrice = 'B'
+thostFtdcCCAskPriceLesserThanStopPrice :: Char
+thostFtdcCCAskPriceLesserThanStopPrice = 'B'
 
-thostFtdcCcAskPriceLesserEqualStopPrice :: Char
-thostFtdcCcAskPriceLesserEqualStopPrice = 'C'
+thostFtdcCCAskPriceLesserEqualStopPrice :: Char
+thostFtdcCCAskPriceLesserEqualStopPrice = 'C'
 
-thostFtdcCcBidPriceGreaterThanStopPrice :: Char
-thostFtdcCcBidPriceGreaterThanStopPrice = 'D'
+thostFtdcCCBidPriceGreaterThanStopPrice :: Char
+thostFtdcCCBidPriceGreaterThanStopPrice = 'D'
 
-thostFtdcCcBidPriceGreaterEqualStopPrice :: Char
-thostFtdcCcBidPriceGreaterEqualStopPrice = 'E'
+thostFtdcCCBidPriceGreaterEqualStopPrice :: Char
+thostFtdcCCBidPriceGreaterEqualStopPrice = 'E'
 
-thostFtdcCcBidPriceLesserThanStopPrice :: Char
-thostFtdcCcBidPriceLesserThanStopPrice = 'F'
+thostFtdcCCBidPriceLesserThanStopPrice :: Char
+thostFtdcCCBidPriceLesserThanStopPrice = 'F'
 
-thostFtdcCcBidPriceLesserEqualStopPrice :: Char
-thostFtdcCcBidPriceLesserEqualStopPrice = 'H'
+thostFtdcCCBidPriceLesserEqualStopPrice :: Char
+thostFtdcCCBidPriceLesserEqualStopPrice = 'H'
 
-thostFtdcAfDelete :: Char
-thostFtdcAfDelete = '0'
+thostFtdcAFDelete :: Char
+thostFtdcAFDelete = '0'
 
-thostFtdcAfModify :: Char
-thostFtdcAfModify = '3'
+thostFtdcAFModify :: Char
+thostFtdcAFModify = '3'
 
-thostFtdcTrAllow :: Char
-thostFtdcTrAllow = '0'
+thostFtdcTRAllow :: Char
+thostFtdcTRAllow = '0'
 
-thostFtdcTrCloseOnly :: Char
-thostFtdcTrCloseOnly = '1'
+thostFtdcTRCloseOnly :: Char
+thostFtdcTRCloseOnly = '1'
 
-thostFtdcTrForbidden :: Char
-thostFtdcTrForbidden = '2'
+thostFtdcTRForbidden :: Char
+thostFtdcTRForbidden = '2'
 
 thostFtdcOsrcParticipant :: Char
 thostFtdcOsrcParticipant = '0'
@@ -730,26 +730,26 @@ thostFtdcPsrcBuy = '1'
 thostFtdcPsrcSell :: Char
 thostFtdcPsrcSell = '2'
 
-thostFtdcIsBeforeTrading :: Char
-thostFtdcIsBeforeTrading = '0'
+thostFtdcISBeforeTrading :: Char
+thostFtdcISBeforeTrading = '0'
 
-thostFtdcIsNoTrading :: Char
-thostFtdcIsNoTrading = '1'
+thostFtdcISNoTrading :: Char
+thostFtdcISNoTrading = '1'
 
-thostFtdcIsContinous :: Char
-thostFtdcIsContinous = '2'
+thostFtdcISContinous :: Char
+thostFtdcISContinous = '2'
 
-thostFtdcIsAuctionOrdering :: Char
-thostFtdcIsAuctionOrdering = '3'
+thostFtdcISAuctionOrdering :: Char
+thostFtdcISAuctionOrdering = '3'
 
-thostFtdcIsAuctionBalance :: Char
-thostFtdcIsAuctionBalance = '4'
+thostFtdcISAuctionBalance :: Char
+thostFtdcISAuctionBalance = '4'
 
-thostFtdcIsAuctionMatch :: Char
-thostFtdcIsAuctionMatch = '5'
+thostFtdcISAuctionMatch :: Char
+thostFtdcISAuctionMatch = '5'
 
-thostFtdcIsClosed :: Char
-thostFtdcIsClosed = '6'
+thostFtdcISClosed :: Char
+thostFtdcISClosed = '6'
 
 thostFtdcIerAutomatic :: Char
 thostFtdcIerAutomatic = '1'
@@ -760,53 +760,53 @@ thostFtdcIerManual = '2'
 thostFtdcIerFuse :: Char
 thostFtdcIerFuse = '3'
 
-thostFtdcBsNoUpload :: Char
-thostFtdcBsNoUpload = '1'
+thostFtdcBSNoUpload :: Char
+thostFtdcBSNoUpload = '1'
 
-thostFtdcBsUploaded :: Char
-thostFtdcBsUploaded = '2'
+thostFtdcBSUploaded :: Char
+thostFtdcBSUploaded = '2'
 
-thostFtdcBsFailed :: Char
-thostFtdcBsFailed = '3'
+thostFtdcBSFailed :: Char
+thostFtdcBSFailed = '3'
 
-thostFtdcRsAll :: Char
-thostFtdcRsAll = '1'
+thostFtdcRSAll :: Char
+thostFtdcRSAll = '1'
 
-thostFtdcRsByProduct :: Char
-thostFtdcRsByProduct = '2'
+thostFtdcRSByProduct :: Char
+thostFtdcRSByProduct = '2'
 
-thostFtdcRpByVolume :: Char
-thostFtdcRpByVolume = '1'
+thostFtdcRPByVolume :: Char
+thostFtdcRPByVolume = '1'
 
-thostFtdcRpByFeeOnHand :: Char
-thostFtdcRpByFeeOnHand = '2'
+thostFtdcRPByFeeOnHand :: Char
+thostFtdcRPByFeeOnHand = '2'
 
-thostFtdcRlLevel1 :: Char
-thostFtdcRlLevel1 = '1'
+thostFtdcRLLevel1 :: Char
+thostFtdcRLLevel1 = '1'
 
-thostFtdcRlLevel2 :: Char
-thostFtdcRlLevel2 = '2'
+thostFtdcRLLevel2 :: Char
+thostFtdcRLLevel2 = '2'
 
-thostFtdcRlLevel3 :: Char
-thostFtdcRlLevel3 = '3'
+thostFtdcRLLevel3 :: Char
+thostFtdcRLLevel3 = '3'
 
-thostFtdcRlLevel4 :: Char
-thostFtdcRlLevel4 = '4'
+thostFtdcRLLevel4 :: Char
+thostFtdcRLLevel4 = '4'
 
-thostFtdcRlLevel5 :: Char
-thostFtdcRlLevel5 = '5'
+thostFtdcRLLevel5 :: Char
+thostFtdcRLLevel5 = '5'
 
-thostFtdcRlLevel6 :: Char
-thostFtdcRlLevel6 = '6'
+thostFtdcRLLevel6 :: Char
+thostFtdcRLLevel6 = '6'
 
-thostFtdcRlLevel7 :: Char
-thostFtdcRlLevel7 = '7'
+thostFtdcRLLevel7 :: Char
+thostFtdcRLLevel7 = '7'
 
-thostFtdcRlLevel8 :: Char
-thostFtdcRlLevel8 = '8'
+thostFtdcRLLevel8 :: Char
+thostFtdcRLLevel8 = '8'
 
-thostFtdcRlLevel9 :: Char
-thostFtdcRlLevel9 = '9'
+thostFtdcRLLevel9 :: Char
+thostFtdcRLLevel9 = '9'
 
 thostFtdcRsdByPeriod :: Char
 thostFtdcRsdByPeriod = '1'
@@ -814,11 +814,11 @@ thostFtdcRsdByPeriod = '1'
 thostFtdcRsdByStandard :: Char
 thostFtdcRsdByStandard = '2'
 
-thostFtdcMtOut :: Char
-thostFtdcMtOut = '0'
+thostFtdcMTOut :: Char
+thostFtdcMTOut = '0'
 
-thostFtdcMtIn :: Char
-thostFtdcMtIn = '1'
+thostFtdcMTIn :: Char
+thostFtdcMTIn = '1'
 
 thostFtdcIspiMortgageRatio :: Char
 thostFtdcIspiMortgageRatio = '4'
@@ -976,41 +976,41 @@ thostFtdcTpidIsOrderTypeLimit = 'D'
 thostFtdcTpidIsExecOrderProfit :: Char
 thostFtdcTpidIsExecOrderProfit = 'H'
 
-thostFtdcFiSettlementFund :: Char
-thostFtdcFiSettlementFund = 'F'
+thostFtdcFISettlementFund :: Char
+thostFtdcFISettlementFund = 'F'
 
-thostFtdcFiTrade :: Char
-thostFtdcFiTrade = 'T'
+thostFtdcFITrade :: Char
+thostFtdcFITrade = 'T'
 
-thostFtdcFiInvestorPosition :: Char
-thostFtdcFiInvestorPosition = 'P'
+thostFtdcFIInvestorPosition :: Char
+thostFtdcFIInvestorPosition = 'P'
 
-thostFtdcFiSubEntryFund :: Char
-thostFtdcFiSubEntryFund = 'O'
+thostFtdcFISubEntryFund :: Char
+thostFtdcFISubEntryFund = 'O'
 
-thostFtdcFiCZCECombinationPos :: Char
-thostFtdcFiCZCECombinationPos = 'C'
+thostFtdcFICZCECombinationPos :: Char
+thostFtdcFICZCECombinationPos = 'C'
 
-thostFtdcFiCSRCData :: Char
-thostFtdcFiCSRCData = 'R'
+thostFtdcFICSRCData :: Char
+thostFtdcFICSRCData = 'R'
 
-thostFtdcFiCZCEClose :: Char
-thostFtdcFiCZCEClose = 'L'
+thostFtdcFICZCEClose :: Char
+thostFtdcFICZCEClose = 'L'
 
-thostFtdcFiCZCENoClose :: Char
-thostFtdcFiCZCENoClose = 'N'
+thostFtdcFICZCENoClose :: Char
+thostFtdcFICZCENoClose = 'N'
 
-thostFtdcFiPositionDtl :: Char
-thostFtdcFiPositionDtl = 'D'
+thostFtdcFIPositionDtl :: Char
+thostFtdcFIPositionDtl = 'D'
 
-thostFtdcFiOptionStrike :: Char
-thostFtdcFiOptionStrike = 'S'
+thostFtdcFIOptionStrike :: Char
+thostFtdcFIOptionStrike = 'S'
 
-thostFtdcFiSettlementPriceComparison :: Char
-thostFtdcFiSettlementPriceComparison = 'M'
+thostFtdcFISettlementPriceComparison :: Char
+thostFtdcFISettlementPriceComparison = 'M'
 
-thostFtdcFiNonTradePosChange :: Char
-thostFtdcFiNonTradePosChange = 'B'
+thostFtdcFINonTradePosChange :: Char
+thostFtdcFINonTradePosChange = 'B'
 
 thostFtdcFutSettlement :: Char
 thostFtdcFutSettlement = '0'
@@ -1042,17 +1042,17 @@ thostFtdcFusPartSucceedLoad = '4'
 thostFtdcFusFailedLoad :: Char
 thostFtdcFusFailedLoad = '5'
 
-thostFtdcTdOut :: Char
-thostFtdcTdOut = '0'
+thostFtdcTDOut :: Char
+thostFtdcTDOut = '0'
 
-thostFtdcTdIn :: Char
-thostFtdcTdIn = '1'
+thostFtdcTDIn :: Char
+thostFtdcTDIn = '1'
 
-thostFtdcScNoSpecialRule :: Char
-thostFtdcScNoSpecialRule = '0'
+thostFtdcSCNoSpecialRule :: Char
+thostFtdcSCNoSpecialRule = '0'
 
-thostFtdcScNoSpringFestival :: Char
-thostFtdcScNoSpringFestival = '1'
+thostFtdcSCNoSpringFestival :: Char
+thostFtdcSCNoSpringFestival = '1'
 
 thostFtdcIptLastSettlement :: Char
 thostFtdcIptLastSettlement = '1'
@@ -1069,11 +1069,11 @@ thostFtdcPlpNonActive = '2'
 thostFtdcPlpCanceled :: Char
 thostFtdcPlpCanceled = '3'
 
-thostFtdcDmCashDeliv :: Char
-thostFtdcDmCashDeliv = '1'
+thostFtdcDMCashDeliv :: Char
+thostFtdcDMCashDeliv = '1'
 
-thostFtdcDmCommodityDeliv :: Char
-thostFtdcDmCommodityDeliv = '2'
+thostFtdcDMCommodityDeliv :: Char
+thostFtdcDMCommodityDeliv = '2'
 
 thostFtdcFiotFundIO :: Char
 thostFtdcFiotFundIO = '1'
@@ -1084,62 +1084,62 @@ thostFtdcFiotTransfer = '2'
 thostFtdcFiotSwapCurrency :: Char
 thostFtdcFiotSwapCurrency = '3'
 
-thostFtdcFtDeposite :: Char
-thostFtdcFtDeposite = '1'
+thostFtdcFTDeposite :: Char
+thostFtdcFTDeposite = '1'
 
-thostFtdcFtItemFund :: Char
-thostFtdcFtItemFund = '2'
+thostFtdcFTItemFund :: Char
+thostFtdcFTItemFund = '2'
 
-thostFtdcFtCompany :: Char
-thostFtdcFtCompany = '3'
+thostFtdcFTCompany :: Char
+thostFtdcFTCompany = '3'
 
-thostFtdcFtInnerTransfer :: Char
-thostFtdcFtInnerTransfer = '4'
+thostFtdcFTInnerTransfer :: Char
+thostFtdcFTInnerTransfer = '4'
 
-thostFtdcFdIn :: Char
-thostFtdcFdIn = '1'
+thostFtdcFDIn :: Char
+thostFtdcFDIn = '1'
 
-thostFtdcFdOut :: Char
-thostFtdcFdOut = '2'
+thostFtdcFDOut :: Char
+thostFtdcFDOut = '2'
 
-thostFtdcFsRecord :: Char
-thostFtdcFsRecord = '1'
+thostFtdcFSRecord :: Char
+thostFtdcFSRecord = '1'
 
-thostFtdcFsCheck :: Char
-thostFtdcFsCheck = '2'
+thostFtdcFSCheck :: Char
+thostFtdcFSCheck = '2'
 
-thostFtdcFsCharge :: Char
-thostFtdcFsCharge = '3'
+thostFtdcFSCharge :: Char
+thostFtdcFSCharge = '3'
 
-thostFtdcPsNone :: Char
-thostFtdcPsNone = '1'
+thostFtdcPSNone :: Char
+thostFtdcPSNone = '1'
 
-thostFtdcPsPublishing :: Char
-thostFtdcPsPublishing = '2'
+thostFtdcPSPublishing :: Char
+thostFtdcPSPublishing = '2'
 
-thostFtdcPsPublished :: Char
-thostFtdcPsPublished = '3'
+thostFtdcPSPublished :: Char
+thostFtdcPSPublished = '3'
 
-thostFtdcEsNonActive :: Char
-thostFtdcEsNonActive = '1'
+thostFtdcESNonActive :: Char
+thostFtdcESNonActive = '1'
 
-thostFtdcEsStartup :: Char
-thostFtdcEsStartup = '2'
+thostFtdcESStartup :: Char
+thostFtdcESStartup = '2'
 
-thostFtdcEsInitialize :: Char
-thostFtdcEsInitialize = '3'
+thostFtdcESInitialize :: Char
+thostFtdcESInitialize = '3'
 
-thostFtdcEsInitialized :: Char
-thostFtdcEsInitialized = '4'
+thostFtdcESInitialized :: Char
+thostFtdcESInitialized = '4'
 
-thostFtdcEsClose :: Char
-thostFtdcEsClose = '5'
+thostFtdcESClose :: Char
+thostFtdcESClose = '5'
 
-thostFtdcEsClosed :: Char
-thostFtdcEsClosed = '6'
+thostFtdcESClosed :: Char
+thostFtdcESClosed = '6'
 
-thostFtdcEsSettlement :: Char
-thostFtdcEsSettlement = '7'
+thostFtdcESSettlement :: Char
+thostFtdcESSettlement = '7'
 
 thostFtdcStsInitialize :: Char
 thostFtdcStsInitialize = '0'
@@ -1153,26 +1153,26 @@ thostFtdcStsSettlemented = '2'
 thostFtdcStsFinished :: Char
 thostFtdcStsFinished = '3'
 
-thostFtdcCtPerson :: Char
-thostFtdcCtPerson = '0'
+thostFtdcCTPerson :: Char
+thostFtdcCTPerson = '0'
 
-thostFtdcCtCompany :: Char
-thostFtdcCtCompany = '1'
+thostFtdcCTCompany :: Char
+thostFtdcCTCompany = '1'
 
-thostFtdcCtFund :: Char
-thostFtdcCtFund = '2'
+thostFtdcCTFund :: Char
+thostFtdcCTFund = '2'
 
-thostFtdcCtSpecialOrgan :: Char
-thostFtdcCtSpecialOrgan = '3'
+thostFtdcCTSpecialOrgan :: Char
+thostFtdcCTSpecialOrgan = '3'
 
-thostFtdcCtAsset :: Char
-thostFtdcCtAsset = '4'
+thostFtdcCTAsset :: Char
+thostFtdcCTAsset = '4'
 
-thostFtdcBtTrade :: Char
-thostFtdcBtTrade = '0'
+thostFtdcBTTrade :: Char
+thostFtdcBTTrade = '0'
 
-thostFtdcBtTradeSettle :: Char
-thostFtdcBtTradeSettle = '1'
+thostFtdcBTTradeSettle :: Char
+thostFtdcBTTradeSettle = '1'
 
 thostFtdcFasLow :: Char
 thostFtdcFasLow = '1'
@@ -1204,17 +1204,17 @@ thostFtdcPwdtTrade = '1'
 thostFtdcPwdtAccount :: Char
 thostFtdcPwdtAccount = '2'
 
-thostFtdcAgAll :: Char
-thostFtdcAgAll = '1'
+thostFtdcAGAll :: Char
+thostFtdcAGAll = '1'
 
-thostFtdcAgOnlyLost :: Char
-thostFtdcAgOnlyLost = '2'
+thostFtdcAGOnlyLost :: Char
+thostFtdcAGOnlyLost = '2'
 
-thostFtdcAgOnlyGain :: Char
-thostFtdcAgOnlyGain = '3'
+thostFtdcAGOnlyGain :: Char
+thostFtdcAGOnlyGain = '3'
 
-thostFtdcAgNone :: Char
-thostFtdcAgNone = '4'
+thostFtdcAGNone :: Char
+thostFtdcAGNone = '4'
 
 thostFtdcIcpInclude :: Char
 thostFtdcIcpInclude = '0'
@@ -1237,11 +1237,11 @@ thostFtdcFpwdUnCheck = '0'
 thostFtdcFpwdCheck :: Char
 thostFtdcFpwdCheck = '1'
 
-thostFtdcTtBankToFuture :: Char
-thostFtdcTtBankToFuture = '0'
+thostFtdcTTBankToFuture :: Char
+thostFtdcTTBankToFuture = '0'
 
-thostFtdcTtFutureToBank :: Char
-thostFtdcTtFutureToBank = '1'
+thostFtdcTTFutureToBank :: Char
+thostFtdcTTFutureToBank = '1'
 
 thostFtdcTvfInvalid :: Char
 thostFtdcTvfInvalid = '0'
@@ -1252,14 +1252,14 @@ thostFtdcTvfValid = '1'
 thostFtdcTvfReverse :: Char
 thostFtdcTvfReverse = '2'
 
-thostFtdcRnCd :: Char
-thostFtdcRnCd = '0'
+thostFtdcRNCD :: Char
+thostFtdcRNCD = '0'
 
-thostFtdcRnZt :: Char
-thostFtdcRnZt = '1'
+thostFtdcRNZT :: Char
+thostFtdcRNZT = '1'
 
-thostFtdcRnQt :: Char
-thostFtdcRnQt = '2'
+thostFtdcRNQT :: Char
+thostFtdcRNQT = '2'
 
 thostFtdcSexNone :: Char
 thostFtdcSexNone = '0'
@@ -1270,14 +1270,14 @@ thostFtdcSexMan = '1'
 thostFtdcSexWoman :: Char
 thostFtdcSexWoman = '2'
 
-thostFtdcUtInvestor :: Char
-thostFtdcUtInvestor = '0'
+thostFtdcUTInvestor :: Char
+thostFtdcUTInvestor = '0'
 
-thostFtdcUtOperator :: Char
-thostFtdcUtOperator = '1'
+thostFtdcUTOperator :: Char
+thostFtdcUTOperator = '1'
 
-thostFtdcUtSuperUser :: Char
-thostFtdcUtSuperUser = '2'
+thostFtdcUTSuperUser :: Char
+thostFtdcUTSuperUser = '2'
 
 thostFtdcRatetypeMarginRate :: Char
 thostFtdcRatetypeMarginRate = '2'
@@ -1306,11 +1306,11 @@ thostFtdcSbsDay = '1'
 thostFtdcSbsVolume :: Char
 thostFtdcSbsVolume = '2'
 
-thostFtdcStDay :: Char
-thostFtdcStDay = '0'
+thostFtdcSTDay :: Char
+thostFtdcSTDay = '0'
 
-thostFtdcStMonth :: Char
-thostFtdcStMonth = '1'
+thostFtdcSTMonth :: Char
+thostFtdcSTMonth = '1'
 
 thostFtdcUrtLogon :: Char
 thostFtdcUrtLogon = '1'
@@ -1348,11 +1348,11 @@ thostFtdcBgsNoGenerated = '1'
 thostFtdcBgsGenerated :: Char
 thostFtdcBgsGenerated = '2'
 
-thostFtdcAtHandlePositionAlgo :: Char
-thostFtdcAtHandlePositionAlgo = '1'
+thostFtdcATHandlePositionAlgo :: Char
+thostFtdcATHandlePositionAlgo = '1'
 
-thostFtdcAtFindMarginRateAlgo :: Char
-thostFtdcAtFindMarginRateAlgo = '2'
+thostFtdcATFindMarginRateAlgo :: Char
+thostFtdcATFindMarginRateAlgo = '2'
 
 thostFtdcHpaBase :: Char
 thostFtdcHpaBase = '1'
@@ -1474,17 +1474,17 @@ thostFtdcIcsClose = '0'
 thostFtdcIcsCloseToday :: Char
 thostFtdcIcsCloseToday = '1'
 
-thostFtdcSmNon :: Char
-thostFtdcSmNon = '0'
+thostFtdcSMNon :: Char
+thostFtdcSMNon = '0'
 
-thostFtdcSmInstrument :: Char
-thostFtdcSmInstrument = '1'
+thostFtdcSMInstrument :: Char
+thostFtdcSMInstrument = '1'
 
-thostFtdcSmProduct :: Char
-thostFtdcSmProduct = '2'
+thostFtdcSMProduct :: Char
+thostFtdcSMProduct = '2'
 
-thostFtdcSmInvestor :: Char
-thostFtdcSmInvestor = '3'
+thostFtdcSMInvestor :: Char
+thostFtdcSMInvestor = '3'
 
 thostFtdcPaosNotSend :: Char
 thostFtdcPaosNotSend = '1'
@@ -1678,14 +1678,14 @@ thostFtdcBltFetchableMoney = '2'
 thostFtdcBltFreezeMoney :: Char
 thostFtdcBltFreezeMoney = '3'
 
-thostFtdcGdUnknown :: Char
-thostFtdcGdUnknown = '0'
+thostFtdcGDUnknown :: Char
+thostFtdcGDUnknown = '0'
 
-thostFtdcGdMale :: Char
-thostFtdcGdMale = '1'
+thostFtdcGDMale :: Char
+thostFtdcGDMale = '1'
 
-thostFtdcGdFemale :: Char
-thostFtdcGdFemale = '2'
+thostFtdcGDFemale :: Char
+thostFtdcGDFemale = '2'
 
 thostFtdcFpfBen :: Char
 thostFtdcFpfBen = '0'
@@ -1720,14 +1720,14 @@ thostFtdcPwtTransfer = '2'
 thostFtdcPwtTrade :: Char
 thostFtdcPwtTrade = '3'
 
-thostFtdcEmNoEncry :: Char
-thostFtdcEmNoEncry = '0'
+thostFtdcEMNoEncry :: Char
+thostFtdcEMNoEncry = '0'
 
-thostFtdcEmDes :: Char
-thostFtdcEmDes = '1'
+thostFtdcEMDes :: Char
+thostFtdcEMDes = '1'
 
-thostFtdcEm3DES :: Char
-thostFtdcEm3DES = '2'
+thostFtdcEM3DES :: Char
+thostFtdcEM3DES = '2'
 
 thostFtdcBrfBankNotNeedRepeal :: Char
 thostFtdcBrfBankNotNeedRepeal = '0'
@@ -1747,20 +1747,20 @@ thostFtdcBrorfBrokerWaitingRepeal = '1'
 thostFtdcBrorfBrokerBeenRepealed :: Char
 thostFtdcBrorfBrokerBeenRepealed = '2'
 
-thostFtdcTsBank :: Char
-thostFtdcTsBank = '0'
+thostFtdcTSBank :: Char
+thostFtdcTSBank = '0'
 
-thostFtdcTsFuture :: Char
-thostFtdcTsFuture = '1'
+thostFtdcTSFuture :: Char
+thostFtdcTSFuture = '1'
 
-thostFtdcTsStore :: Char
-thostFtdcTsStore = '2'
+thostFtdcTSStore :: Char
+thostFtdcTSStore = '2'
 
-thostFtdcLfYes :: Char
-thostFtdcLfYes = '0'
+thostFtdcLFYes :: Char
+thostFtdcLFYes = '0'
 
-thostFtdcLfNo :: Char
-thostFtdcLfNo = '1'
+thostFtdcLFNo :: Char
+thostFtdcLFNo = '1'
 
 thostFtdcBasNormal :: Char
 thostFtdcBasNormal = '0'
@@ -1852,20 +1852,20 @@ thostFtdcAvafValid = '1'
 thostFtdcAvafRepeal :: Char
 thostFtdcAvafRepeal = '2'
 
-thostFtdcOtBank :: Char
-thostFtdcOtBank = '1'
+thostFtdcOTBank :: Char
+thostFtdcOTBank = '1'
 
-thostFtdcOtFuture :: Char
-thostFtdcOtFuture = '2'
+thostFtdcOTFuture :: Char
+thostFtdcOTFuture = '2'
 
-thostFtdcOtPlateForm :: Char
-thostFtdcOtPlateForm = '9'
+thostFtdcOTPlateForm :: Char
+thostFtdcOTPlateForm = '9'
 
-thostFtdcOlHeadQuarters :: Char
-thostFtdcOlHeadQuarters = '1'
+thostFtdcOLHeadQuarters :: Char
+thostFtdcOLHeadQuarters = '1'
 
-thostFtdcOlBranch :: Char
-thostFtdcOlBranch = '2'
+thostFtdcOLBranch :: Char
+thostFtdcOLBranch = '2'
 
 thostFtdcPidFutureProtocal :: Char
 thostFtdcPidFutureProtocal = '0'
@@ -1888,11 +1888,11 @@ thostFtdcPidBOCOMProtocal = '5'
 thostFtdcPidFBTPlateFormProtocal :: Char
 thostFtdcPidFBTPlateFormProtocal = 'X'
 
-thostFtdcCmShortConnect :: Char
-thostFtdcCmShortConnect = '0'
+thostFtdcCMShortConnect :: Char
+thostFtdcCMShortConnect = '0'
 
-thostFtdcCmLongConnect :: Char
-thostFtdcCmLongConnect = '1'
+thostFtdcCMLongConnect :: Char
+thostFtdcCMLongConnect = '1'
 
 thostFtdcSrmASync :: Char
 thostFtdcSrmASync = '0'
@@ -1918,26 +1918,26 @@ thostFtdcFatSavingCard = '2'
 thostFtdcFatCreditCard :: Char
 thostFtdcFatCreditCard = '3'
 
-thostFtdcOsReady :: Char
-thostFtdcOsReady = '0'
+thostFtdcOSReady :: Char
+thostFtdcOSReady = '0'
 
-thostFtdcOsCheckIn :: Char
-thostFtdcOsCheckIn = '1'
+thostFtdcOSCheckIn :: Char
+thostFtdcOSCheckIn = '1'
 
-thostFtdcOsCheckOut :: Char
-thostFtdcOsCheckOut = '2'
+thostFtdcOSCheckOut :: Char
+thostFtdcOSCheckOut = '2'
 
-thostFtdcOsCheckFileArrived :: Char
-thostFtdcOsCheckFileArrived = '3'
+thostFtdcOSCheckFileArrived :: Char
+thostFtdcOSCheckFileArrived = '3'
 
-thostFtdcOsCheckDetail :: Char
-thostFtdcOsCheckDetail = '4'
+thostFtdcOSCheckDetail :: Char
+thostFtdcOSCheckDetail = '4'
 
-thostFtdcOsDayEndClean :: Char
-thostFtdcOsDayEndClean = '5'
+thostFtdcOSDayEndClean :: Char
+thostFtdcOSDayEndClean = '5'
 
-thostFtdcOsInvalid :: Char
-thostFtdcOsInvalid = '9'
+thostFtdcOSInvalid :: Char
+thostFtdcOSInvalid = '9'
 
 thostFtdcCcbfmByAmount :: Char
 thostFtdcCcbfmByAmount = '1'
@@ -1954,11 +1954,11 @@ thostFtdcCapitServer = '2'
 thostFtdcCapitUserApi :: Char
 thostFtdcCapitUserApi = '3'
 
-thostFtdcLsConnected :: Char
-thostFtdcLsConnected = '1'
+thostFtdcLSConnected :: Char
+thostFtdcLSConnected = '1'
 
-thostFtdcLsDisconnected :: Char
-thostFtdcLsDisconnected = '2'
+thostFtdcLSDisconnected :: Char
+thostFtdcLSDisconnected = '2'
 
 thostFtdcBpwdfNoCheck :: Char
 thostFtdcBpwdfNoCheck = '0'
@@ -2143,23 +2143,23 @@ thostFtdcFberfSendFailed = '3'
 thostFtdcFberfWaitReSend :: Char
 thostFtdcFberfWaitReSend = '4'
 
-thostFtdcNcNoerror :: Char
-thostFtdcNcNoerror = '0'
+thostFtdcNCNoerror :: Char
+thostFtdcNCNoerror = '0'
 
-thostFtdcNcWarn :: Char
-thostFtdcNcWarn = '1'
+thostFtdcNCWarn :: Char
+thostFtdcNCWarn = '1'
 
-thostFtdcNcCall :: Char
-thostFtdcNcCall = '2'
+thostFtdcNCCall :: Char
+thostFtdcNCCall = '2'
 
-thostFtdcNcForce :: Char
-thostFtdcNcForce = '3'
+thostFtdcNCForce :: Char
+thostFtdcNCForce = '3'
 
-thostFtdcNcChuancang :: Char
-thostFtdcNcChuancang = '4'
+thostFtdcNCChuancang :: Char
+thostFtdcNCChuancang = '4'
 
-thostFtdcNcException :: Char
-thostFtdcNcException = '5'
+thostFtdcNCException :: Char
+thostFtdcNCException = '5'
 
 thostFtdcFctManual :: Char
 thostFtdcFctManual = '0'
@@ -2260,23 +2260,23 @@ thostFtdcUoacsRefuse = '5'
 thostFtdcUoacsCancel :: Char
 thostFtdcUoacsCancel = '6'
 
-thostFtdcQtRadio :: Char
-thostFtdcQtRadio = '1'
+thostFtdcQTRadio :: Char
+thostFtdcQTRadio = '1'
 
-thostFtdcQtOption :: Char
-thostFtdcQtOption = '2'
+thostFtdcQTOption :: Char
+thostFtdcQTOption = '2'
 
-thostFtdcQtBlank :: Char
-thostFtdcQtBlank = '3'
+thostFtdcQTBlank :: Char
+thostFtdcQTBlank = '3'
 
-thostFtdcBtRequest :: Char
-thostFtdcBtRequest = '1'
+thostFtdcBTRequest :: Char
+thostFtdcBTRequest = '1'
 
-thostFtdcBtResponse :: Char
-thostFtdcBtResponse = '2'
+thostFtdcBTResponse :: Char
+thostFtdcBTResponse = '2'
 
-thostFtdcBtNotice :: Char
-thostFtdcBtNotice = '3'
+thostFtdcBTNotice :: Char
+thostFtdcBTNotice = '3'
 
 thostFtdcCrcSuccess :: Char
 thostFtdcCrcSuccess = '0'
@@ -2341,23 +2341,23 @@ thostFtdcEcidtArbitrage = '2'
 thostFtdcEcidtSpeculation :: Char
 thostFtdcEcidtSpeculation = '3'
 
-thostFtdcUfNoUpdate :: Char
-thostFtdcUfNoUpdate = '0'
+thostFtdcUFNoUpdate :: Char
+thostFtdcUFNoUpdate = '0'
 
-thostFtdcUfSuccess :: Char
-thostFtdcUfSuccess = '1'
+thostFtdcUFSuccess :: Char
+thostFtdcUFSuccess = '1'
 
-thostFtdcUfFail :: Char
-thostFtdcUfFail = '2'
+thostFtdcUFFail :: Char
+thostFtdcUFFail = '2'
 
-thostFtdcUfTCSuccess :: Char
-thostFtdcUfTCSuccess = '3'
+thostFtdcUFTCSuccess :: Char
+thostFtdcUFTCSuccess = '3'
 
-thostFtdcUfTCFail :: Char
-thostFtdcUfTCFail = '4'
+thostFtdcUFTCFail :: Char
+thostFtdcUFTCFail = '4'
 
-thostFtdcUfCancel :: Char
-thostFtdcUfCancel = '5'
+thostFtdcUFCancel :: Char
+thostFtdcUFCancel = '5'
 
 thostFtdcAoidOpenInvestor :: Char
 thostFtdcAoidOpenInvestor = '1'
@@ -2446,14 +2446,14 @@ thostFtdcEvMInvestorRate = '2'
 thostFtdcEvMInvestorCommRateModel :: Char
 thostFtdcEvMInvestorCommRateModel = '3'
 
-thostFtdcClZero :: Char
-thostFtdcClZero = '0'
+thostFtdcCLZero :: Char
+thostFtdcCLZero = '0'
 
-thostFtdcClOne :: Char
-thostFtdcClOne = '1'
+thostFtdcCLOne :: Char
+thostFtdcCLOne = '1'
 
-thostFtdcClTwo :: Char
-thostFtdcClTwo = '2'
+thostFtdcCLTwo :: Char
+thostFtdcCLTwo = '2'
 
 thostFtdcChsInit :: Char
 thostFtdcChsInit = '0'
@@ -2560,17 +2560,17 @@ thostFtdcCstUnifyAccount = '0'
 thostFtdcCstManualEntry :: Char
 thostFtdcCstManualEntry = '1'
 
-thostFtdcUrAll :: Char
-thostFtdcUrAll = '0'
+thostFtdcURAll :: Char
+thostFtdcURAll = '0'
 
-thostFtdcUrSingle :: Char
-thostFtdcUrSingle = '1'
+thostFtdcURSingle :: Char
+thostFtdcURSingle = '1'
 
-thostFtdcBgInvestor :: Char
-thostFtdcBgInvestor = '2'
+thostFtdcBGInvestor :: Char
+thostFtdcBGInvestor = '2'
 
-thostFtdcBgGroup :: Char
-thostFtdcBgGroup = '1'
+thostFtdcBGGroup :: Char
+thostFtdcBGGroup = '1'
 
 thostFtdcTssmInstrument :: Char
 thostFtdcTssmInstrument = '1'
@@ -2968,14 +2968,14 @@ thostFtdcFmdIn = '1'
 thostFtdcFmdOut :: Char
 thostFtdcFmdOut = '2'
 
-thostFtdcBtProfit :: Char
-thostFtdcBtProfit = '0'
+thostFtdcBTProfit :: Char
+thostFtdcBTProfit = '0'
 
-thostFtdcBtLoss :: Char
-thostFtdcBtLoss = '1'
+thostFtdcBTLoss :: Char
+thostFtdcBTLoss = '1'
 
-thostFtdcBtOther :: Char
-thostFtdcBtOther = 'Z'
+thostFtdcBTOther :: Char
+thostFtdcBTOther = 'Z'
 
 thostFtdcSstManual :: Char
 thostFtdcSstManual = '0'
@@ -3037,29 +3037,29 @@ thostFtdcExsBefore = '0'
 thostFtdcExsAfter :: Char
 thostFtdcExsAfter = '1'
 
-thostFtdcCrDomestic :: Char
-thostFtdcCrDomestic = '1'
+thostFtdcCRDomestic :: Char
+thostFtdcCRDomestic = '1'
 
-thostFtdcCrGmt :: Char
-thostFtdcCrGmt = '2'
+thostFtdcCRGmt :: Char
+thostFtdcCRGmt = '2'
 
-thostFtdcCrForeign :: Char
-thostFtdcCrForeign = '3'
+thostFtdcCRForeign :: Char
+thostFtdcCRForeign = '3'
 
-thostFtdcHbNo :: Char
-thostFtdcHbNo = '0'
+thostFtdcHBNo :: Char
+thostFtdcHBNo = '0'
 
-thostFtdcHbYes :: Char
-thostFtdcHbYes = '1'
+thostFtdcHBYes :: Char
+thostFtdcHBYes = '1'
 
-thostFtdcSmNormal :: Char
-thostFtdcSmNormal = '1'
+thostFtdcSMNormal :: Char
+thostFtdcSMNormal = '1'
 
-thostFtdcSmEmerge :: Char
-thostFtdcSmEmerge = '2'
+thostFtdcSMEmerge :: Char
+thostFtdcSMEmerge = '2'
 
-thostFtdcSmRestore :: Char
-thostFtdcSmRestore = '3'
+thostFtdcSMRestore :: Char
+thostFtdcSMRestore = '3'
 
 thostFtdcTptFull :: Char
 thostFtdcTptFull = '1'
@@ -3070,11 +3070,11 @@ thostFtdcTptIncrement = '2'
 thostFtdcTptBackUp :: Char
 thostFtdcTptBackUp = '3'
 
-thostFtdcLmTrade :: Char
-thostFtdcLmTrade = '0'
+thostFtdcLMTrade :: Char
+thostFtdcLMTrade = '0'
 
-thostFtdcLmTransfer :: Char
-thostFtdcLmTransfer = '1'
+thostFtdcLMTransfer :: Char
+thostFtdcLMTransfer = '1'
 
 thostFtdcCptInstrument :: Char
 thostFtdcCptInstrument = '1'
@@ -3082,11 +3082,11 @@ thostFtdcCptInstrument = '1'
 thostFtdcCptMargin :: Char
 thostFtdcCptMargin = '2'
 
-thostFtdcHtYes :: Char
-thostFtdcHtYes = '1'
+thostFtdcHTYes :: Char
+thostFtdcHTYes = '1'
 
-thostFtdcHtNo :: Char
-thostFtdcHtNo = '0'
+thostFtdcHTNo :: Char
+thostFtdcHTNo = '0'
 
 thostFtdcAmtBank :: Char
 thostFtdcAmtBank = '1'
@@ -3124,11 +3124,11 @@ thostFtdcCatAssetmgrTrustee = '3'
 thostFtdcCatAssetmgrTransfer :: Char
 thostFtdcCatAssetmgrTransfer = '4'
 
-thostFtdcLtChinese :: Char
-thostFtdcLtChinese = '1'
+thostFtdcLTChinese :: Char
+thostFtdcLTChinese = '1'
 
-thostFtdcLtEnglish :: Char
-thostFtdcLtEnglish = '2'
+thostFtdcLTEnglish :: Char
+thostFtdcLTEnglish = '2'
 
 thostFtdcAmctPerson :: Char
 thostFtdcAmctPerson = '1'
@@ -3154,14 +3154,14 @@ thostFtdcCitHasATP = '1'
 thostFtdcCitHasDiff :: Char
 thostFtdcCitHasDiff = '2'
 
-thostFtdcDtHandDeliv :: Char
-thostFtdcDtHandDeliv = '1'
+thostFtdcDTHandDeliv :: Char
+thostFtdcDTHandDeliv = '1'
 
-thostFtdcDtPersonDeliv :: Char
-thostFtdcDtPersonDeliv = '2'
+thostFtdcDTPersonDeliv :: Char
+thostFtdcDTPersonDeliv = '2'
 
-thostFtdcMmsaNo :: Char
-thostFtdcMmsaNo = '0'
+thostFtdcMmsaNO :: Char
+thostFtdcMmsaNO = '0'
 
 thostFtdcMmsaYes :: Char
 thostFtdcMmsaYes = '1'
@@ -3250,11 +3250,11 @@ thostFtdcFmdenIn = '1'
 thostFtdcFmdenOut :: Char
 thostFtdcFmdenOut = '2'
 
-thostFtdcCpCallOptions :: Char
-thostFtdcCpCallOptions = '1'
+thostFtdcCPCallOptions :: Char
+thostFtdcCPCallOptions = '1'
 
-thostFtdcCpPutOptions :: Char
-thostFtdcCpPutOptions = '2'
+thostFtdcCPPutOptions :: Char
+thostFtdcCPPutOptions = '2'
 
 thostFtdcStmContinental :: Char
 thostFtdcStmContinental = '0'
@@ -3286,8 +3286,8 @@ thostFtdcOerNoExec = 'n'
 thostFtdcOerCanceled :: Char
 thostFtdcOerCanceled = 'c'
 
-thostFtdcOerOk :: Char
-thostFtdcOerOk = '0'
+thostFtdcOerOK :: Char
+thostFtdcOerOK = '0'
 
 thostFtdcOerNoPosition :: Char
 thostFtdcOerNoPosition = '1'
@@ -3364,11 +3364,11 @@ thostFtdcFqstAccepted = 'b'
 thostFtdcFqstRejected :: Char
 thostFtdcFqstRejected = 'c'
 
-thostFtdcVmAbsolute :: Char
-thostFtdcVmAbsolute = '0'
+thostFtdcVMAbsolute :: Char
+thostFtdcVMAbsolute = '0'
 
-thostFtdcVmRatio :: Char
-thostFtdcVmRatio = '1'
+thostFtdcVMRatio :: Char
+thostFtdcVMRatio = '1'
 
 thostFtdcEopfReserve :: Char
 thostFtdcEopfReserve = '0'

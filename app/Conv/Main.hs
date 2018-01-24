@@ -192,7 +192,7 @@ printDefine =
       (\(x:xs) -> toLower x : xs) .
       concatMap
         (\s@(x:xs) ->
-           if all isUpper s
+           if all isUpper s && length s > 2
              then x : fmap toLower xs
              else s) .
       splitOn "_"

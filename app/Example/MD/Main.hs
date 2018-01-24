@@ -43,7 +43,7 @@ onFrontConnected' s@MDState {..} = do
   where
     req :: MDConfig -> CThostFtdcReqUserLoginField
     req MDConfig {..} =
-      def {password = password, userID = userID, brokerID = brokerID}
+      def {brokerID = brokerID, userID = userID, password = password}
 
 onRspUserLogin' :: MDState -> OnRspUserLogin
 onRspUserLogin' MDState {..} _ rspInfo _ _ = do
@@ -62,7 +62,8 @@ main = do
   md <- mdCreate "/tmp/ctphsmd" False False
   let s = MDState {cfg = cfg', reqID = zeroReqID, api = md}
   mdGetApiVersion >>= putStrLn
-  mdRegisterSpi md $
+  mdRegisterSpi
+    md
     def
     { onFrontConnected = Just $ onFrontConnected' s
     , onRspUserLogin = Just $ onRspUserLogin' s

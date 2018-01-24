@@ -43,7 +43,7 @@ onFrontConnected' s@TDState {..} = do
   where
     req :: TDConfig -> CThostFtdcReqUserLoginField
     req TDConfig {..} =
-      def {password = password, userID = userID, brokerID = brokerID}
+      def {brokerID = brokerID, userID = userID, password = password}
 
 onRspUserLogin' :: TDState -> OnRspUserLogin
 onRspUserLogin' s@TDState {..} _ rspInfo _ _ = do
@@ -74,7 +74,8 @@ main = do
   td <- tdCreate "/tmp/ctphstd"
   let s = TDState {cfg = cfg', reqID = zeroReqID, api = td}
   tdGetApiVersion >>= putStrLn
-  tdRegisterSpi td $
+  tdRegisterSpi
+    td
     def
     { onFrontConnected = Just $ onFrontConnected' s
     , onRspUserLogin = Just $ onRspUserLogin' s
