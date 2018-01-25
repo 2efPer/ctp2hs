@@ -1,9 +1,9 @@
-#ifndef _SPI_H_
-#define _SPI_H_
+#ifndef SPI_H_
+#define SPI_H_
 
 #include "ctp/ThostFtdcMdApi.h"
 #include "ctp/ThostFtdcTraderApi.h"
-#include "spi_ffi.h"
+#include "ffi_struct.h"
 
 //------------------------------------------------------------------------------
 // MD
@@ -332,4 +332,4 @@ class CtpTDSpi : public CThostFtdcTraderSpi {
   CtpTDSpiFFI spi_;
 };
 
-#endif /* _SPI_H_ */
+#endif /* SPI_H_ */

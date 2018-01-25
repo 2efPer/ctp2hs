@@ -1,5 +1,5 @@
-#ifndef _SPI_FFI_H
-#define _SPI_FFI_H
+#ifndef FFI_STRUCT_H_
+#define FFI_STRUCT_H_
 
 #include <stdbool.h>
 #include "ctp/ThostFtdcUserApiStruct.h"
@@ -349,4 +349,4 @@ struct CtpTDSpiFFI {
   void (*ffiOnRtnChangeAccountByBank)(struct CThostFtdcChangeAccountField *dat);
 };
 
-#endif /* _SPI_FFI_H */
+#endif /* FFI_STRUCT_H_ */

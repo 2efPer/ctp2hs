@@ -39,7 +39,7 @@ unlessErrorRspInfo CThostFtdcRspInfoField {..} a =
 onFrontConnected' :: MDState -> OnFrontConnected
 onFrontConnected' s@MDState {..} = do
   putStrLn "onFrontConnected ..."
-  void $ incReqID s >>= mdReqUserLogin api (req cfg)
+  void $ incReqID s >>= reqUserLogin api (req cfg)
   where
     req :: MDConfig -> CThostFtdcReqUserLoginField
     req MDConfig {..} =
@@ -49,8 +49,8 @@ onRspUserLogin' :: MDState -> OnRspUserLogin
 onRspUserLogin' MDState {..} _ rspInfo _ _ = do
   putStrLn "onRspUserLogin ..."
   unlessErrorRspInfo rspInfo $ do
-    mdGetTradingDay api >>= putStrLn . ("交易日: " ++)
-    void $ mdSubscribeMarketData api $ instrument cfg
+    getTradingDay api >>= putStrLn . ("交易日: " ++)
+    void $ subscribeMarketData api $ instrument cfg
 
 onRtnDepthMarketData' :: OnRtnDepthMarketData
 onRtnDepthMarketData' = putStrLn . (++ "\n") . show
@@ -59,20 +59,20 @@ main :: IO ()
 main = do
   cfg' <- execParser opts
   zeroReqID <- atomically $ newTVar 0
-  md <- mdCreate "/tmp/ctphsmd" False False
+  md <- create "/tmp/ctphsmd" False False
   let s = MDState {cfg = cfg', reqID = zeroReqID, api = md}
-  mdGetApiVersion >>= putStrLn
-  mdRegisterSpi
+  getApiVersion >>= putStrLn
+  registerSpi
     md
     def
     { onFrontConnected = Just $ onFrontConnected' s
     , onRspUserLogin = Just $ onRspUserLogin' s
     , onRtnDepthMarketData = Just onRtnDepthMarketData'
     }
-  mdRegisterFront md $ front cfg'
-  mdInit md
+  registerFront md $ front cfg'
+  initialize md
   _ <- getLine
-  mdRelease md
+  release md
   where
     opts :: ParserInfo MDConfig
     opts = info (mdConfig <**> helper) fullDesc

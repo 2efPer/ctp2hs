@@ -16,21 +16,21 @@ module Bindings.Ctp.MD
   , OnRtnDepthMarketData
   , OnRtnForQuoteRsp
   , MDObject
-  , mdCreate
-  , mdRelease
-  , mdGetApiVersion
-  , mdInit
-  , mdGetTradingDay
-  , mdRegisterFront
-  , mdRegisterNameServer
-  , mdRegisterFensUserInfo
-  , mdRegisterSpi
-  , mdSubscribeMarketData
-  , mdUnSubscribeMarketData
-  , mdSubscribeForQuoteRsp
-  , mdUnSubscribeForQuoteRsp
-  , mdReqUserLogin
-  , mdReqUserLogout
+  , create
+  , release
+  , getApiVersion
+  , initialize
+  , getTradingDay
+  , registerFront
+  , registerNameServer
+  , registerFensUserInfo
+  , registerSpi
+  , subscribeMarketData
+  , unSubscribeMarketData
+  , subscribeForQuoteRsp
+  , unSubscribeForQuoteRsp
+  , reqUserLogin
+  , reqUserLogout
   ) where
 
 {#import Bindings.Ctp.Struct#}
@@ -137,21 +137,21 @@ instance Storable CtpMDSpiFFI where
 
 {#pointer MDObject#}
 
-{#fun mdCreate {`String', `Bool', `Bool'} -> `MDObject'#}
-{#fun mdRelease {`MDObject'} -> `()'#}
-{#fun mdGetApiVersion {} -> `String'#}
-{#fun mdInit {`MDObject'} -> `()'#}
-{#fun mdGetTradingDay {`MDObject'} -> `String'#}
-{#fun mdRegisterFront {`MDObject', `String'} -> `()'#}
-{#fun mdRegisterNameServer {`MDObject', `String'} -> `()'#}
-{#fun mdRegisterFensUserInfo {`MDObject', with* `CThostFtdcFensUserInfoField'} -> `()'#}
-{#fun mdRegisterSpi {`MDObject', withCtpMDSpiFFI* `CtpMDSpi'} -> `()'#}
-{#fun mdSubscribeMarketData {`MDObject', `String'} -> `Int'#}
-{#fun mdUnSubscribeMarketData {`MDObject', `String'} -> `Int'#}
-{#fun mdSubscribeForQuoteRsp {`MDObject', `String'} -> `Int'#}
-{#fun mdUnSubscribeForQuoteRsp {`MDObject', `String'} -> `Int'#}
-{#fun mdReqUserLogin {`MDObject', with* `CThostFtdcReqUserLoginField', `Int'} -> `Int'#}
-{#fun mdReqUserLogout {`MDObject', with* `CThostFtdcUserLogoutField', `Int'} -> `Int'#}
+{#fun mdCreate as create {`String', `Bool', `Bool'} -> `MDObject'#}
+{#fun mdRelease as release {`MDObject'} -> `()'#}
+{#fun mdGetApiVersion as getApiVersion {} -> `String'#}
+{#fun mdInitialize as initialize {`MDObject'} -> `()'#}
+{#fun mdGetTradingDay as getTradingDay {`MDObject'} -> `String'#}
+{#fun mdRegisterFront as registerFront {`MDObject', `String'} -> `()'#}
+{#fun mdRegisterNameServer as registerNameServer {`MDObject', `String'} -> `()'#}
+{#fun mdRegisterFensUserInfo as registerFensUserInfo {`MDObject', with* `CThostFtdcFensUserInfoField'} -> `()'#}
+{#fun mdRegisterSpi as registerSpi {`MDObject', withCtpMDSpiFFI* `CtpMDSpi'} -> `()'#}
+{#fun mdSubscribeMarketData as subscribeMarketData {`MDObject', `String'} -> `Int'#}
+{#fun mdUnSubscribeMarketData as unSubscribeMarketData {`MDObject', `String'} -> `Int'#}
+{#fun mdSubscribeForQuoteRsp as subscribeForQuoteRsp {`MDObject', `String'} -> `Int'#}
+{#fun mdUnSubscribeForQuoteRsp as unSubscribeForQuoteRsp {`MDObject', `String'} -> `Int'#}
+{#fun mdReqUserLogin as reqUserLogin {`MDObject', with* `CThostFtdcReqUserLoginField', `Int'} -> `Int'#}
+{#fun mdReqUserLogout as reqUserLogout {`MDObject', with* `CThostFtdcUserLogoutField', `Int'} -> `Int'#}
 
 withCtpMDSpiFFI:: CtpMDSpi -> (CtpMDSpiFFIPtr -> IO ()) -> IO ()
 withCtpMDSpiFFI spi f =

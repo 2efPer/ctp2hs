@@ -1,7 +1,7 @@
-#ifndef _FFI_H_
-#define _FFI_H_
+#ifndef FFI_H_
+#define FFI_H_
 
-#include "spi_ffi.h"
+#include "ffi_struct.h"
 
 //------------------------------------------------------------------------------
 // MD
@@ -16,7 +16,7 @@ typedef void *MDObject;
 MDObject mdCreate(const char *flowPath, bool usingUdp, bool multicast);
 void mdRelease(MDObject);
 const char *mdGetApiVersion();
-void mdInit(MDObject);
+void mdInitialize(MDObject);
 const char *mdGetTradingDay(MDObject);
 void mdRegisterFront(MDObject, char *addr);
 void mdRegisterNameServer(MDObject, char *addr);
@@ -47,7 +47,7 @@ typedef void *TDObject;
 TDObject tdCreate(const char *flowPath);
 void tdRelease(TDObject);
 const char *tdGetApiVersion();
-void tdInit(TDObject);
+void tdInitialize(TDObject);
 const char *tdGetTradingDay(TDObject);
 void tdRegisterFront(TDObject, char *addr);
 void tdRegisterNameServer(TDObject, char *addr);
@@ -230,4 +230,4 @@ int tdReqQueryBankAccountMoneyByFuture(
 }
 #endif
 
-#endif /* _FFI_H_ */
+#endif /* FFI_H_ */

@@ -25,7 +25,7 @@ void mdRelease(MDObject thiz) {
 
 const char *mdGetApiVersion() { return CThostFtdcMdApi::GetApiVersion(); }
 
-void mdInit(MDObject thiz) { M(thiz)->Init(); }
+void mdInitialize(MDObject thiz) { M(thiz)->Init(); }
 
 const char *mdGetTradingDay(MDObject thiz) { return M(thiz)->GetTradingDay(); }
 
@@ -90,7 +90,7 @@ void tdRelease(TDObject thiz) {
 
 const char *tdGetApiVersion() { return CThostFtdcTraderApi::GetApiVersion(); }
 
-void tdInit(TDObject thiz) { T(thiz)->Init(); }
+void tdInitialize(TDObject thiz) { T(thiz)->Init(); }
 
 const char *tdGetTradingDay(TDObject thiz) { return T(thiz)->GetTradingDay(); }
 

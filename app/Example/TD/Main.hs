@@ -39,7 +39,7 @@ unlessErrorRspInfo CThostFtdcRspInfoField {..} a =
 onFrontConnected' :: TDState -> OnFrontConnected
 onFrontConnected' s@TDState {..} = do
   putStrLn "onFrontConnected ..."
-  void $ incReqID s >>= tdReqUserLogin api (req cfg)
+  void $ incReqID s >>= reqUserLogin api (req cfg)
   where
     req :: TDConfig -> CThostFtdcReqUserLoginField
     req TDConfig {..} =
@@ -49,8 +49,8 @@ onRspUserLogin' :: TDState -> OnRspUserLogin
 onRspUserLogin' s@TDState {..} _ rspInfo _ _ = do
   putStrLn "onRspUserLogin ..."
   unlessErrorRspInfo rspInfo $ do
-    tdGetTradingDay api >>= putStrLn . ("交易日: " ++)
-    void $ incReqID s >>= tdReqSettlementInfoConfirm api (req cfg)
+    getTradingDay api >>= putStrLn . ("交易日: " ++)
+    void $ incReqID s >>= reqSettlementInfoConfirm api (req cfg)
   where
     req :: TDConfig -> CThostFtdcSettlementInfoConfirmField
     req TDConfig {..} = def {investorID = userID, brokerID = brokerID}
@@ -58,7 +58,7 @@ onRspUserLogin' s@TDState {..} _ rspInfo _ _ = do
 onRspSettlementInfoConfirm' :: TDState -> OnRspSettlementInfoConfirm
 onRspSettlementInfoConfirm' s@TDState {..} _ rspInfo _ _ = do
   putStrLn "onRspSettlementInfoConfirm ..."
-  unlessErrorRspInfo rspInfo . void $ incReqID s >>= tdReqQryInstrument api req
+  unlessErrorRspInfo rspInfo . void $ incReqID s >>= reqQryInstrument api req
   where
     req :: CThostFtdcQryInstrumentField
     req = def
@@ -71,10 +71,10 @@ main :: IO ()
 main = do
   cfg' <- execParser opts
   zeroReqID <- atomically $ newTVar 0
-  td <- tdCreate "/tmp/ctphstd"
+  td <- create "/tmp/ctphstd"
   let s = TDState {cfg = cfg', reqID = zeroReqID, api = td}
-  tdGetApiVersion >>= putStrLn
-  tdRegisterSpi
+  getApiVersion >>= putStrLn
+  registerSpi
     td
     def
     { onFrontConnected = Just $ onFrontConnected' s
@@ -82,12 +82,12 @@ main = do
     , onRspSettlementInfoConfirm = Just $ onRspSettlementInfoConfirm' s
     , onRspQryInstrument = Just onRspQryInstrument'
     }
-  tdSubscribePublicTopic td ThostTertRestart
-  tdSubscribePrivateTopic td ThostTertRestart
-  tdRegisterFront td . front $ cfg s
-  tdInit td
+  subscribePublicTopic td ThostTertRestart
+  subscribePrivateTopic td ThostTertRestart
+  registerFront td . front $ cfg s
+  initialize td
   _ <- getLine
-  tdRelease td
+  release td
   where
     opts :: ParserInfo TDConfig
     opts = info (tdConfig <**> helper) fullDesc

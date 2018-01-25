@@ -3576,4 +3576,3 @@ thostFtdcStovRealRatio = '3'
 
 thostFtdcStovProfitRatio :: Char
 thostFtdcStovProfitRatio = '4'
-

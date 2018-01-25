@@ -16461,4 +16461,3 @@ instance Storable CThostFtdcQryExchangeForQuoteField where
     withCString (exchangeInstID (s :: CThostFtdcQryExchangeForQuoteField)) ({#set CThostFtdcQryExchangeForQuoteField->ExchangeInstID#} p)
     withCString (clientID (s :: CThostFtdcQryExchangeForQuoteField)) ({#set CThostFtdcQryExchangeForQuoteField->ClientID#} p)
     withCString (participantID (s :: CThostFtdcQryExchangeForQuoteField)) ({#set CThostFtdcQryExchangeForQuoteField->ParticipantID#} p)
-
