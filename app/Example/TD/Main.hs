@@ -24,7 +24,7 @@ data TDConfig = TDConfig
 data TDState = TDState
   { cfg   :: TDConfig
   , reqID :: TVar Int
-  , api   :: TDObject
+  , api   :: Object
   }
 
 incReqID :: TDState -> IO Int

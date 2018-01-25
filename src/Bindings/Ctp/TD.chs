@@ -2,7 +2,7 @@
 {-# LANGUAGE ForeignFunctionInterface #-}
 
 module Bindings.Ctp.TD
-  ( CtpTDSpi (..)
+  ( Spi (..)
   , OnFrontConnected
   , OnFrontDisconnected
   , OnHeartBeatWarning
@@ -123,7 +123,7 @@ module Bindings.Ctp.TD
   , OnRtnOpenAccountByBank
   , OnRtnCancelAccountByBank
   , OnRtnChangeAccountByBank
-  , TDObject
+  , Object
   , create
   , release
   , getApiVersion
@@ -587,7 +587,7 @@ foreign import ccall "wrapper" wrapOnRtnOpenAccountByBank                    :: 
 foreign import ccall "wrapper" wrapOnRtnCancelAccountByBank                  :: OnRtnCancelAccountByBank' -> IO (FunPtr OnRtnCancelAccountByBank')
 foreign import ccall "wrapper" wrapOnRtnChangeAccountByBank                  :: OnRtnChangeAccountByBank' -> IO (FunPtr OnRtnChangeAccountByBank')
 
-data CtpTDSpi = CtpTDSpi
+data Spi = Spi
   { onFrontConnected                          :: Maybe OnFrontConnected
   , onFrontDisconnected                       :: Maybe OnFrontDisconnected
   , onHeartBeatWarning                        :: Maybe OnHeartBeatWarning
@@ -710,7 +710,7 @@ data CtpTDSpi = CtpTDSpi
   , onRtnChangeAccountByBank                  :: Maybe OnRtnChangeAccountByBank
   } deriving (Generic)
 
-instance Default CtpTDSpi
+instance Default Spi
 
 data CtpTDSpiFFI = CtpTDSpiFFI
   { ffiOnFrontConnected                          :: FunPtr OnFrontConnected'
@@ -963,96 +963,96 @@ instance Storable CtpTDSpiFFI where
     {#set CtpTDSpiFFI->ffiOnRtnCancelAccountByBank#} p $ ffiOnRtnCancelAccountByBank s
     {#set CtpTDSpiFFI->ffiOnRtnChangeAccountByBank#} p $ ffiOnRtnChangeAccountByBank s
 
-{#pointer TDObject#}
+{#pointer TDObject as Object#}
 
-{#fun tdCreate as create {`String'} -> `TDObject'#}
-{#fun tdRelease as release {`TDObject'} -> `()'#}
+{#fun tdCreate as create {`String'} -> `Object'#}
+{#fun tdRelease as release {`Object'} -> `()'#}
 {#fun tdGetApiVersion as getApiVersion {} -> `String'#}
-{#fun tdInitialize as initialize {`TDObject'} -> `()'#}
-{#fun tdGetTradingDay as getTradingDay {`TDObject'} -> `String'#}
-{#fun tdRegisterFront as registerFront {`TDObject', `String'} -> `()'#}
-{#fun tdRegisterNameServer as registerNameServer {`TDObject', `String'} -> `()'#}
-{#fun tdRegisterFensUserInfo as registerFensUserInfo {`TDObject', with* `CThostFtdcFensUserInfoField'} -> `()'#}
-{#fun tdRegisterSpi as registerSpi {`TDObject', withCtpTDSpiFFI* `CtpTDSpi'} -> `()'#}
-{#fun tdSubscribePrivateTopic as subscribePrivateTopic {`TDObject', `ThostTeResumeType'} -> `()'#}
-{#fun tdSubscribePublicTopic as subscribePublicTopic {`TDObject', `ThostTeResumeType'} -> `()'#}
-{#fun tdReqAuthenticate as reqAuthenticate {`TDObject', with* `CThostFtdcReqAuthenticateField', `Int'} -> `Int'#}
-{#fun tdReqUserLogin as reqUserLogin {`TDObject', with* `CThostFtdcReqUserLoginField', `Int'} -> `Int'#}
-{#fun tdReqUserLogout as reqUserLogout {`TDObject', with* `CThostFtdcUserLogoutField', `Int'} -> `Int'#}
-{#fun tdReqUserPasswordUpdate as reqUserPasswordUpdate {`TDObject', with* `CThostFtdcUserPasswordUpdateField', `Int'} -> `Int'#}
-{#fun tdReqTradingAccountPasswordUpdate as reqTradingAccountPasswordUpdate {`TDObject', with* `CThostFtdcTradingAccountPasswordUpdateField', `Int'} -> `Int'#}
-{#fun tdReqOrderInsert as reqOrderInsert {`TDObject', with* `CThostFtdcInputOrderField', `Int'} -> `Int'#}
-{#fun tdReqParkedOrderInsert as reqParkedOrderInsert {`TDObject', with* `CThostFtdcParkedOrderField', `Int'} -> `Int'#}
-{#fun tdReqParkedOrderAction as reqParkedOrderAction {`TDObject', with* `CThostFtdcParkedOrderActionField', `Int'} -> `Int'#}
-{#fun tdReqOrderAction as reqOrderAction {`TDObject', with* `CThostFtdcInputOrderActionField', `Int'} -> `Int'#}
-{#fun tdReqQueryMaxOrderVolume as reqQueryMaxOrderVolume {`TDObject', with* `CThostFtdcQueryMaxOrderVolumeField', `Int'} -> `Int'#}
-{#fun tdReqSettlementInfoConfirm as reqSettlementInfoConfirm {`TDObject', with* `CThostFtdcSettlementInfoConfirmField', `Int'} -> `Int'#}
-{#fun tdReqRemoveParkedOrder as reqRemoveParkedOrder {`TDObject', with* `CThostFtdcRemoveParkedOrderField', `Int'} -> `Int'#}
-{#fun tdReqRemoveParkedOrderAction as reqRemoveParkedOrderAction {`TDObject', with* `CThostFtdcRemoveParkedOrderActionField', `Int'} -> `Int'#}
-{#fun tdReqExecOrderInsert as reqExecOrderInsert {`TDObject', with* `CThostFtdcInputExecOrderField', `Int'} -> `Int'#}
-{#fun tdReqExecOrderAction as reqExecOrderAction {`TDObject', with* `CThostFtdcInputExecOrderActionField', `Int'} -> `Int'#}
-{#fun tdReqForQuoteInsert as reqForQuoteInsert {`TDObject', with* `CThostFtdcInputForQuoteField', `Int'} -> `Int'#}
-{#fun tdReqQuoteInsert as reqQuoteInsert {`TDObject', with* `CThostFtdcInputQuoteField', `Int'} -> `Int'#}
-{#fun tdReqQuoteAction as reqQuoteAction {`TDObject', with* `CThostFtdcInputQuoteActionField', `Int'} -> `Int'#}
-{#fun tdReqLockInsert as reqLockInsert {`TDObject', with* `CThostFtdcInputLockField', `Int'} -> `Int'#}
-{#fun tdReqBatchOrderAction as reqBatchOrderAction {`TDObject', with* `CThostFtdcInputBatchOrderActionField', `Int'} -> `Int'#}
-{#fun tdReqCombActionInsert as reqCombActionInsert {`TDObject', with* `CThostFtdcInputCombActionField', `Int'} -> `Int'#}
-{#fun tdReqQryOrder as reqQryOrder {`TDObject', with* `CThostFtdcQryOrderField', `Int'} -> `Int'#}
-{#fun tdReqQryTrade as reqQryTrade {`TDObject', with* `CThostFtdcQryTradeField', `Int'} -> `Int'#}
-{#fun tdReqQryInvestorPosition as reqQryInvestorPosition {`TDObject', with* `CThostFtdcQryInvestorPositionField', `Int'} -> `Int'#}
-{#fun tdReqQryTradingAccount as reqQryTradingAccount {`TDObject', with* `CThostFtdcQryTradingAccountField', `Int'} -> `Int'#}
-{#fun tdReqQryInvestor as reqQryInvestor {`TDObject', with* `CThostFtdcQryInvestorField', `Int'} -> `Int'#}
-{#fun tdReqQryTradingCode as reqQryTradingCode {`TDObject', with* `CThostFtdcQryTradingCodeField', `Int'} -> `Int'#}
-{#fun tdReqQryInstrumentMarginRate as reqQryInstrumentMarginRate {`TDObject', with* `CThostFtdcQryInstrumentMarginRateField', `Int'} -> `Int'#}
-{#fun tdReqQryInstrumentCommissionRate as reqQryInstrumentCommissionRate {`TDObject', with* `CThostFtdcQryInstrumentCommissionRateField', `Int'} -> `Int'#}
-{#fun tdReqQryExchange as reqQryExchange {`TDObject', with* `CThostFtdcQryExchangeField', `Int'} -> `Int'#}
-{#fun tdReqQryProduct as reqQryProduct {`TDObject', with* `CThostFtdcQryProductField', `Int'} -> `Int'#}
-{#fun tdReqQryInstrument as reqQryInstrument {`TDObject', with* `CThostFtdcQryInstrumentField', `Int'} -> `Int'#}
-{#fun tdReqQryDepthMarketData as reqQryDepthMarketData {`TDObject', with* `CThostFtdcQryDepthMarketDataField', `Int'} -> `Int'#}
-{#fun tdReqQrySettlementInfo as reqQrySettlementInfo {`TDObject', with* `CThostFtdcQrySettlementInfoField', `Int'} -> `Int'#}
-{#fun tdReqQryTransferBank as reqQryTransferBank {`TDObject', with* `CThostFtdcQryTransferBankField', `Int'} -> `Int'#}
-{#fun tdReqQryInvestorPositionDetail as reqQryInvestorPositionDetail {`TDObject', with* `CThostFtdcQryInvestorPositionDetailField', `Int'} -> `Int'#}
-{#fun tdReqQryNotice as reqQryNotice {`TDObject', with* `CThostFtdcQryNoticeField', `Int'} -> `Int'#}
-{#fun tdReqQrySettlementInfoConfirm as reqQrySettlementInfoConfirm {`TDObject', with* `CThostFtdcQrySettlementInfoConfirmField', `Int'} -> `Int'#}
-{#fun tdReqQryInvestorPositionCombineDetail as reqQryInvestorPositionCombineDetail {`TDObject', with* `CThostFtdcQryInvestorPositionCombineDetailField', `Int'} -> `Int'#}
-{#fun tdReqQryCFMMCTradingAccountKey as reqQryCFMMCTradingAccountKey {`TDObject', with* `CThostFtdcQryCFMMCTradingAccountKeyField', `Int'} -> `Int'#}
-{#fun tdReqQryEWarrantOffset as reqQryEWarrantOffset {`TDObject', with* `CThostFtdcQryEWarrantOffsetField', `Int'} -> `Int'#}
-{#fun tdReqQryInvestorProductGroupMargin as reqQryInvestorProductGroupMargin {`TDObject', with* `CThostFtdcQryInvestorProductGroupMarginField', `Int'} -> `Int'#}
-{#fun tdReqQryExchangeMarginRate as reqQryExchangeMarginRate {`TDObject', with* `CThostFtdcQryExchangeMarginRateField', `Int'} -> `Int'#}
-{#fun tdReqQryExchangeMarginRateAdjust as reqQryExchangeMarginRateAdjust {`TDObject', with* `CThostFtdcQryExchangeMarginRateAdjustField', `Int'} -> `Int'#}
-{#fun tdReqQryExchangeRate as reqQryExchangeRate {`TDObject', with* `CThostFtdcQryExchangeRateField', `Int'} -> `Int'#}
-{#fun tdReqQrySecAgentACIDMap as reqQrySecAgentACIDMap {`TDObject', with* `CThostFtdcQrySecAgentACIDMapField', `Int'} -> `Int'#}
-{#fun tdReqQryProductExchRate as reqQryProductExchRate {`TDObject', with* `CThostFtdcQryProductExchRateField', `Int'} -> `Int'#}
-{#fun tdReqQryProductGroup as reqQryProductGroup {`TDObject', with* `CThostFtdcQryProductGroupField', `Int'} -> `Int'#}
-{#fun tdReqQryMMInstrumentCommissionRate as reqQryMMInstrumentCommissionRate {`TDObject', with* `CThostFtdcQryMMInstrumentCommissionRateField', `Int'} -> `Int'#}
-{#fun tdReqQryMMOptionInstrCommRate as reqQryMMOptionInstrCommRate {`TDObject', with* `CThostFtdcQryMMOptionInstrCommRateField', `Int'} -> `Int'#}
-{#fun tdReqQryInstrumentOrderCommRate as reqQryInstrumentOrderCommRate {`TDObject', with* `CThostFtdcQryInstrumentOrderCommRateField', `Int'} -> `Int'#}
-{#fun tdReqQryOptionInstrTradeCost as reqQryOptionInstrTradeCost {`TDObject', with* `CThostFtdcQryOptionInstrTradeCostField', `Int'} -> `Int'#}
-{#fun tdReqQryOptionInstrCommRate as reqQryOptionInstrCommRate {`TDObject', with* `CThostFtdcQryOptionInstrCommRateField', `Int'} -> `Int'#}
-{#fun tdReqQryExecOrder as reqQryExecOrder {`TDObject', with* `CThostFtdcQryExecOrderField', `Int'} -> `Int'#}
-{#fun tdReqQryForQuote as reqQryForQuote {`TDObject', with* `CThostFtdcQryForQuoteField', `Int'} -> `Int'#}
-{#fun tdReqQryQuote as reqQryQuote {`TDObject', with* `CThostFtdcQryQuoteField', `Int'} -> `Int'#}
-{#fun tdReqQryLock as reqQryLock {`TDObject', with* `CThostFtdcQryLockField', `Int'} -> `Int'#}
-{#fun tdReqQryLockPosition as reqQryLockPosition {`TDObject', with* `CThostFtdcQryLockPositionField', `Int'} -> `Int'#}
-{#fun tdReqQryETFOptionInstrCommRate as reqQryETFOptionInstrCommRate {`TDObject', with* `CThostFtdcQryETFOptionInstrCommRateField', `Int'} -> `Int'#}
-{#fun tdReqQryInvestorLevel as reqQryInvestorLevel {`TDObject', with* `CThostFtdcQryInvestorLevelField', `Int'} -> `Int'#}
-{#fun tdReqQryExecFreeze as reqQryExecFreeze {`TDObject', with* `CThostFtdcQryExecFreezeField', `Int'} -> `Int'#}
-{#fun tdReqQryCombInstrumentGuard as reqQryCombInstrumentGuard {`TDObject', with* `CThostFtdcQryCombInstrumentGuardField', `Int'} -> `Int'#}
-{#fun tdReqQryCombAction as reqQryCombAction {`TDObject', with* `CThostFtdcQryCombActionField', `Int'} -> `Int'#}
-{#fun tdReqQryTransferSerial as reqQryTransferSerial {`TDObject', with* `CThostFtdcQryTransferSerialField', `Int'} -> `Int'#}
-{#fun tdReqQryAccountregister as reqQryAccountregister {`TDObject', with* `CThostFtdcQryAccountregisterField', `Int'} -> `Int'#}
-{#fun tdReqQryContractBank as reqQryContractBank {`TDObject', with* `CThostFtdcQryContractBankField', `Int'} -> `Int'#}
-{#fun tdReqQryParkedOrder as reqQryParkedOrder {`TDObject', with* `CThostFtdcQryParkedOrderField', `Int'} -> `Int'#}
-{#fun tdReqQryParkedOrderAction as reqQryParkedOrderAction {`TDObject', with* `CThostFtdcQryParkedOrderActionField', `Int'} -> `Int'#}
-{#fun tdReqQryTradingNotice as reqQryTradingNotice {`TDObject', with* `CThostFtdcQryTradingNoticeField', `Int'} -> `Int'#}
-{#fun tdReqQryBrokerTradingParams as reqQryBrokerTradingParams {`TDObject', with* `CThostFtdcQryBrokerTradingParamsField', `Int'} -> `Int'#}
-{#fun tdReqQryBrokerTradingAlgos as reqQryBrokerTradingAlgos {`TDObject', with* `CThostFtdcQryBrokerTradingAlgosField', `Int'} -> `Int'#}
-{#fun tdReqQueryCFMMCTradingAccountToken as reqQueryCFMMCTradingAccountToken {`TDObject', with* `CThostFtdcQueryCFMMCTradingAccountTokenField', `Int'} -> `Int'#}
-{#fun tdReqFromBankToFutureByFuture as reqFromBankToFutureByFuture {`TDObject', with* `CThostFtdcReqTransferField', `Int'} -> `Int'#}
-{#fun tdReqFromFutureToBankByFuture as reqFromFutureToBankByFuture {`TDObject', with* `CThostFtdcReqTransferField', `Int'} -> `Int'#}
-{#fun tdReqQueryBankAccountMoneyByFuture as reqQueryBankAccountMoneyByFuture {`TDObject', with* `CThostFtdcReqQueryAccountField', `Int'} -> `Int'#}
+{#fun tdInitialize as initialize {`Object'} -> `()'#}
+{#fun tdGetTradingDay as getTradingDay {`Object'} -> `String'#}
+{#fun tdRegisterFront as registerFront {`Object', `String'} -> `()'#}
+{#fun tdRegisterNameServer as registerNameServer {`Object', `String'} -> `()'#}
+{#fun tdRegisterFensUserInfo as registerFensUserInfo {`Object', with* `CThostFtdcFensUserInfoField'} -> `()'#}
+{#fun tdRegisterSpi as registerSpi {`Object', withCtpTDSpiFFI* `Spi'} -> `()'#}
+{#fun tdSubscribePrivateTopic as subscribePrivateTopic {`Object', `ThostTeResumeType'} -> `()'#}
+{#fun tdSubscribePublicTopic as subscribePublicTopic {`Object', `ThostTeResumeType'} -> `()'#}
+{#fun tdReqAuthenticate as reqAuthenticate {`Object', with* `CThostFtdcReqAuthenticateField', `Int'} -> `Int'#}
+{#fun tdReqUserLogin as reqUserLogin {`Object', with* `CThostFtdcReqUserLoginField', `Int'} -> `Int'#}
+{#fun tdReqUserLogout as reqUserLogout {`Object', with* `CThostFtdcUserLogoutField', `Int'} -> `Int'#}
+{#fun tdReqUserPasswordUpdate as reqUserPasswordUpdate {`Object', with* `CThostFtdcUserPasswordUpdateField', `Int'} -> `Int'#}
+{#fun tdReqTradingAccountPasswordUpdate as reqTradingAccountPasswordUpdate {`Object', with* `CThostFtdcTradingAccountPasswordUpdateField', `Int'} -> `Int'#}
+{#fun tdReqOrderInsert as reqOrderInsert {`Object', with* `CThostFtdcInputOrderField', `Int'} -> `Int'#}
+{#fun tdReqParkedOrderInsert as reqParkedOrderInsert {`Object', with* `CThostFtdcParkedOrderField', `Int'} -> `Int'#}
+{#fun tdReqParkedOrderAction as reqParkedOrderAction {`Object', with* `CThostFtdcParkedOrderActionField', `Int'} -> `Int'#}
+{#fun tdReqOrderAction as reqOrderAction {`Object', with* `CThostFtdcInputOrderActionField', `Int'} -> `Int'#}
+{#fun tdReqQueryMaxOrderVolume as reqQueryMaxOrderVolume {`Object', with* `CThostFtdcQueryMaxOrderVolumeField', `Int'} -> `Int'#}
+{#fun tdReqSettlementInfoConfirm as reqSettlementInfoConfirm {`Object', with* `CThostFtdcSettlementInfoConfirmField', `Int'} -> `Int'#}
+{#fun tdReqRemoveParkedOrder as reqRemoveParkedOrder {`Object', with* `CThostFtdcRemoveParkedOrderField', `Int'} -> `Int'#}
+{#fun tdReqRemoveParkedOrderAction as reqRemoveParkedOrderAction {`Object', with* `CThostFtdcRemoveParkedOrderActionField', `Int'} -> `Int'#}
+{#fun tdReqExecOrderInsert as reqExecOrderInsert {`Object', with* `CThostFtdcInputExecOrderField', `Int'} -> `Int'#}
+{#fun tdReqExecOrderAction as reqExecOrderAction {`Object', with* `CThostFtdcInputExecOrderActionField', `Int'} -> `Int'#}
+{#fun tdReqForQuoteInsert as reqForQuoteInsert {`Object', with* `CThostFtdcInputForQuoteField', `Int'} -> `Int'#}
+{#fun tdReqQuoteInsert as reqQuoteInsert {`Object', with* `CThostFtdcInputQuoteField', `Int'} -> `Int'#}
+{#fun tdReqQuoteAction as reqQuoteAction {`Object', with* `CThostFtdcInputQuoteActionField', `Int'} -> `Int'#}
+{#fun tdReqLockInsert as reqLockInsert {`Object', with* `CThostFtdcInputLockField', `Int'} -> `Int'#}
+{#fun tdReqBatchOrderAction as reqBatchOrderAction {`Object', with* `CThostFtdcInputBatchOrderActionField', `Int'} -> `Int'#}
+{#fun tdReqCombActionInsert as reqCombActionInsert {`Object', with* `CThostFtdcInputCombActionField', `Int'} -> `Int'#}
+{#fun tdReqQryOrder as reqQryOrder {`Object', with* `CThostFtdcQryOrderField', `Int'} -> `Int'#}
+{#fun tdReqQryTrade as reqQryTrade {`Object', with* `CThostFtdcQryTradeField', `Int'} -> `Int'#}
+{#fun tdReqQryInvestorPosition as reqQryInvestorPosition {`Object', with* `CThostFtdcQryInvestorPositionField', `Int'} -> `Int'#}
+{#fun tdReqQryTradingAccount as reqQryTradingAccount {`Object', with* `CThostFtdcQryTradingAccountField', `Int'} -> `Int'#}
+{#fun tdReqQryInvestor as reqQryInvestor {`Object', with* `CThostFtdcQryInvestorField', `Int'} -> `Int'#}
+{#fun tdReqQryTradingCode as reqQryTradingCode {`Object', with* `CThostFtdcQryTradingCodeField', `Int'} -> `Int'#}
+{#fun tdReqQryInstrumentMarginRate as reqQryInstrumentMarginRate {`Object', with* `CThostFtdcQryInstrumentMarginRateField', `Int'} -> `Int'#}
+{#fun tdReqQryInstrumentCommissionRate as reqQryInstrumentCommissionRate {`Object', with* `CThostFtdcQryInstrumentCommissionRateField', `Int'} -> `Int'#}
+{#fun tdReqQryExchange as reqQryExchange {`Object', with* `CThostFtdcQryExchangeField', `Int'} -> `Int'#}
+{#fun tdReqQryProduct as reqQryProduct {`Object', with* `CThostFtdcQryProductField', `Int'} -> `Int'#}
+{#fun tdReqQryInstrument as reqQryInstrument {`Object', with* `CThostFtdcQryInstrumentField', `Int'} -> `Int'#}
+{#fun tdReqQryDepthMarketData as reqQryDepthMarketData {`Object', with* `CThostFtdcQryDepthMarketDataField', `Int'} -> `Int'#}
+{#fun tdReqQrySettlementInfo as reqQrySettlementInfo {`Object', with* `CThostFtdcQrySettlementInfoField', `Int'} -> `Int'#}
+{#fun tdReqQryTransferBank as reqQryTransferBank {`Object', with* `CThostFtdcQryTransferBankField', `Int'} -> `Int'#}
+{#fun tdReqQryInvestorPositionDetail as reqQryInvestorPositionDetail {`Object', with* `CThostFtdcQryInvestorPositionDetailField', `Int'} -> `Int'#}
+{#fun tdReqQryNotice as reqQryNotice {`Object', with* `CThostFtdcQryNoticeField', `Int'} -> `Int'#}
+{#fun tdReqQrySettlementInfoConfirm as reqQrySettlementInfoConfirm {`Object', with* `CThostFtdcQrySettlementInfoConfirmField', `Int'} -> `Int'#}
+{#fun tdReqQryInvestorPositionCombineDetail as reqQryInvestorPositionCombineDetail {`Object', with* `CThostFtdcQryInvestorPositionCombineDetailField', `Int'} -> `Int'#}
+{#fun tdReqQryCFMMCTradingAccountKey as reqQryCFMMCTradingAccountKey {`Object', with* `CThostFtdcQryCFMMCTradingAccountKeyField', `Int'} -> `Int'#}
+{#fun tdReqQryEWarrantOffset as reqQryEWarrantOffset {`Object', with* `CThostFtdcQryEWarrantOffsetField', `Int'} -> `Int'#}
+{#fun tdReqQryInvestorProductGroupMargin as reqQryInvestorProductGroupMargin {`Object', with* `CThostFtdcQryInvestorProductGroupMarginField', `Int'} -> `Int'#}
+{#fun tdReqQryExchangeMarginRate as reqQryExchangeMarginRate {`Object', with* `CThostFtdcQryExchangeMarginRateField', `Int'} -> `Int'#}
+{#fun tdReqQryExchangeMarginRateAdjust as reqQryExchangeMarginRateAdjust {`Object', with* `CThostFtdcQryExchangeMarginRateAdjustField', `Int'} -> `Int'#}
+{#fun tdReqQryExchangeRate as reqQryExchangeRate {`Object', with* `CThostFtdcQryExchangeRateField', `Int'} -> `Int'#}
+{#fun tdReqQrySecAgentACIDMap as reqQrySecAgentACIDMap {`Object', with* `CThostFtdcQrySecAgentACIDMapField', `Int'} -> `Int'#}
+{#fun tdReqQryProductExchRate as reqQryProductExchRate {`Object', with* `CThostFtdcQryProductExchRateField', `Int'} -> `Int'#}
+{#fun tdReqQryProductGroup as reqQryProductGroup {`Object', with* `CThostFtdcQryProductGroupField', `Int'} -> `Int'#}
+{#fun tdReqQryMMInstrumentCommissionRate as reqQryMMInstrumentCommissionRate {`Object', with* `CThostFtdcQryMMInstrumentCommissionRateField', `Int'} -> `Int'#}
+{#fun tdReqQryMMOptionInstrCommRate as reqQryMMOptionInstrCommRate {`Object', with* `CThostFtdcQryMMOptionInstrCommRateField', `Int'} -> `Int'#}
+{#fun tdReqQryInstrumentOrderCommRate as reqQryInstrumentOrderCommRate {`Object', with* `CThostFtdcQryInstrumentOrderCommRateField', `Int'} -> `Int'#}
+{#fun tdReqQryOptionInstrTradeCost as reqQryOptionInstrTradeCost {`Object', with* `CThostFtdcQryOptionInstrTradeCostField', `Int'} -> `Int'#}
+{#fun tdReqQryOptionInstrCommRate as reqQryOptionInstrCommRate {`Object', with* `CThostFtdcQryOptionInstrCommRateField', `Int'} -> `Int'#}
+{#fun tdReqQryExecOrder as reqQryExecOrder {`Object', with* `CThostFtdcQryExecOrderField', `Int'} -> `Int'#}
+{#fun tdReqQryForQuote as reqQryForQuote {`Object', with* `CThostFtdcQryForQuoteField', `Int'} -> `Int'#}
+{#fun tdReqQryQuote as reqQryQuote {`Object', with* `CThostFtdcQryQuoteField', `Int'} -> `Int'#}
+{#fun tdReqQryLock as reqQryLock {`Object', with* `CThostFtdcQryLockField', `Int'} -> `Int'#}
+{#fun tdReqQryLockPosition as reqQryLockPosition {`Object', with* `CThostFtdcQryLockPositionField', `Int'} -> `Int'#}
+{#fun tdReqQryETFOptionInstrCommRate as reqQryETFOptionInstrCommRate {`Object', with* `CThostFtdcQryETFOptionInstrCommRateField', `Int'} -> `Int'#}
+{#fun tdReqQryInvestorLevel as reqQryInvestorLevel {`Object', with* `CThostFtdcQryInvestorLevelField', `Int'} -> `Int'#}
+{#fun tdReqQryExecFreeze as reqQryExecFreeze {`Object', with* `CThostFtdcQryExecFreezeField', `Int'} -> `Int'#}
+{#fun tdReqQryCombInstrumentGuard as reqQryCombInstrumentGuard {`Object', with* `CThostFtdcQryCombInstrumentGuardField', `Int'} -> `Int'#}
+{#fun tdReqQryCombAction as reqQryCombAction {`Object', with* `CThostFtdcQryCombActionField', `Int'} -> `Int'#}
+{#fun tdReqQryTransferSerial as reqQryTransferSerial {`Object', with* `CThostFtdcQryTransferSerialField', `Int'} -> `Int'#}
+{#fun tdReqQryAccountregister as reqQryAccountregister {`Object', with* `CThostFtdcQryAccountregisterField', `Int'} -> `Int'#}
+{#fun tdReqQryContractBank as reqQryContractBank {`Object', with* `CThostFtdcQryContractBankField', `Int'} -> `Int'#}
+{#fun tdReqQryParkedOrder as reqQryParkedOrder {`Object', with* `CThostFtdcQryParkedOrderField', `Int'} -> `Int'#}
+{#fun tdReqQryParkedOrderAction as reqQryParkedOrderAction {`Object', with* `CThostFtdcQryParkedOrderActionField', `Int'} -> `Int'#}
+{#fun tdReqQryTradingNotice as reqQryTradingNotice {`Object', with* `CThostFtdcQryTradingNoticeField', `Int'} -> `Int'#}
+{#fun tdReqQryBrokerTradingParams as reqQryBrokerTradingParams {`Object', with* `CThostFtdcQryBrokerTradingParamsField', `Int'} -> `Int'#}
+{#fun tdReqQryBrokerTradingAlgos as reqQryBrokerTradingAlgos {`Object', with* `CThostFtdcQryBrokerTradingAlgosField', `Int'} -> `Int'#}
+{#fun tdReqQueryCFMMCTradingAccountToken as reqQueryCFMMCTradingAccountToken {`Object', with* `CThostFtdcQueryCFMMCTradingAccountTokenField', `Int'} -> `Int'#}
+{#fun tdReqFromBankToFutureByFuture as reqFromBankToFutureByFuture {`Object', with* `CThostFtdcReqTransferField', `Int'} -> `Int'#}
+{#fun tdReqFromFutureToBankByFuture as reqFromFutureToBankByFuture {`Object', with* `CThostFtdcReqTransferField', `Int'} -> `Int'#}
+{#fun tdReqQueryBankAccountMoneyByFuture as reqQueryBankAccountMoneyByFuture {`Object', with* `CThostFtdcReqQueryAccountField', `Int'} -> `Int'#}
 
-withCtpTDSpiFFI :: CtpTDSpi -> (CtpTDSpiFFIPtr -> IO ()) -> IO ()
+withCtpTDSpiFFI :: Spi -> (CtpTDSpiFFIPtr -> IO ()) -> IO ()
 withCtpTDSpiFFI spi f =
   let n = return nullFunPtr in
     CtpTDSpiFFI <$>

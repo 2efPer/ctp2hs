@@ -24,7 +24,7 @@ data MDConfig = MDConfig
 data MDState = MDState
   { cfg   :: MDConfig
   , reqID :: TVar Int
-  , api   :: MDObject
+  , api   :: Object
   }
 
 incReqID :: MDState -> IO Int
