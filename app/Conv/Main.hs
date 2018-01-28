@@ -56,7 +56,7 @@ parseTypeMap = do
     toHS (DirectType t _ _) = toHS' t
     toHS (ArrayType t _ _ _) =
       case toHS t of
-        "Char" -> "String"
+        "Char" -> "Text"
         _      -> error "unknown"
     toHS _ = error "unknown"
     toHS' :: TypeName -> String
@@ -134,11 +134,11 @@ printStruct sl = printStructToData sl >> printStructToStorable sl
                let cf = n ++ "->" ++ cn
                in "    " ++
                   case ht of
-                    "String" ->
+                    "Text" ->
                       let peek =
                             if cn `elem` ["InstrumentName", "ErrorMsg"]
-                              then "peekGbkCString"
-                              else "peekCString"
+                              then "peekGbkText"
+                              else "peekText"
                       in "(({#get " ++ cf ++ "#} p) >>= " ++ peek ++ ")"
                     "Char" -> "fmap castCCharToChar ({#get " ++ cf ++ "#} p)"
                     "Int" -> "fmap fromIntegral ({#get " ++ cf ++ "#} p)"
@@ -154,8 +154,8 @@ printStruct sl = printStructToData sl >> printStructToStorable sl
                    cf = n ++ "->" ++ cn
                in "    " ++
                   case ht of
-                    "String" ->
-                      "withCString (" ++ hf ++ ") ({#set " ++ cf ++ "#} p)"
+                    "Text" ->
+                      "withText (" ++ hf ++ ") ({#set " ++ cf ++ "#} p)"
                     "Char" ->
                       "{#set " ++ cf ++ "#} p (castCharToCChar $ " ++ hf ++ ")"
                     "Int" ->

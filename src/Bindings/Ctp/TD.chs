@@ -214,8 +214,10 @@ module Bindings.Ctp.TD
 
 {#import Bindings.Ctp.Define#}
 {#import Bindings.Ctp.Struct#}
-import Bindings.Ctp.Utils
+
+import Bindings.Ctp.Marshal
 import Data.Default
+import Data.Text             (Text)
 import Foreign.C.Types
 import Foreign.Marshal.Utils
 import Foreign.Ptr
@@ -965,13 +967,13 @@ instance Storable CtpTDSpiFFI where
 
 {#pointer TDObject as Object#}
 
-{#fun tdCreate as create {`String'} -> `Object'#}
+{#fun tdCreate as create {withText* `Text'} -> `Object'#}
 {#fun tdRelease as release {`Object'} -> `()'#}
-{#fun tdGetApiVersion as getApiVersion {} -> `String'#}
+{#fun tdGetApiVersion as getApiVersion {} -> `Text' peekText*#}
 {#fun tdInitialize as initialize {`Object'} -> `()'#}
-{#fun tdGetTradingDay as getTradingDay {`Object'} -> `String'#}
-{#fun tdRegisterFront as registerFront {`Object', `String'} -> `()'#}
-{#fun tdRegisterNameServer as registerNameServer {`Object', `String'} -> `()'#}
+{#fun tdGetTradingDay as getTradingDay {`Object'} -> `Text' peekText*#}
+{#fun tdRegisterFront as registerFront {`Object', withText* `Text'} -> `()'#}
+{#fun tdRegisterNameServer as registerNameServer {`Object', withText* `Text'} -> `()'#}
 {#fun tdRegisterFensUserInfo as registerFensUserInfo {`Object', with* `CThostFtdcFensUserInfoField'} -> `()'#}
 {#fun tdRegisterSpi as registerSpi {`Object', withCtpTDSpiFFI* `Spi'} -> `()'#}
 {#fun tdSubscribePrivateTopic as subscribePrivateTopic {`Object', `ThostTeResumeType'} -> `()'#}

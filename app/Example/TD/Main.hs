@@ -1,24 +1,28 @@
 {-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE OverloadedStrings     #-}
 {-# LANGUAGE RecordWildCards       #-}
 
 module Main
   ( main
   ) where
 
-import Bindings.Ctp.Define
-import Bindings.Ctp.Struct
-import Bindings.Ctp.TD
-import Control.Concurrent.STM
-import Control.Monad
-import Data.Default
-import Data.Monoid            ((<>))
-import Options.Applicative
+import           Bindings.Ctp.Define
+import           Bindings.Ctp.Struct
+import           Bindings.Ctp.TD
+import           Control.Concurrent.STM
+import           Control.Monad
+import           Data.Default
+import           Data.Monoid            ((<>))
+import           Data.Text              (Text)
+import qualified Data.Text              as T
+import qualified Data.Text.IO           as T
+import           Options.Applicative
 
 data TDConfig = TDConfig
-  { userID   :: String
-  , password :: String
-  , brokerID :: String
-  , front    :: String
+  { userID   :: Text
+  , password :: Text
+  , brokerID :: Text
+  , front    :: Text
   } deriving (Show)
 
 data TDState = TDState
@@ -33,7 +37,7 @@ incReqID TDState {..} = atomically $ modifyTVar reqID (+ 1) >> readTVar reqID
 unlessErrorRspInfo :: CThostFtdcRspInfoField -> IO () -> IO ()
 unlessErrorRspInfo CThostFtdcRspInfoField {..} a =
   if errorID /= 0
-    then putStrLn $ "Error: (" ++ show errorID ++ ") " ++ errorMsg
+    then T.putStrLn $ "Error: (" <> (T.pack . show) errorID <> ") " <> errorMsg
     else a
 
 onFrontConnected' :: TDState -> OnFrontConnected
@@ -49,7 +53,7 @@ onRspUserLogin' :: TDState -> OnRspUserLogin
 onRspUserLogin' s@TDState {..} _ rspInfo _ _ = do
   putStrLn "onRspUserLogin ..."
   unlessErrorRspInfo rspInfo $ do
-    getTradingDay api >>= putStrLn . ("交易日: " ++)
+    getTradingDay api >>= T.putStrLn . ("交易日: " <>)
     void $ incReqID s >>= reqSettlementInfoConfirm api (req cfg)
   where
     req :: TDConfig -> CThostFtdcSettlementInfoConfirmField
@@ -65,7 +69,7 @@ onRspSettlementInfoConfirm' s@TDState {..} _ rspInfo _ _ = do
 
 onRspQryInstrument' :: OnRspQryInstrument
 onRspQryInstrument' CThostFtdcInstrumentField {..} _ _ _ =
-  putStrLn $ "> " ++ instrumentName
+  T.putStrLn $ "> " <> instrumentName
 
 main :: IO ()
 main = do
@@ -73,7 +77,7 @@ main = do
   zeroReqID <- atomically $ newTVar 0
   td <- create "/tmp/ctphstd"
   let s = TDState {cfg = cfg', reqID = zeroReqID, api = td}
-  getApiVersion >>= putStrLn
+  getApiVersion >>= T.putStrLn
   registerSpi
     td
     def

@@ -1,16 +1,27 @@
-module Bindings.Ctp.Utils
-  ( wrapSpiF1
+module Bindings.Ctp.Marshal
+  ( withText
+  , peekText
+  , wrapSpiF1
   , wrapSpiF1'
   , wrapSpiF2
   , wrapSpiF3
   , wrapSpiF4
   ) where
 
-import Control.Arrow
-import Control.Monad
-import Foreign.C.Types
-import Foreign.Ptr
-import Foreign.Storable
+import           Control.Arrow
+import           Control.Monad
+import           Data.Text        (Text)
+import qualified Data.Text        as T
+import           Foreign.C.String
+import           Foreign.C.Types
+import           Foreign.Ptr
+import           Foreign.Storable
+
+withText :: Text -> (CString -> IO a) -> IO a
+withText t = withCString $ T.unpack t
+
+peekText :: CString -> IO Text
+peekText = fmap T.pack . peekCString
 
 wrapSpiF1 :: Storable a => (a -> IO ()) -> Ptr a -> IO ()
 wrapSpiF1 = (peek >=>)

@@ -1,24 +1,28 @@
 {-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE OverloadedStrings     #-}
 {-# LANGUAGE RecordWildCards       #-}
 
 module Main
   ( main
   ) where
 
-import Bindings.Ctp.MD
-import Bindings.Ctp.Struct
-import Control.Concurrent.STM
-import Control.Monad
-import Data.Default
-import Data.Monoid            ((<>))
-import Options.Applicative
+import           Bindings.Ctp.MD
+import           Bindings.Ctp.Struct
+import           Control.Concurrent.STM
+import           Control.Monad
+import           Data.Default
+import           Data.Monoid            ((<>))
+import           Data.Text              (Text)
+import qualified Data.Text              as T
+import qualified Data.Text.IO           as T
+import           Options.Applicative
 
 data MDConfig = MDConfig
-  { userID     :: String
-  , password   :: String
-  , brokerID   :: String
-  , front      :: String
-  , instrument :: String
+  { userID     :: Text
+  , password   :: Text
+  , brokerID   :: Text
+  , front      :: Text
+  , instrument :: Text
   } deriving (Show)
 
 data MDState = MDState
@@ -33,7 +37,7 @@ incReqID MDState {..} = atomically $ modifyTVar reqID (+ 1) >> readTVar reqID
 unlessErrorRspInfo :: CThostFtdcRspInfoField -> IO () -> IO ()
 unlessErrorRspInfo CThostFtdcRspInfoField {..} a =
   if errorID /= 0
-    then putStrLn $ "Error: (" ++ show errorID ++ ") " ++ errorMsg
+    then T.putStrLn $ "Error: (" <> (T.pack . show) errorID <> ") " <> errorMsg
     else a
 
 onFrontConnected' :: MDState -> OnFrontConnected
@@ -49,7 +53,7 @@ onRspUserLogin' :: MDState -> OnRspUserLogin
 onRspUserLogin' MDState {..} _ rspInfo _ _ = do
   putStrLn "onRspUserLogin ..."
   unlessErrorRspInfo rspInfo $ do
-    getTradingDay api >>= putStrLn . ("交易日: " ++)
+    getTradingDay api >>= T.putStrLn . ("交易日: " <>)
     void $ subscribeMarketData api $ instrument cfg
 
 onRtnDepthMarketData' :: OnRtnDepthMarketData
@@ -61,7 +65,7 @@ main = do
   zeroReqID <- atomically $ newTVar 0
   md <- create "/tmp/ctphsmd" False False
   let s = MDState {cfg = cfg', reqID = zeroReqID, api = md}
-  getApiVersion >>= putStrLn
+  getApiVersion >>= T.putStrLn
   registerSpi
     md
     def

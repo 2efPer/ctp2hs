@@ -34,8 +34,10 @@ module Bindings.Ctp.MD
   ) where
 
 {#import Bindings.Ctp.Struct#}
-import Bindings.Ctp.Utils
+
+import Bindings.Ctp.Marshal
 import Data.Default
+import Data.Text             (Text)
 import Foreign.C.Types
 import Foreign.Marshal.Utils
 import Foreign.Ptr
@@ -137,19 +139,19 @@ instance Storable CtpMDSpiFFI where
 
 {#pointer MDObject as Object#}
 
-{#fun mdCreate as create {`String', `Bool', `Bool'} -> `Object'#}
+{#fun mdCreate as create {withText* `Text', `Bool', `Bool'} -> `Object'#}
 {#fun mdRelease as release {`Object'} -> `()'#}
-{#fun mdGetApiVersion as getApiVersion {} -> `String'#}
+{#fun mdGetApiVersion as getApiVersion {} -> `Text' peekText*#}
 {#fun mdInitialize as initialize {`Object'} -> `()'#}
-{#fun mdGetTradingDay as getTradingDay {`Object'} -> `String'#}
-{#fun mdRegisterFront as registerFront {`Object', `String'} -> `()'#}
-{#fun mdRegisterNameServer as registerNameServer {`Object', `String'} -> `()'#}
+{#fun mdGetTradingDay as getTradingDay {`Object'} -> `Text' peekText*#}
+{#fun mdRegisterFront as registerFront {`Object', withText* `Text'} -> `()'#}
+{#fun mdRegisterNameServer as registerNameServer {`Object', withText* `Text'} -> `()'#}
 {#fun mdRegisterFensUserInfo as registerFensUserInfo {`Object', with* `CThostFtdcFensUserInfoField'} -> `()'#}
 {#fun mdRegisterSpi as registerSpi {`Object', withCtpMDSpiFFI* `Spi'} -> `()'#}
-{#fun mdSubscribeMarketData as subscribeMarketData {`Object', `String'} -> `Int'#}
-{#fun mdUnSubscribeMarketData as unSubscribeMarketData {`Object', `String'} -> `Int'#}
-{#fun mdSubscribeForQuoteRsp as subscribeForQuoteRsp {`Object', `String'} -> `Int'#}
-{#fun mdUnSubscribeForQuoteRsp as unSubscribeForQuoteRsp {`Object', `String'} -> `Int'#}
+{#fun mdSubscribeMarketData as subscribeMarketData {`Object', withText* `Text'} -> `Int'#}
+{#fun mdUnSubscribeMarketData as unSubscribeMarketData {`Object', withText* `Text'} -> `Int'#}
+{#fun mdSubscribeForQuoteRsp as subscribeForQuoteRsp {`Object', withText* `Text'} -> `Int'#}
+{#fun mdUnSubscribeForQuoteRsp as unSubscribeForQuoteRsp {`Object', withText* `Text'} -> `Int'#}
 {#fun mdReqUserLogin as reqUserLogin {`Object', with* `CThostFtdcReqUserLoginField', `Int'} -> `Int'#}
 {#fun mdReqUserLogout as reqUserLogout {`Object', with* `CThostFtdcUserLogoutField', `Int'} -> `Int'#}
 

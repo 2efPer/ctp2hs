@@ -28,7 +28,7 @@ library:
     - Bindings.Ctp.MD
     - Bindings.Ctp.TD
   other-modules:
-    - Bindings.Ctp.Utils
+    - Bindings.Ctp.Marshal
   include-dirs:
     - cbits
   c-sources:
@@ -46,7 +46,7 @@ library:
     - bytestring
     - data-default
     - iconv
-    - utf8-string
+    - text
 executables:
   md:
     main: Main.hs
@@ -61,6 +61,7 @@ executables:
       - data-default
       - optparse-applicative
       - stm
+      - text
   td:
     main: Main.hs
     source-dirs: app/Example/TD
@@ -74,6 +75,7 @@ executables:
       - data-default
       - optparse-applicative
       - stm
+      - text
   conv:
     main: Main.hs
     source-dirs: app/Conv
