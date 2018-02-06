@@ -4,7 +4,7 @@ github: 0x530c/ctp2hs
 license: MIT
 author: '0x530c'
 maintainer: 0x530c@gmail.com
-copyright: (c) 2017 0x530c
+copyright: (C) 2017 0x530c
 category: Bindings
 description: 'Please see the README on Github at <https://github.com/0x530c/evo#readme>'
 build-type: Custom

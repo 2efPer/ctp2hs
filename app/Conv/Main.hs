@@ -154,8 +154,7 @@ printStruct sl = printStructToData sl >> printStructToStorable sl
                    cf = n ++ "->" ++ cn
                in "    " ++
                   case ht of
-                    "Text" ->
-                      "withText (" ++ hf ++ ") ({#set " ++ cf ++ "#} p)"
+                    "Text" -> "withText (" ++ hf ++ ") ({#set " ++ cf ++ "#} p)"
                     "Char" ->
                       "{#set " ++ cf ++ "#} p (castCharToCChar $ " ++ hf ++ ")"
                     "Int" ->
