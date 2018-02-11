@@ -62,7 +62,7 @@ onRtnDepthMarketData' = putStrLn . (++ "\n") . show
 main :: IO ()
 main = do
   cfg' <- execParser opts
-  zeroReqID <- atomically $ newTVar 0
+  zeroReqID <- newTVarIO 0
   md <- create "/tmp/ctphsmd" False False
   let s = MDState {cfg = cfg', reqID = zeroReqID, api = md}
   getApiVersion >>= T.putStrLn

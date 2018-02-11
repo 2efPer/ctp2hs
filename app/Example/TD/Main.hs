@@ -74,7 +74,7 @@ onRspQryInstrument' CThostFtdcInstrumentField {..} _ _ _ =
 main :: IO ()
 main = do
   cfg' <- execParser opts
-  zeroReqID <- atomically $ newTVar 0
+  zeroReqID <- newTVarIO 0
   td <- create "/tmp/ctphstd"
   let s = TDState {cfg = cfg', reqID = zeroReqID, api = td}
   getApiVersion >>= T.putStrLn
